@@ -19,8 +19,8 @@ description: "没事多看看,没坏处"
         </div>
     </a>
     <p class="post-meta">
-        Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}
-    </p>
+        Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}&nbsp&nbsp&nbsp&nbsp-- views: <span data-hk-page="{{ post.url | prepend: site.url }}"> - </span>
+        </p>
 </div>
 <hr>
 {% endfor %}

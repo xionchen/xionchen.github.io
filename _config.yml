@@ -5,7 +5,8 @@ header-img: img/home-bg2.jpg
 email: xionchen@foxmail.com
 description: "主要是个人学习的一些笔记"
 keyword: "python,linux,shell,openstack"
-url: ""              # your host, for absolute URL
+#url: "http://127.0.0.1:4000"
+url: "https://xionchen.github.io"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 
 
@@ -26,7 +27,7 @@ github_username:    xionchen
 highlighter: rouge
 permalink: pretty
 paginate: 10
-exclude: ["less","node_modules","Gruntfile.js","package.json","README.md","README.zh.md","_posts_org"]
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md","README.zh.md","_posts_org","articles.raw,assets"]
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
 
 
