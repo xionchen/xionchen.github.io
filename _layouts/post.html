@@ -62,6 +62,9 @@ layout: default
 				{{ content }}
 
                 <hr>
+                </style>
+
+
 
                 {% if site.duoshuo_share && site.duoshuo_username %}
                 <!-- 多说 Share start -->
@@ -108,7 +111,6 @@ layout: default
                 </ul>
 
 
-                {% if site.duoshuo_username %}
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
@@ -118,7 +120,6 @@ layout: default
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
-                {% endif %}
 
                 {% if site.disqus_username %}
                 <!-- disqus 评论框 start -->
@@ -185,15 +186,9 @@ layout: default
     </div>
 </article>
 
-
-{% if site.duoshuo_username %}
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
-    // dynamic User by Hux
-    var _user = '{{site.duoshuo_username}}';
-
-    // duoshuo comment query.
-    var duoshuoQuery = {short_name: _user };
+var duoshuoQuery = {short_name:"xionchen"};
     (function() {
         var ds = document.createElement('script');
         ds.type = 'text/javascript';ds.async = true;
@@ -202,9 +197,8 @@ layout: default
         (document.getElementsByTagName('head')[0]
          || document.getElementsByTagName('body')[0]).appendChild(ds);
     })();
-</script>
+    </script>
 <!-- 多说公共JS代码 end -->
-{% endif %}
 
 
 {% if site.disqus_username %}
