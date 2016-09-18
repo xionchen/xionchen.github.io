@@ -1,0 +1,42 @@
+---
+layout:     post
+title:      "Xion的信息整理"
+subtitle:   " \"汇总一些信息\""
+date:       2016-09-19 12:00:00
+author:     "Xion"
+header-img: "img/post-bg-os-metro.jpg"
+catalog: true
+tags:
+    - 信息
+---
+>这里整理一些信息获取的途径之类的,首先按照日期排列,未来可能会按照tag排列,所以写成yaml文件的格式
+> 便于以后的解析.
+
+# 按照日期排列
+- # 2016年 09月 19日 星期一 00:14:07 CST
+
+---
+```yaml
+oneline:
+    - name: 'https://www.linux.com/learn/training?page=1'
+      tag:
+         - linux
+         - 社区
+
+    - name: 'http://edu.51cto.com/course/courseList/id-48.html'
+      tag:
+         - 综合
+         - 视频网址
+         - 学习
+    - name: 'http://linuxcommand.org/tlcl.php'
+      tag:
+        - linux命令行
+        - 入门
+        - 书籍
+
+    - name: 'https://training.linuxfoundation.org/free-linux-training'
+      tag:
+        - linux
+        - 官网教程
+```
+---
