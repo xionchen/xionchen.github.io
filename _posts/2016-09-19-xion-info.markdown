@@ -18,25 +18,68 @@ tags:
 ---
 ```yaml
 oneline:
-    - name: 'https://www.linux.com/learn/training?page=1'
+    - name: linux官方training
+      address: 'https://www.linux.com/learn/training?page=1'
       tag:
          - linux
          - 社区
 
-    - name: 'http://edu.51cto.com/course/courseList/id-48.html'
+    - name: 编程学习网址51
+      address:  'http://edu.51cto.com/course/courseList/id-48.html'
       tag:
          - 综合
          - 视频网址
          - 学习
-    - name: 'http://linuxcommand.org/tlcl.php'
+    - name: linux命令行入门
+      address: 'http://linuxcommand.org/tlcl.php'
       tag:
         - linux命令行
         - 入门
         - 书籍
 
-    - name: 'https://training.linuxfoundation.org/free-linux-training'
+    - name: linux基金会免费教程
+      address: 'https://training.linuxfoundation.org/free-linux-training'
       tag:
         - linux
         - 官网教程
+```
+---
+
+- # 2016年 09月 22日 星期四 22:13:30 CST
+---
+```yaml
+oneline:
+    - name: linux文件系统层次标准
+      address: 'https://d37djvu3ytnwxt.cloudfront.net/assets/courseware/v1/cd1f2070b2ed6d3e232f8407008a25a6/asset-v1:LinuxFoundationX+LFS101x+1T2016+type@asset+block/LFS101_Ch3_Sec1_FSH.pdf'
+      tag:
+         - linux
+         - 文件系统
+         - pdf
+         - 详细
+
+    - name: 编程学习网址51
+      address:  'http://edu.51cto.com/course/courseList/id-48.html'
+      tag:
+         - 综合
+         - 视频网址
+         - 学习
+    - name: linux命令行入门
+      address: 'http://linuxcommand.org/tlcl.php'
+      tag:
+        - linux命令行
+        - 入门
+        - 书籍
+
+    - name: linux基金会免费教程
+      address: 'https://training.linuxfoundation.org/free-linux-training'
+      tag:
+        - linux
+        - 官网教程
+image:
+  - name: linux文件系统概览图
+    address: 'https://d37djvu3ytnwxt.cloudfront.net/assets/courseware/v1/fff50dc5bde7ebaec7ef071b8bc0f7bf/asset-v1:LinuxFoundationX+LFS101x+1T2016+type@asset+block/chapter03_flowchart_scr05.jpg'
+
+  - name: boot过程
+    address: https://preview.edge.edx.org/c4x/Linux/LFS101/asset/chapter03_flowchart_scr15_1.jpg
 ```
 ---
