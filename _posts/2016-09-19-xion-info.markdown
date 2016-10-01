@@ -47,6 +47,7 @@ oneline:
 
 - # 2016年 09月 22日 星期四 22:13:30 CST
 ---
+
 ```yaml
 oneline:
     - name: linux文件系统层次标准
@@ -82,4 +83,5 @@ image:
   - name: boot过程
     address: https://preview.edge.edx.org/c4x/Linux/LFS101/asset/chapter03_flowchart_scr15_1.jpg
 ```
+
 ---
