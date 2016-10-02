@@ -1,17 +1,17 @@
 ---
 layout:     post
-title:      "Diskimage-builder介绍"
+title:      "Diskimage-builder简介"
 subtitle:   " \"diskimage-builder 是openstack社区用于制作镜像的工具,这里对基本的安装和使用进行了简单的介绍\""
-date:       2016-10-02 12:00:00
+date:       2016-10-01 12:00:00
 author:     "Xion"
-header-img: "img/post-bg-os-metro.jpg"
+header-img: "img/post-bg-building.jpg"
 catalog: true
 tags:
     - opentack-infra
     - diskimage-builder
 ---
 
-
+# Diskimage-builder简介
 > diskimage-builder是openstack社区用于制作镜像的一个工具.
 > 它的源码地址位于: https://github.com/openstack/diskimage-builder
 > 官方的文档位于: http://docs.openstack.org/developer/diskimage-builder/
