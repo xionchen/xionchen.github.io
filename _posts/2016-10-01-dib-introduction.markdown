@@ -18,16 +18,16 @@ tags:
 
 这里对这个工具的安装和使用进行简单的介绍
 
-# 安装
+# 1 安装
 dib的安装方式有两种:**pip安装**和**源码安装**.
 如果不需要对代码进行改变和定制的话可以直接进行源码安装,否则的话推荐使用源码安装
 
-### pip安装
+### 1.1 pip安装
 pip的安装非常简单,使用如下命令安装:
 
     pip install diskimage-builder
 
-### 源码安装
+### 1.2 源码安装
 克隆源码的仓库:
 
     git clone https://git.openstack.org/openstack/diskimage-builder
@@ -36,7 +36,7 @@ pip的安装非常简单,使用如下命令安装:
 
     export PATH=$PATH:$(pwd)/diskimage-builder/bin:$(pwd)/dib-utils/bin
 
-### 虚环境安装
+### 1.3 虚环境安装
 > 虚拟环境可以为python提供一个独立的环境,非常适合用于调试和隔离,在tox工具中尤其用到
 > 关于python虚环境的详细文档: https://virtualenv.pypa.io/en/stable/
 > 关于tox工具的详细文档: https://tox.readthedocs.io/en/latest/
@@ -60,7 +60,7 @@ pip的安装非常简单,使用如下命令安装:
     $ cd diskimage-builder
     $ pip install .
 
-# 制作第一个镜像
+# 2 制作第一个镜像
 >安装完成后,用如下的命令就可以制作一个简单的ubuntu的镜像:
 
     $ disk-image-create vm ubuntu
@@ -70,12 +70,12 @@ pip的安装非常简单,使用如下命令安装:
 
 把上面的FILENAME换成你要存放的文件的路劲
 
-# 使用dib
+# 3 使用dib
 
 >dib使用element的方式来组织制作镜像的元素.
 >如果现有的元素已经能够覆盖当前制作镜像的需求,那么还需要了解下面相关的知识
 
-### dib参数列表
+### 3.1 dib参数列表
 >下面这个方法是dib的参数的说明,这里就不详细说明,如果有疑问可以留言讨论
 
 ``` shell
@@ -140,7 +140,7 @@ function show_options () {
 }
 ```
 
-### DEBUG DIB
+### 3.2 DEBUG DIB
 > 很多使用制作镜像可能会遇到问题,dib也提供了debug的方法.
 
 export break 环境变量可以在特定的情况下,启动一个shell, 让你查看镜像的情况.
@@ -155,10 +155,10 @@ Break 点的设置方法一般是: “break=[before|after]-hook-name”.
     break=after-error 出错之后会break
 
 
-### DIB element
+### 3.3 DIB element
 >dib的element很多,这里有详细的信息,但是有相当一部分的文档写的不是很好.需要阅读源码才知道到底是干什么的.如果有疑问也可以在这里讨论
 > DIB element: http://docs.openstack.org/developer/diskimage-builder/elements.html
-### DIB运行的阶段
+### 3.4 DIB运行的阶段
 >dib通过element和阶段来组织脚本,一个element可能在不同的阶段做不同的事情.
 
 所有的阶段如下:
@@ -240,5 +240,5 @@ inputs:
     $TARGET_ROOT=/path/to/target/workarea
 
 
-# 总结
+# 4 总结
 DIB这个工具目前而言,制作镜像的能力主要覆盖社区的基础设施.如果需要定制自己的镜像也可以按照这个框架来.但是进行复杂的定制需要对DIB本身,shell和操作系统三个方面比较都比较了解.所以在之后会细致的解读DIB的源码.
