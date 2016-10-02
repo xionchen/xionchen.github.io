@@ -1,0 +1,1023 @@
+Building elements: base  vm ubuntu
+Expanded element dependencies to: dib-python install-types install-bin dib-run-parts vm manifests dib-init-system cache-url pkg-map base ubuntu cloud-init-datasources bootloader package-installs dpkg dkms
+Building in /tmp/dib_build.Y0FGIa3a
+dib-run-parts 2016年 10月 02日 星期日 12:16:38 CST Running /tmp/dib_build.Y0FGIa3a/hooks/root.d/01-ccache
+dib-run-parts 2016年 10月 02日 星期日 12:16:38 CST 01-ccache completed
+dib-run-parts 2016年 10月 02日 星期日 12:16:38 CST Running /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:main:7              :   set -eu
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:main:8              :   set -o pipefail
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:main:10             :   '[' -n amd64 ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:main:11             :   '[' -n /tmp/dib_build.Y0FGIa3a/mnt ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:main:13             :   shopt -s extglob
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:main:15             :   DIB_CLOUD_IMAGES=http://cloud-images.ubuntu.com
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:main:16             :   DIB_RELEASE=trusty
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:main:17             :   BASE_IMAGE_FILE=trusty-server-cloudimg-amd64-root.tar.gz
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:main:18             :   SHA256SUMS=https://cloud-images.ubuntu.com/trusty/current/SHA256SUMS
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:main:19             :   CACHED_FILE=/home/xion/.cache/image-create/trusty-server-cloudimg-amd64-root.tar.gz
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:main:20             :   CACHED_FILE_LOCK=/home/xion/.cache/image-create/trusty-server-cloudimg-amd64-root.tar.gz.lock
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:main:21             :   CACHED_SUMS=/home/xion/.cache/image-create/SHA256SUMS.ubuntu.trusty.amd64
+++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:main:54             :   date
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:main:54             :   echo 'Getting /home/xion/.cache/image-create/trusty-server-cloudimg-amd64-root.tar.gz.lock: 2016年 10月 02日 星期日 12:16:38 CST'
+Getting /home/xion/.cache/image-create/trusty-server-cloudimg-amd64-root.tar.gz.lock: 2016年 10月 02日 星期日 12:16:38 CST
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:main:56             :   flock -w 1200 9
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:main:60             :   get_ubuntu_tarball
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:get_ubuntu_tarball:24 :   '[' -n '' -a -f /home/xion/.cache/image-create/trusty-server-cloudimg-amd64-root.tar.gz ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:get_ubuntu_tarball:27 :   echo 'Fetching Base Image'
+Fetching Base Image
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:get_ubuntu_tarball:28 :   /tmp/dib_build.Y0FGIa3a/hooks/bin/cache-url https://cloud-images.ubuntu.com/trusty/current/SHA256SUMS /home/xion/.cache/image-create/SHA256SUMS.ubuntu.trusty.amd64
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 43.241.225.182...
+* Connected to rosewood.h.xduotai.com (43.241.225.182) port 20105 (#0)
+* Establish HTTP proxy tunnel to cloud-images.ubuntu.com:443
+* Proxy auth using Basic with user 'duotai'
+> CONNECT cloud-images.ubuntu.com:443 HTTP/1.1
+> Host: cloud-images.ubuntu.com:443
+> Proxy-Authorization: Basic ZHVvdGFpOnhFR3lMS05HUml1
+> User-Agent: curl/7.47.0
+> Proxy-Connection: Keep-Alive
+> 
+< HTTP/1.1 200 Connection established
+< 
+* Proxy replied OK to CONNECT request
+* found 173 certificates in /etc/ssl/certs/ca-certificates.crt
+* found 697 certificates in /etc/ssl/certs
+* ALPN, offering http/1.1
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* SSL connection using TLS1.2 / ECDHE_RSA_AES_128_GCM_SHA256
+* 	 server certificate verification OK
+* 	 server certificate status verification SKIPPED
+* 	 common name: cloud-images.ubuntu.com (matched)
+* 	 server certificate expiration date OK
+* 	 server certificate activation date OK
+* 	 certificate public key: RSA
+* 	 certificate version: #3
+* 	 subject: C=GB,L=London,O=Canonical Group Ltd,CN=cloud-images.ubuntu.com
+* 	 start date: Fri, 08 Jul 2016 00:00:00 GMT
+* 	 expire date: Wed, 09 Aug 2017 12:00:00 GMT
+* 	 issuer: C=US,O=DigiCert Inc,CN=DigiCert SHA2 Secure Server CA
+* 	 compression: NULL
+* ALPN, server did not agree to a protocol
+> GET /trusty/current/SHA256SUMS HTTP/1.1
+> Host: cloud-images.ubuntu.com
+> User-Agent: curl/7.47.0
+> Accept: */*
+> If-Modified-Since: Sat, 01 Oct 2016 10:48:53 GMT
+> 
+< HTTP/1.1 304 Not Modified
+< Date: Sun, 02 Oct 2016 04:16:40 GMT
+< Server: Apache
+< ETag: "14806e4-c54-53d9acea91a40"
+< 
+  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0
+* Connection #0 to host rosewood.h.xduotai.com left intact
+Server copy has not changed. Using locally cached https://cloud-images.ubuntu.com/trusty/current/SHA256SUMS
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:get_ubuntu_tarball:30 :   /tmp/dib_build.Y0FGIa3a/hooks/bin/cache-url http://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-root.tar.gz /home/xion/.cache/image-create/trusty-server-cloudimg-amd64-root.tar.gz
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 43.241.225.182...
+* Connected to rosewood.h.xduotai.com (43.241.225.182) port 20105 (#0)
+* Proxy auth using Basic with user 'duotai'
+> GET http://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-root.tar.gz HTTP/1.1
+> Host: cloud-images.ubuntu.com
+> Proxy-Authorization: Basic ZHVvdGFpOnhFR3lMS05HUml1
+> User-Agent: curl/7.47.0
+> Accept: */*
+> Proxy-Connection: Keep-Alive
+> If-Modified-Since: Sat, 01 Oct 2016 11:12:57 GMT
+> 
+< HTTP/1.1 304 Not Modified
+< Date: Sun, 02 Oct 2016 04:16:41 GMT
+< Server: Apache
+< ETag: "14806ee-b51ded3-53d97d22bdfc0"
+< X-Cache: MISS from 45-32-25-208
+< X-Cache-Lookup: MISS from 45-32-25-208:1434
+< Connection: keep-alive
+< 
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+* Connection #0 to host rosewood.h.xduotai.com left intact
+Server copy has not changed. Using locally cached http://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-root.tar.gz
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:get_ubuntu_tarball:31 :   pushd /home/xion/.cache/image-create
+~/.cache/image-create ~/gitRepo/openstack/diskimage-builder/elements
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:get_ubuntu_tarball:32 :   grep trusty-server-cloudimg-amd64-root.tar.gz /home/xion/.cache/image-create/SHA256SUMS.ubuntu.trusty.amd64
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:get_ubuntu_tarball:32 :   sha256sum --check -
+trusty-server-cloudimg-amd64-root.tar.gz: OK
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:get_ubuntu_tarball:46 :   popd
+~/gitRepo/openstack/diskimage-builder/elements
++ /tmp/dib_build.Y0FGIa3a/hooks/root.d/10-cache-ubuntu-tarball:get_ubuntu_tarball:50 :   sudo tar -C /tmp/dib_build.Y0FGIa3a/mnt --numeric-owner -xzf /home/xion/.cache/image-create/trusty-server-cloudimg-amd64-root.tar.gz
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 10-cache-ubuntu-tarball completed
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST Running /tmp/dib_build.Y0FGIa3a/hooks/root.d/50-build-with-http-cache
+0+1 records in
+0+1 records out
+79 bytes copied, 3.4358e-05 s, 2.3 MB/s
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 50-build-with-http-cache completed
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST Running /tmp/dib_build.Y0FGIa3a/hooks/root.d/60-block-apt-translations
+0+1 records in
+0+1 records out
+27 bytes copied, 4.0419e-05 s, 668 kB/s
+/tmp/dib_build.Y0FGIa3a/mnt/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_trusty-backports_main_i18n_Translation-en
+/tmp/dib_build.Y0FGIa3a/mnt/var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_trusty-security_universe_i18n_Translation-en
+/tmp/dib_build.Y0FGIa3a/mnt/var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_trusty-security_multiverse_i18n_Translation-en
+/tmp/dib_build.Y0FGIa3a/mnt/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_trusty-updates_multiverse_i18n_Translation-en
+/tmp/dib_build.Y0FGIa3a/mnt/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_trusty-backports_universe_i18n_Translation-en
+/tmp/dib_build.Y0FGIa3a/mnt/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_trusty-backports_multiverse_i18n_Translation-en
+/tmp/dib_build.Y0FGIa3a/mnt/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_trusty-updates_universe_i18n_Translation-en
+/tmp/dib_build.Y0FGIa3a/mnt/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_trusty-updates_main_i18n_Translation-en
+/tmp/dib_build.Y0FGIa3a/mnt/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_trusty_universe_i18n_Translation-en
+/tmp/dib_build.Y0FGIa3a/mnt/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_trusty_multiverse_i18n_Translation-en
+/tmp/dib_build.Y0FGIa3a/mnt/var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_trusty-security_restricted_i18n_Translation-en
+/tmp/dib_build.Y0FGIa3a/mnt/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_trusty-backports_restricted_i18n_Translation-en
+/tmp/dib_build.Y0FGIa3a/mnt/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_trusty_main_i18n_Translation-en
+/tmp/dib_build.Y0FGIa3a/mnt/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_trusty_restricted_i18n_Translation-en
+/tmp/dib_build.Y0FGIa3a/mnt/var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_trusty-security_main_i18n_Translation-en
+/tmp/dib_build.Y0FGIa3a/mnt/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_trusty-updates_restricted_i18n_Translation-en
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 60-block-apt-translations completed
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST Running /tmp/dib_build.Y0FGIa3a/hooks/root.d/90-base-dib-run-parts
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 90-base-dib-run-parts completed
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST Running /tmp/dib_build.Y0FGIa3a/hooks/root.d/99-block-daemons
+0+1 records in
+0+1 records out
+76 bytes copied, 3.9509e-05 s, 1.9 MB/s
+0+1 records in
+0+1 records out
+90 bytes copied, 3.4754e-05 s, 2.6 MB/s
+0+1 records in
+0+1 records out
+143 bytes copied, 3.3598e-05 s, 4.3 MB/s
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 99-block-daemons completed
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST Running /tmp/dib_build.Y0FGIa3a/hooks/root.d/99-shared_apt_cache
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 99-shared_apt_cache completed
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST Running /tmp/dib_build.Y0FGIa3a/hooks/root.d/99-trim-dpkg
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 99-trim-dpkg completed
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST ----------------------- PROFILING -----------------------
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST Target: root.d
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST Script                                     Seconds
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST ---------------------------------------  ----------
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 
+dib-run-parts Sun Oct  2 12:16:48 CST 2016 01-ccache                                     0.022
+dib-run-parts Sun Oct  2 12:16:48 CST 2016 10-cache-ubuntu-tarball                       9.241
+dib-run-parts Sun Oct  2 12:16:48 CST 2016 50-build-with-http-cache                      0.007
+dib-run-parts Sun Oct  2 12:16:48 CST 2016 60-block-apt-translations                     0.016
+dib-run-parts Sun Oct  2 12:16:48 CST 2016 90-base-dib-run-parts                         0.009
+dib-run-parts Sun Oct  2 12:16:48 CST 2016 99-block-daemons                              0.047
+dib-run-parts Sun Oct  2 12:16:48 CST 2016 99-shared_apt_cache                           0.016
+dib-run-parts Sun Oct  2 12:16:48 CST 2016 99-trim-dpkg                                  0.012
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST --------------------- END PROFILING ---------------------
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST Running /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/01-copy-apt-keys
+DIB_ADD_APT_KEYS is not set - not importing keys
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 01-copy-apt-keys completed
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST Running /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:6          :   set -eu
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:7          :   set -o pipefail
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:9          :   sudo mkdir -p /tmp/dib_build.Y0FGIa3a/mnt/usr/share/pkg-map/
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:11         :   for ELEMENT in '$IMAGE_ELEMENT'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:12         :   for DIR in '${ELEMENTS_PATH//:/ }'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:13         :   '[' -f /home/xion/gitRepo/openstack/env/bin/../share/diskimage-builder/elements/dib-python/pkg-map ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:11         :   for ELEMENT in '$IMAGE_ELEMENT'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:12         :   for DIR in '${ELEMENTS_PATH//:/ }'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:13         :   '[' -f /home/xion/gitRepo/openstack/env/bin/../share/diskimage-builder/elements/install-types/pkg-map ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:11         :   for ELEMENT in '$IMAGE_ELEMENT'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:12         :   for DIR in '${ELEMENTS_PATH//:/ }'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:13         :   '[' -f /home/xion/gitRepo/openstack/env/bin/../share/diskimage-builder/elements/install-bin/pkg-map ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:11         :   for ELEMENT in '$IMAGE_ELEMENT'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:12         :   for DIR in '${ELEMENTS_PATH//:/ }'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:13         :   '[' -f /home/xion/gitRepo/openstack/env/bin/../share/diskimage-builder/elements/dib-run-parts/pkg-map ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:11         :   for ELEMENT in '$IMAGE_ELEMENT'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:12         :   for DIR in '${ELEMENTS_PATH//:/ }'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:13         :   '[' -f /home/xion/gitRepo/openstack/env/bin/../share/diskimage-builder/elements/vm/pkg-map ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:11         :   for ELEMENT in '$IMAGE_ELEMENT'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:12         :   for DIR in '${ELEMENTS_PATH//:/ }'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:13         :   '[' -f /home/xion/gitRepo/openstack/env/bin/../share/diskimage-builder/elements/manifests/pkg-map ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:11         :   for ELEMENT in '$IMAGE_ELEMENT'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:12         :   for DIR in '${ELEMENTS_PATH//:/ }'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:13         :   '[' -f /home/xion/gitRepo/openstack/env/bin/../share/diskimage-builder/elements/dib-init-system/pkg-map ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:11         :   for ELEMENT in '$IMAGE_ELEMENT'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:12         :   for DIR in '${ELEMENTS_PATH//:/ }'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:13         :   '[' -f /home/xion/gitRepo/openstack/env/bin/../share/diskimage-builder/elements/cache-url/pkg-map ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:11         :   for ELEMENT in '$IMAGE_ELEMENT'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:12         :   for DIR in '${ELEMENTS_PATH//:/ }'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:13         :   '[' -f /home/xion/gitRepo/openstack/env/bin/../share/diskimage-builder/elements/pkg-map/pkg-map ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:11         :   for ELEMENT in '$IMAGE_ELEMENT'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:12         :   for DIR in '${ELEMENTS_PATH//:/ }'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:13         :   '[' -f /home/xion/gitRepo/openstack/env/bin/../share/diskimage-builder/elements/base/pkg-map ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:14         :   sudo cp /home/xion/gitRepo/openstack/env/bin/../share/diskimage-builder/elements/base/pkg-map /tmp/dib_build.Y0FGIa3a/mnt/usr/share/pkg-map/base
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:11         :   for ELEMENT in '$IMAGE_ELEMENT'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:12         :   for DIR in '${ELEMENTS_PATH//:/ }'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:13         :   '[' -f /home/xion/gitRepo/openstack/env/bin/../share/diskimage-builder/elements/ubuntu/pkg-map ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:11         :   for ELEMENT in '$IMAGE_ELEMENT'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:12         :   for DIR in '${ELEMENTS_PATH//:/ }'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:13         :   '[' -f /home/xion/gitRepo/openstack/env/bin/../share/diskimage-builder/elements/cloud-init-datasources/pkg-map ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:11         :   for ELEMENT in '$IMAGE_ELEMENT'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:12         :   for DIR in '${ELEMENTS_PATH//:/ }'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:13         :   '[' -f /home/xion/gitRepo/openstack/env/bin/../share/diskimage-builder/elements/bootloader/pkg-map ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:14         :   sudo cp /home/xion/gitRepo/openstack/env/bin/../share/diskimage-builder/elements/bootloader/pkg-map /tmp/dib_build.Y0FGIa3a/mnt/usr/share/pkg-map/bootloader
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:11         :   for ELEMENT in '$IMAGE_ELEMENT'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:12         :   for DIR in '${ELEMENTS_PATH//:/ }'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:13         :   '[' -f /home/xion/gitRepo/openstack/env/bin/../share/diskimage-builder/elements/package-installs/pkg-map ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:11         :   for ELEMENT in '$IMAGE_ELEMENT'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:12         :   for DIR in '${ELEMENTS_PATH//:/ }'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:13         :   '[' -f /home/xion/gitRepo/openstack/env/bin/../share/diskimage-builder/elements/dpkg/pkg-map ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:11         :   for ELEMENT in '$IMAGE_ELEMENT'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:12         :   for DIR in '${ELEMENTS_PATH//:/ }'
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/10-create-pkg-map-dir:main:13         :   '[' -f /home/xion/gitRepo/openstack/env/bin/../share/diskimage-builder/elements/dkms/pkg-map ']'
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 10-create-pkg-map-dir completed
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST Running /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/20-manifest-dir
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/20-manifest-dir:main:21               :   set -eu
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/20-manifest-dir:main:22               :   set -o pipefail
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/20-manifest-dir:main:24               :   sudo mkdir -p /tmp/dib_build.Y0FGIa3a/mnt//etc/dib-manifests
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 20-manifest-dir completed
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST Running /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/50-store-build-settings
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 50-store-build-settings completed
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST Running /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/99-enable-install-types
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/99-enable-install-types:main:19       :   set -eu
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/99-enable-install-types:main:20       :   set -o pipefail
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/99-enable-install-types:main:22       :   declare -a SPECIFIED_ELEMS
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/99-enable-install-types:main:26       :   SPECIFIED_ELEMS[0]=
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/99-enable-install-types:main:29       :   PREFIX=DIB_INSTALLTYPE_
+++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/99-enable-install-types:main:30       :   cut -d= -f1
+++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/99-enable-install-types:main:30       :   env
+++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/99-enable-install-types:main:30       :   grep '^DIB_INSTALLTYPE_'
+++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/99-enable-install-types:main:30       :   echo ''
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/99-enable-install-types:main:30       :   INSTALL_TYPE_VARS=
+++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/99-enable-install-types:main:53       :   find /tmp/dib_build.Y0FGIa3a/hooks/install.d -maxdepth 1 -name '*-source-install' -type d
++ /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/99-enable-install-types:main:53       :   default_install_type_dirs=
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 99-enable-install-types completed
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST Running /tmp/dib_build.Y0FGIa3a/hooks/extra-data.d/99-squash-package-install
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 99-squash-package-install completed
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST ----------------------- PROFILING -----------------------
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST Target: extra-data.d
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST Script                                     Seconds
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST ---------------------------------------  ----------
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 
+dib-run-parts Sun Oct  2 12:16:48 CST 2016 01-copy-apt-keys                              0.002
+dib-run-parts Sun Oct  2 12:16:48 CST 2016 10-create-pkg-map-dir                         0.111
+dib-run-parts Sun Oct  2 12:16:48 CST 2016 20-manifest-dir                               0.014
+dib-run-parts Sun Oct  2 12:16:48 CST 2016 50-store-build-settings                       0.004
+dib-run-parts Sun Oct  2 12:16:48 CST 2016 99-enable-install-types                       0.022
+dib-run-parts Sun Oct  2 12:16:48 CST 2016 99-squash-package-install                     0.085
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST 
+dib-run-parts 2016年 10月 02日 星期日 12:16:48 CST --------------------- END PROFILING ---------------------
+dib-run-parts Sun Oct  2 04:16:48 UTC 2016 Running /tmp/in_target.d/pre-install.d/00-disable-apt-recommends
+0+1 records in
+0+1 records out
+56 bytes (56 B) copied, 3.4879e-05 s, 1.6 MB/s
+dib-run-parts Sun Oct  2 04:16:48 UTC 2016 00-disable-apt-recommends completed
+dib-run-parts Sun Oct  2 04:16:48 UTC 2016 Running /tmp/in_target.d/pre-install.d/00-remove-apt-xapian-index
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libfreetype6 os-prober
+Use 'apt-get autoremove' to remove them.
+The following packages will be REMOVED:
+  apt-xapian-index
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = "en_US",
+	LC_ALL = (unset),
+	LC_TIME = "zh_CN.UTF-8",
+	LC_MONETARY = "zh_CN.UTF-8",
+	LC_CTYPE = "en_US.UTF-8",
+	LC_ADDRESS = "zh_CN.UTF-8",
+	LC_TELEPHONE = "zh_CN.UTF-8",
+	LC_NAME = "zh_CN.UTF-8",
+	LC_MEASUREMENT = "zh_CN.UTF-8",
+	LC_IDENTIFICATION = "zh_CN.UTF-8",
+	LC_NUMERIC = "zh_CN.UTF-8",
+	LC_PAPER = "zh_CN.UTF-8",
+	LANG = "C"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+locale: Cannot set LC_ALL to default locale: No such file or directory
+0 upgraded, 0 newly installed, 1 to remove and 0 not upgraded.
+After this operation, 336 kB disk space will be freed.
+(Reading database ... 25010 files and directories currently installed.)
+Removing apt-xapian-index (0.45ubuntu4) ...
+Removing index /var/lib/apt-xapian-index...
+Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+dib-run-parts Sun Oct  2 04:16:50 UTC 2016 00-remove-apt-xapian-index completed
+dib-run-parts Sun Oct  2 04:16:50 UTC 2016 Running /tmp/in_target.d/pre-install.d/00-remove-grub
+dpkg-query: no packages found matching grub-pc
+dpkg-query: no packages found matching grub2-common
+dib-run-parts Sun Oct  2 04:16:50 UTC 2016 00-remove-grub completed
+dib-run-parts Sun Oct  2 04:16:50 UTC 2016 Running /tmp/in_target.d/pre-install.d/01-dib-python
+dib-run-parts Sun Oct  2 04:16:50 UTC 2016 01-dib-python completed
+dib-run-parts Sun Oct  2 04:16:50 UTC 2016 Running /tmp/in_target.d/pre-install.d/01-install-bin
+dib-run-parts Sun Oct  2 04:16:50 UTC 2016 01-install-bin completed
+dib-run-parts Sun Oct  2 04:16:50 UTC 2016 Running /tmp/in_target.d/pre-install.d/01-set-ubuntu-mirror
+dib-run-parts Sun Oct  2 04:16:50 UTC 2016 01-set-ubuntu-mirror completed
+dib-run-parts Sun Oct  2 04:16:50 UTC 2016 Running /tmp/in_target.d/pre-install.d/02-add-apt-keys
+dib-run-parts Sun Oct  2 04:16:50 UTC 2016 02-add-apt-keys completed
+dib-run-parts Sun Oct  2 04:16:50 UTC 2016 Running /tmp/in_target.d/pre-install.d/02-package-installs
++ set -eu
++ set -o pipefail
+++ basename /usr/local/bin/package-installs
++ SCRIPTNAME=package-installs
+++ getopt -o hd: -n package-installs -- -d /tmp/in_target.d/pre-install.d
++ TEMP=' -d '\''/tmp/in_target.d/pre-install.d'\'' --'
++ '[' 0 '!=' 0 ']'
++ eval set -- ' -d '\''/tmp/in_target.d/pre-install.d'\'' --'
+++ set -- -d /tmp/in_target.d/pre-install.d --
++ WORKDIR=
++ true
++ case "$1" in
++ WORKDIR=/tmp/in_target.d/pre-install.d
++ shift 2
++ true
++ case "$1" in
++ shift
++ break
++ '[' -z /tmp/in_target.d/pre-install.d ']'
++ PACKAGES=
+++ find /tmp/in_target.d/pre-install.d -maxdepth 1 -name 'package-installs-*'
++ '[' -n '' ']'
+Nothing to install
+dib-run-parts Sun Oct  2 04:16:50 UTC 2016 02-package-installs completed
+dib-run-parts Sun Oct  2 04:16:50 UTC 2016 Running /tmp/in_target.d/pre-install.d/03-baseline-tools
+Get:1 http://security.ubuntu.com trusty-security InRelease [65.9 kB]
+Ign http://archive.ubuntu.com trusty InRelease
+Get:2 http://archive.ubuntu.com trusty-updates InRelease [65.9 kB]
+Get:3 http://security.ubuntu.com trusty-security/main amd64 Packages [531 kB]
+Hit http://archive.ubuntu.com trusty-backports InRelease
+Hit http://archive.ubuntu.com trusty Release.gpg
+Get:4 http://archive.ubuntu.com trusty-updates/main amd64 Packages [901 kB]
+Get:5 http://security.ubuntu.com trusty-security/restricted amd64 Packages [13.0 kB]
+Get:6 http://security.ubuntu.com trusty-security/universe amd64 Packages [138 kB]
+Get:7 http://security.ubuntu.com trusty-security/multiverse amd64 Packages [5198 B]
+Get:8 http://archive.ubuntu.com trusty-updates/restricted amd64 Packages [15.9 kB]
+Get:9 http://archive.ubuntu.com trusty-updates/universe amd64 Packages [376 kB]
+Get:10 http://archive.ubuntu.com trusty-updates/multiverse amd64 Packages [15.0 kB]
+Hit http://archive.ubuntu.com trusty-backports/main amd64 Packages
+Hit http://archive.ubuntu.com trusty-backports/restricted amd64 Packages
+Hit http://archive.ubuntu.com trusty-backports/universe amd64 Packages
+Hit http://archive.ubuntu.com trusty-backports/multiverse amd64 Packages
+Hit http://archive.ubuntu.com trusty Release
+Hit http://archive.ubuntu.com trusty/main amd64 Packages
+Hit http://archive.ubuntu.com trusty/restricted amd64 Packages
+Hit http://archive.ubuntu.com trusty/universe amd64 Packages
+Hit http://archive.ubuntu.com trusty/multiverse amd64 Packages
+Fetched 2126 kB in 1min 12s (29.2 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+software-properties-common is already the newest version.
+The following packages were automatically installed and are no longer required:
+  libfreetype6 os-prober
+Use 'apt-get autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+dib-run-parts Sun Oct  2 04:18:04 UTC 2016 03-baseline-tools completed
+dib-run-parts Sun Oct  2 04:18:04 UTC 2016 Running /tmp/in_target.d/pre-install.d/04-dib-init-system
+dib-run-parts Sun Oct  2 04:18:04 UTC 2016 04-dib-init-system completed
+dib-run-parts Sun Oct  2 04:18:04 UTC 2016 Running /tmp/in_target.d/pre-install.d/99-apt-get-update
+Ign http://archive.ubuntu.com trusty InRelease
+Hit http://security.ubuntu.com trusty-security InRelease
+Hit http://archive.ubuntu.com trusty-updates InRelease
+Hit http://security.ubuntu.com trusty-security/main amd64 Packages
+Hit http://archive.ubuntu.com trusty-backports InRelease
+Hit http://security.ubuntu.com trusty-security/restricted amd64 Packages
+Hit http://archive.ubuntu.com trusty Release.gpg
+Hit http://security.ubuntu.com trusty-security/universe amd64 Packages
+Hit http://archive.ubuntu.com trusty-updates/main amd64 Packages
+Hit http://security.ubuntu.com trusty-security/multiverse amd64 Packages
+Hit http://archive.ubuntu.com trusty-updates/restricted amd64 Packages
+Hit http://archive.ubuntu.com trusty-updates/universe amd64 Packages
+Hit http://archive.ubuntu.com trusty-updates/multiverse amd64 Packages
+Hit http://archive.ubuntu.com trusty-backports/main amd64 Packages
+Hit http://archive.ubuntu.com trusty-backports/restricted amd64 Packages
+Hit http://archive.ubuntu.com trusty-backports/universe amd64 Packages
+Hit http://archive.ubuntu.com trusty-backports/multiverse amd64 Packages
+Hit http://archive.ubuntu.com trusty Release
+Hit http://archive.ubuntu.com trusty/main amd64 Packages
+Hit http://archive.ubuntu.com trusty/restricted amd64 Packages
+Hit http://archive.ubuntu.com trusty/universe amd64 Packages
+Hit http://archive.ubuntu.com trusty/multiverse amd64 Packages
+Reading package lists...
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 99-apt-get-update completed
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 Running /tmp/in_target.d/pre-install.d/99-package-uninstalls
++ set -eu
++ set -o pipefail
+++ basename /usr/local/bin/package-uninstalls
++ SCRIPTNAME=package-uninstalls
+++ getopt -o hd: -n package-uninstalls -- -d /tmp/in_target.d/pre-install.d
++ TEMP=' -d '\''/tmp/in_target.d/pre-install.d'\'' --'
++ '[' 0 '!=' 0 ']'
++ eval set -- ' -d '\''/tmp/in_target.d/pre-install.d'\'' --'
+++ set -- -d /tmp/in_target.d/pre-install.d --
++ WORKDIR=
++ true
++ case "$1" in
++ WORKDIR=/tmp/in_target.d/pre-install.d
++ shift 2
++ true
++ case "$1" in
++ shift
++ break
++ '[' -z /tmp/in_target.d/pre-install.d ']'
++ PACKAGES=
+++ find /tmp/in_target.d/pre-install.d -maxdepth 1 -name 'package-installs-*'
++ install-packages -e
+Not running install-packages remove with empty packages list
+Nothing to uninstall
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 99-package-uninstalls completed
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 ----------------------- PROFILING -----------------------
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 Target: pre-install.d
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 Script                                     Seconds
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 ---------------------------------------  ----------
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 00-disable-apt-recommends                     0.003
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 00-remove-apt-xapian-index                    1.812
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 00-remove-grub                                0.018
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 01-dib-python                                 0.003
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 01-install-bin                                0.004
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 01-set-ubuntu-mirror                          0.002
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 02-add-apt-keys                               0.002
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 02-package-installs                           0.029
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 03-baseline-tools                            74.288
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 04-dib-init-system                            0.007
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 99-apt-get-update                             7.819
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 99-package-uninstalls                         0.070
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 --------------------- END PROFILING ---------------------
+dib-run-parts Sun Oct  2 04:18:12 UTC 2016 Running /tmp/in_target.d/install.d/00-baseline-environment
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libfreetype6 os-prober
+Use 'apt-get autoremove' to remove them.
+The following NEW packages will be installed:
+  open-iscsi
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = "en_US",
+	LC_ALL = (unset),
+	LC_TIME = "zh_CN.UTF-8",
+	LC_MONETARY = "zh_CN.UTF-8",
+	LC_CTYPE = "en_US.UTF-8",
+	LC_ADDRESS = "zh_CN.UTF-8",
+	LC_TELEPHONE = "zh_CN.UTF-8",
+	LC_NAME = "zh_CN.UTF-8",
+	LC_MEASUREMENT = "zh_CN.UTF-8",
+	LC_IDENTIFICATION = "zh_CN.UTF-8",
+	LC_NUMERIC = "zh_CN.UTF-8",
+	LC_PAPER = "zh_CN.UTF-8",
+	LANG = "C"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+locale: Cannot set LC_ALL to default locale: No such file or directory
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 0 B/268 kB of archives.
+After this operation, 2221 kB of additional disk space will be used.
+Selecting previously unselected package open-iscsi.
+(Reading database ... 24956 files and directories currently installed.)
+Preparing to unpack .../open-iscsi_2.0.873-3ubuntu9_amd64.deb ...
+Unpacking open-iscsi (2.0.873-3ubuntu9) ...
+Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+Processing triggers for ureadahead (0.100.0-16) ...
+Setting up open-iscsi (2.0.873-3ubuntu9) ...
+Processing triggers for ureadahead (0.100.0-16) ...
+dib-run-parts Sun Oct  2 04:18:13 UTC 2016 00-baseline-environment completed
+dib-run-parts Sun Oct  2 04:18:13 UTC 2016 Running /tmp/in_target.d/install.d/00-up-to-date
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libfreetype6 os-prober
+Use 'apt-get autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+dib-run-parts Sun Oct  2 04:18:14 UTC 2016 00-up-to-date completed
+dib-run-parts Sun Oct  2 04:18:14 UTC 2016 Running /tmp/in_target.d/install.d/01-package-installs
++ set -eu
++ set -o pipefail
+++ basename /usr/local/bin/package-installs
++ SCRIPTNAME=package-installs
+++ getopt -o hd: -n package-installs -- -d /tmp/in_target.d/install.d
++ TEMP=' -d '\''/tmp/in_target.d/install.d'\'' --'
++ '[' 0 '!=' 0 ']'
++ eval set -- ' -d '\''/tmp/in_target.d/install.d'\'' --'
+++ set -- -d /tmp/in_target.d/install.d --
++ WORKDIR=
++ true
++ case "$1" in
++ WORKDIR=/tmp/in_target.d/install.d
++ shift 2
++ true
++ case "$1" in
++ shift
++ break
++ '[' -z /tmp/in_target.d/install.d ']'
++ PACKAGES=
+++ find /tmp/in_target.d/install.d -maxdepth 1 -name 'package-installs-*'
++ '[' -n '' ']'
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = "en_US",
+	LC_ALL = (unset),
+	LC_TIME = "zh_CN.UTF-8",
+	LC_MONETARY = "zh_CN.UTF-8",
+	LC_CTYPE = "en_US.UTF-8",
+	LC_ADDRESS = "zh_CN.UTF-8",
+	LC_TELEPHONE = "zh_CN.UTF-8",
+	LC_NAME = "zh_CN.UTF-8",
+	LC_MEASUREMENT = "zh_CN.UTF-8",
+	LC_IDENTIFICATION = "zh_CN.UTF-8",
+	LC_NUMERIC = "zh_CN.UTF-8",
+	LC_PAPER = "zh_CN.UTF-8",
+	LANG = "C"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+locale: Cannot set LC_ALL to default locale: No such file or directory
+locale: Cannot set LC_ALL to default locale: No such file or directory
+Done.
+Running depmod.
+update-initramfs: deferring update (hook will be called later)
+Examining /etc/kernel/postinst.d.
+run-parts: executing /etc/kernel/postinst.d/apt-auto-removal 3.13.0-96-generic /boot/vmlinuz-3.13.0-96-generic
+run-parts: executing /etc/kernel/postinst.d/initramfs-tools 3.13.0-96-generic /boot/vmlinuz-3.13.0-96-generic
+update-initramfs: Generating /boot/initrd.img-3.13.0-96-generic
+run-parts: executing /etc/kernel/postinst.d/update-notifier 3.13.0-96-generic /boot/vmlinuz-3.13.0-96-generic
+run-parts: executing /etc/kernel/postinst.d/apt-auto-removal 3.13.0-96-generic /boot/vmlinuz-3.13.0-96-generic
+run-parts: executing /etc/kernel/postinst.d/dkms 3.13.0-96-generic /boot/vmlinuz-3.13.0-96-generic
+run-parts: executing /etc/kernel/postinst.d/initramfs-tools 3.13.0-96-generic /boot/vmlinuz-3.13.0-96-generic
+update-initramfs: Generating /boot/initrd.img-3.13.0-96-generic
+run-parts: executing /etc/kernel/postinst.d/update-notifier 3.13.0-96-generic /boot/vmlinuz-3.13.0-96-generic
+installing ccache_package from base
+installing linux-image-generic from ubuntu
+installing dkms from dkms
+dib-run-parts Sun Oct  2 04:18:51 UTC 2016 01-package-installs completed
+dib-run-parts Sun Oct  2 04:18:51 UTC 2016 Running /tmp/in_target.d/install.d/05-set-cloud-init-sources
+dib-run-parts Sun Oct  2 04:18:51 UTC 2016 05-set-cloud-init-sources completed
+dib-run-parts Sun Oct  2 04:18:51 UTC 2016 Running /tmp/in_target.d/install.d/10-cloud-init
+dib-run-parts Sun Oct  2 04:18:51 UTC 2016 10-cloud-init completed
+dib-run-parts Sun Oct  2 04:18:51 UTC 2016 Running /tmp/in_target.d/install.d/20-install-init-scripts
++ set -eu
++ set -o pipefail
+++ dirname /tmp/in_target.d/install.d/20-install-init-scripts
++ scripts_dir=/tmp/in_target.d/install.d/../init-scripts/upstart/
++ '[' -d /tmp/in_target.d/install.d/../init-scripts/upstart/ ']'
+dib-run-parts Sun Oct  2 04:18:51 UTC 2016 20-install-init-scripts completed
+dib-run-parts Sun Oct  2 04:18:51 UTC 2016 Running /tmp/in_target.d/install.d/50-store-build-settings
+dib-run-parts Sun Oct  2 04:18:51 UTC 2016 50-store-build-settings completed
+dib-run-parts Sun Oct  2 04:18:51 UTC 2016 Running /tmp/in_target.d/install.d/80-disable-rfc3041
+dib-run-parts Sun Oct  2 04:18:51 UTC 2016 80-disable-rfc3041 completed
+dib-run-parts Sun Oct  2 04:18:51 UTC 2016 Running /tmp/in_target.d/install.d/99-autoremove
++ set -eu
++ set -o pipefail
++ apt-get -y autoremove
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages will be REMOVED:
+  libfreetype6 os-prober
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = "en_US",
+	LC_ALL = (unset),
+	LC_TIME = "zh_CN.UTF-8",
+	LC_MONETARY = "zh_CN.UTF-8",
+	LC_CTYPE = "en_US.UTF-8",
+	LC_ADDRESS = "zh_CN.UTF-8",
+	LC_TELEPHONE = "zh_CN.UTF-8",
+	LC_NAME = "zh_CN.UTF-8",
+	LC_MEASUREMENT = "zh_CN.UTF-8",
+	LC_IDENTIFICATION = "zh_CN.UTF-8",
+	LC_NUMERIC = "zh_CN.UTF-8",
+	LC_PAPER = "zh_CN.UTF-8",
+	LANG = "C"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+locale: Cannot set LC_ALL to default locale: No such file or directory
+0 upgraded, 0 newly installed, 2 to remove and 0 not upgraded.
+After this operation, 1063 kB disk space will be freed.
+(Reading database ... 31518 files and directories currently installed.)
+Removing libfreetype6:amd64 (2.5.2-1ubuntu2.5) ...
+Removing os-prober (1.63ubuntu1.1) ...
+Processing triggers for libc-bin (2.19-0ubuntu6.9) ...
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 99-autoremove completed
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 Running /tmp/in_target.d/install.d/99-package-uninstalls
++ set -eu
++ set -o pipefail
+++ basename /usr/local/bin/package-uninstalls
++ SCRIPTNAME=package-uninstalls
+++ getopt -o hd: -n package-uninstalls -- -d /tmp/in_target.d/install.d
++ TEMP=' -d '\''/tmp/in_target.d/install.d'\'' --'
++ '[' 0 '!=' 0 ']'
++ eval set -- ' -d '\''/tmp/in_target.d/install.d'\'' --'
+++ set -- -d /tmp/in_target.d/install.d --
++ WORKDIR=
++ true
++ case "$1" in
++ WORKDIR=/tmp/in_target.d/install.d
++ shift 2
++ true
++ case "$1" in
++ shift
++ break
++ '[' -z /tmp/in_target.d/install.d ']'
++ PACKAGES=
+++ find /tmp/in_target.d/install.d -maxdepth 1 -name 'package-installs-*'
++ install-packages -e
+Not running install-packages remove with empty packages list
+Nothing to uninstall
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 99-package-uninstalls completed
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 ----------------------- PROFILING -----------------------
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 Target: install.d
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 Script                                     Seconds
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 ---------------------------------------  ----------
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 00-baseline-environment                       0.759
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 00-up-to-date                                 0.520
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 01-package-installs                          37.203
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 05-set-cloud-init-sources                     0.042
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 10-cloud-init                                 0.003
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 20-install-init-scripts                       0.003
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 50-store-build-settings                       0.004
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 80-disable-rfc3041                            0.003
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 99-autoremove                                 0.585
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 99-package-uninstalls                         0.043
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 --------------------- END PROFILING ---------------------
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 Running /tmp/in_target.d/post-install.d/00-package-installs
++ set -eu
++ set -o pipefail
+++ basename /usr/local/bin/package-installs
++ SCRIPTNAME=package-installs
+++ getopt -o hd: -n package-installs -- -d /tmp/in_target.d/post-install.d
++ TEMP=' -d '\''/tmp/in_target.d/post-install.d'\'' --'
++ '[' 0 '!=' 0 ']'
++ eval set -- ' -d '\''/tmp/in_target.d/post-install.d'\'' --'
+++ set -- -d /tmp/in_target.d/post-install.d --
++ WORKDIR=
++ true
++ case "$1" in
++ WORKDIR=/tmp/in_target.d/post-install.d
++ shift 2
++ true
++ case "$1" in
++ shift
++ break
++ '[' -z /tmp/in_target.d/post-install.d ']'
++ PACKAGES=
+++ find /tmp/in_target.d/post-install.d -maxdepth 1 -name 'package-installs-*'
++ '[' -n '' ']'
+Nothing to install
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 00-package-installs completed
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 Running /tmp/in_target.d/post-install.d/10-enable-init-scripts
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 10-enable-init-scripts completed
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 Running /tmp/in_target.d/post-install.d/95-package-uninstalls
++ set -eu
++ set -o pipefail
+++ basename /usr/local/bin/package-uninstalls
++ SCRIPTNAME=package-uninstalls
+++ getopt -o hd: -n package-uninstalls -- -d /tmp/in_target.d/post-install.d
++ TEMP=' -d '\''/tmp/in_target.d/post-install.d'\'' --'
++ '[' 0 '!=' 0 ']'
++ eval set -- ' -d '\''/tmp/in_target.d/post-install.d'\'' --'
+++ set -- -d /tmp/in_target.d/post-install.d --
++ WORKDIR=
++ true
++ case "$1" in
++ WORKDIR=/tmp/in_target.d/post-install.d
++ shift 2
++ true
++ case "$1" in
++ shift
++ break
++ '[' -z /tmp/in_target.d/post-install.d ']'
++ PACKAGES=
+++ find /tmp/in_target.d/post-install.d -maxdepth 1 -name 'package-installs-*'
++ install-packages -e
+Not running install-packages remove with empty packages list
+Nothing to uninstall
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 95-package-uninstalls completed
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 Running /tmp/in_target.d/post-install.d/97-dkms
+ls: cannot access /usr/src/linux-headers-*-*-*: No such file or directory
+ls: cannot access /usr/src/kernels/*: No such file or directory
+Warning: No kernel versions found for DKMS
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 97-dkms completed
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 ----------------------- PROFILING -----------------------
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 Target: post-install.d
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 Script                                     Seconds
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 ---------------------------------------  ----------
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 00-package-installs                           0.039
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 10-enable-init-scripts                        0.004
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 95-package-uninstalls                         0.041
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 97-dkms                                       0.053
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 
+dib-run-parts Sun Oct  2 04:18:52 UTC 2016 --------------------- END PROFILING ---------------------
+Unmount /tmp/dib_build.Y0FGIa3a/mnt/var/cache/apt/archives
+Unmount /tmp/dib_build.Y0FGIa3a/mnt/tmp/ccache
+Unmount /tmp/dib_build.Y0FGIa3a/mnt/sys
+Unmount /tmp/dib_build.Y0FGIa3a/mnt/proc
+Unmount /tmp/dib_build.Y0FGIa3a/mnt/dev/pts
+Unmount /tmp/dib_build.Y0FGIa3a/mnt/dev
+Calculating image size (this may take a minute)...
+dib-run-parts 2016年 10月 02日 星期日 12:18:53 CST Running /tmp/dib_build.Y0FGIa3a/hooks/block-device.d/10-partition
+IMAGE_BLOCK_DEVICE=/dev/loop0p1
+dib-run-parts 2016年 10月 02日 星期日 12:18:53 CST 10-partition completed
+dib-run-parts 2016年 10月 02日 星期日 12:18:53 CST ----------------------- PROFILING -----------------------
+dib-run-parts 2016年 10月 02日 星期日 12:18:53 CST 
+dib-run-parts 2016年 10月 02日 星期日 12:18:53 CST Target: block-device.d
+dib-run-parts 2016年 10月 02日 星期日 12:18:53 CST 
+dib-run-parts 2016年 10月 02日 星期日 12:18:53 CST Script                                     Seconds
+dib-run-parts 2016年 10月 02日 星期日 12:18:53 CST ---------------------------------------  ----------
+dib-run-parts 2016年 10月 02日 星期日 12:18:53 CST 
+dib-run-parts Sun Oct  2 12:18:53 CST 2016 10-partition                                  0.280
+dib-run-parts 2016年 10月 02日 星期日 12:18:53 CST 
+dib-run-parts 2016年 10月 02日 星期日 12:18:53 CST --------------------- END PROFILING ---------------------
+mke2fs 1.42.13 (17-May-2015)
+Discarding device blocks:   4096/416512             done                            
+Creating filesystem with 416512 4k blocks and 416624 inodes
+Filesystem UUID: bcc5852b-ff9c-4f2d-bd62-ebc207473f66
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912
+
+Allocating group tables:  0/13     done                            
+Writing inode tables:  0/13     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/13     done
+
+tune2fs 1.42.13 (17-May-2015)
+dib-run-parts Sun Oct  2 04:18:57 UTC 2016 Running /tmp/in_target.d/finalise.d/50-bootloader
++ set -eu
++ set -o pipefail
++ '[' -n /dev/loop0p1 ']'
++ PART_DEV=/dev/loop0p1
++ [[ amd64 =~ ppc ]]
+++ echo /dev/loop0p1
+++ sed -e s#p1##
+++ sed -e s#mapper/##
++ BOOT_DEV=/dev/loop0
++ DIB_EXTLINUX=0
++ '[' 0 '!=' 0 ']'
++ install_grub2
++ '[' -f /tmp/grub/install ']'
++ [[ amd64 =~ ppc ]]
++ install-packages -m bootloader grub-pc
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following extra packages will be installed:
+  grub-common grub-gfxpayload-lists grub-pc-bin grub2-common libfreetype6
+Suggested packages:
+  multiboot-doc grub-emu xorriso desktop-base
+Recommended packages:
+  os-prober
+The following NEW packages will be installed:
+  grub-common grub-gfxpayload-lists grub-pc grub-pc-bin grub2-common
+  libfreetype6
+0 upgraded, 6 newly installed, 0 to remove and 0 not upgraded.
+Need to get 3543 kB of archives.
+After this operation, 17.3 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu/ trusty-updates/main libfreetype6 amd64 2.5.2-1ubuntu2.5 [304 kB]
+Get:2 http://archive.ubuntu.com/ubuntu/ trusty-updates/main grub-common amd64 2.02~beta2-9ubuntu1.12 [1681 kB]
+Get:3 http://archive.ubuntu.com/ubuntu/ trusty-updates/main grub2-common amd64 2.02~beta2-9ubuntu1.12 [501 kB]
+Get:4 http://archive.ubuntu.com/ubuntu/ trusty-updates/main grub-pc-bin amd64 2.02~beta2-9ubuntu1.12 [880 kB]
+Get:5 http://archive.ubuntu.com/ubuntu/ trusty-updates/main grub-pc amd64 2.02~beta2-9ubuntu1.12 [173 kB]
+Get:6 http://archive.ubuntu.com/ubuntu/ trusty/main grub-gfxpayload-lists amd64 0.6 [3506 B]
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = "en_US",
+	LC_ALL = (unset),
+	LC_TIME = "zh_CN.UTF-8",
+	LC_MONETARY = "zh_CN.UTF-8",
+	LC_CTYPE = "en_US.UTF-8",
+	LC_ADDRESS = "zh_CN.UTF-8",
+	LC_TELEPHONE = "zh_CN.UTF-8",
+	LC_NAME = "zh_CN.UTF-8",
+	LC_MEASUREMENT = "zh_CN.UTF-8",
+	LC_IDENTIFICATION = "zh_CN.UTF-8",
+	LC_NUMERIC = "zh_CN.UTF-8",
+	LC_PAPER = "zh_CN.UTF-8",
+	LANG = "C"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+locale: Cannot set LC_ALL to default locale: No such file or directory
+Preconfiguring packages ...
+Fetched 3543 kB in 3min 10s (18.5 kB/s)
+Selecting previously unselected package libfreetype6:amd64.
+(Reading database ... 31469 files and directories currently installed.)
+Preparing to unpack .../libfreetype6_2.5.2-1ubuntu2.5_amd64.deb ...
+Unpacking libfreetype6:amd64 (2.5.2-1ubuntu2.5) ...
+Selecting previously unselected package grub-common.
+Preparing to unpack .../grub-common_2.02~beta2-9ubuntu1.12_amd64.deb ...
+Unpacking grub-common (2.02~beta2-9ubuntu1.12) ...
+Selecting previously unselected package grub2-common.
+Preparing to unpack .../grub2-common_2.02~beta2-9ubuntu1.12_amd64.deb ...
+Unpacking grub2-common (2.02~beta2-9ubuntu1.12) ...
+Selecting previously unselected package grub-pc-bin.
+Preparing to unpack .../grub-pc-bin_2.02~beta2-9ubuntu1.12_amd64.deb ...
+Unpacking grub-pc-bin (2.02~beta2-9ubuntu1.12) ...
+Selecting previously unselected package grub-pc.
+Preparing to unpack .../grub-pc_2.02~beta2-9ubuntu1.12_amd64.deb ...
+Unpacking grub-pc (2.02~beta2-9ubuntu1.12) ...
+Selecting previously unselected package grub-gfxpayload-lists.
+Preparing to unpack .../grub-gfxpayload-lists_0.6_amd64.deb ...
+Unpacking grub-gfxpayload-lists (0.6) ...
+Processing triggers for ureadahead (0.100.0-16) ...
+Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+Processing triggers for install-info (5.2.0.dfsg.1-2) ...
+Setting up libfreetype6:amd64 (2.5.2-1ubuntu2.5) ...
+Setting up grub-common (2.02~beta2-9ubuntu1.12) ...
+runlevel:/var/run/utmp: No such file or directory
+invoke-rc.d: policy-rc.d denied execution of start.
+Processing triggers for ureadahead (0.100.0-16) ...
+Setting up grub2-common (2.02~beta2-9ubuntu1.12) ...
+Setting up grub-pc-bin (2.02~beta2-9ubuntu1.12) ...
+Setting up grub-gfxpayload-lists (0.6) ...
+Setting up grub-pc (2.02~beta2-9ubuntu1.12) ...
+locale: Cannot set LC_ALL to default locale: No such file or directory
+
+Creating config file /etc/default/grub with new version
+Generating grub configuration file ...
+Found linux image: /boot/vmlinuz-3.13.0-96-generic
+Found initrd image: /boot/initrd.img-3.13.0-96-generic
+done
+Processing triggers for libc-bin (2.19-0ubuntu6.9) ...
+++ which grub-install
++ GRUBNAME=/usr/sbin/grub-install
++ '[' -z /usr/sbin/grub-install ']'
++ '[' -z /usr/sbin/grub-install ']'
+++ /usr/sbin/grub-install --version
+++ grep 0.97
+++ wc -l
++ '[' 0 -ne 0 ']'
++ echo 'Installing GRUB2...'
+Installing GRUB2...
++ GRUB_OPTS=--force
++ [[ ! --force == *--target* ]]
+++ /usr/sbin/grub-install --version
++ [[ /usr/sbin/grub-install (GRUB) 2.02~beta2-9ubuntu1.12 =~  2\. ]]
++ '[' -d /sys/firmware/efi ']'
++ [[ amd64 =~ ppc ]]
++ /usr/sbin/grub-install '--modules=biosdisk part_msdos' --force /dev/loop0
+Installing for i386-pc platform.
+Installation finished. No error reported.
++ '[' -d /boot/grub2 ']'
++ '[' -d /boot/grub ']'
++ GRUB_CFG=/boot/grub/grub.cfg
++ echo 'GRUB_TERMINAL="serial console"'
++ echo GRUB_GFXPAYLOAD_LINUX=text
++ echo 'GRUB_CMDLINE_LINUX_DEFAULT="console=tty0 console=ttyS0,115200 no_timer_check"'
++ echo 'GRUB_SERIAL_COMMAND="serial --speed=115200 --unit=0 --word=8 --parity=no --stop=1"'
++ which grub2-mkconfig
++ GRUB_MKCONFIG='grub-mkconfig -o /boot/grub/grub.cfg'
++ DISTRO_NAME=ubuntu
++ case $DISTRO_NAME in
++ sed -i -e 's/\(^GRUB_CMDLINE_LINUX.*\)"$/\1 nofb nomodeset vga=normal"/' /etc/default/grub
++ GRUB_MKCONFIG=update-grub
++ PROBER_DISABLED=
++ grep -qe '^\s*GRUB_DISABLE_OS_PROBER=true' /etc/default/grub
++ PROBER_DISABLED=true
++ echo GRUB_DISABLE_OS_PROBER=true
++ update-grub
+Generating grub configuration file ...
+Found linux image: /boot/vmlinuz-3.13.0-96-generic
+Found initrd image: /boot/initrd.img-3.13.0-96-generic
+done
++ '[' -n true ']'
++ sed -i '$d' /etc/default/grub
++ DIB_RELEASE=trusty
++ '[' trusty = precise ']'
++ '[' trusty = wheezy ']'
++ sed -i s%/dev/loop0p1%LABEL=cloudimg-rootfs% /boot/grub/grub.cfg
++ sed -i 's%search --no-floppy --fs-uuid --set=root .*$%search --no-floppy --set=root --label cloudimg-rootfs%' /boot/grub/grub.cfg
++ sed -i 's%root=UUID=[A-Za-z0-9\-]*%root=LABEL=cloudimg-rootfs%' /boot/grub/grub.cfg
++ '[' ubuntu = fedora ']'
++ '[' -d /sys/firmware/efi ']'
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 50-bootloader completed
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 Running /tmp/in_target.d/finalise.d/50-remove-bogus-udev-links
++ set -eu
++ set -o pipefail
++ '[' ubuntu = opensuse ']'
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 50-remove-bogus-udev-links completed
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 Running /tmp/in_target.d/finalise.d/99-clean-up-cache
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 99-clean-up-cache completed
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 Running /tmp/in_target.d/finalise.d/99-write-dpkg-manifest
++ set -eu
++ set -o pipefail
+++ basename image
++ DPKG_MANIFEST_NAME=dib-manifest-dpkg-image
++ echo '{"packages": ['
++ format='{"package": "${binary:Package}","arch": "${Architecture}","version": "${Version}","status": "${db:Status-Abbrev}"},'
++ tee -a /etc/dib-manifests/dib-manifest-dpkg-image
++ dpkg-query --show '--showformat={"package": "${binary:Package}","arch": "${Architecture}","version": "${Version}","status": "${db:Status-Abbrev}"},'
+{"package": "accountsservice","arch": "amd64","version": "0.6.35-0ubuntu7.2","status": "ii "},{"package": "acpid","arch": "amd64","version": "1:2.0.21-1ubuntu2","status": "ii "},{"package": "adduser","arch": "all","version": "3.113+nmu3ubuntu3","status": "ii "},{"package": "apparmor","arch": "amd64","version": "2.8.95~2430-0ubuntu5.3","status": "ii "},{"package": "apport","arch": "all","version": "2.14.1-0ubuntu3.21","status": "ii "},{"package": "apport-symptoms","arch": "all","version": "0.20","status": "ii "},{"package": "apt","arch": "amd64","version": "1.0.1ubuntu2.14","status": "ii "},{"package": "apt-transport-https","arch": "amd64","version": "1.0.1ubuntu2.14","status": "ii "},{"package": "apt-utils","arch": "amd64","version": "1.0.1ubuntu2.14","status": "ii "},{"package": "apt-xapian-index","arch": "all","version": "0.45ubuntu4","status": "rc "},{"package": "aptitude","arch": "amd64","version": "0.6.8.2-1ubuntu4","status": "ii "},{"package": "aptitude-common","arch": "all","version": "0.6.8.2-1ubuntu4","status": "ii "},{"package": "at","arch": "amd64","version": "3.1.14-1ubuntu1","status": "ii "},{"package": "base-files","arch": "amd64","version": "7.2ubuntu5.5","status": "ii "},{"package": "base-passwd","arch": "amd64","version": "3.5.33","status": "ii "},{"package": "bash","arch": "amd64","version": "4.3-7ubuntu1.5","status": "ii "},{"package": "bash-completion","arch": "all","version": "1:2.1-4ubuntu0.2","status": "ii "},{"package": "bc","arch": "amd64","version": "1.06.95-8ubuntu1","status": "ii "},{"package": "bind9-host","arch": "amd64","version": "1:9.9.5.dfsg-3ubuntu0.9","status": "ii "},{"package": "binutils","arch": "amd64","version": "2.24-5ubuntu14.1","status": "ii "},{"package": "bsdmainutils","arch": "amd64","version": "9.0.5ubuntu1","status": "ii "},{"package": "bsdutils","arch": "amd64","version": "1:2.20.1-5.1ubuntu20.7","status": "ii "},{"package": "busybox-initramfs","arch": "amd64","version": "1:1.21.0-1ubuntu1","status": "ii "},{"package": "busybox-static","arch": "amd64","version": "1:1.21.0-1ubuntu1","status": "ii "},{"package": "byobu","arch": "all","version": "5.77-0ubuntu1.2","status": "ii "},{"package": "bzip2","arch": "amd64","version": "1.0.6-5","status": "ii "},{"package": "ca-certificates","arch": "all","version": "20160104ubuntu0.14.04.1","status": "ii "},{"package": "ccache","arch": "amd64","version": "3.1.9-1","status": "ii "},{"package": "cloud-guest-utils","arch": "all","version": "0.27-0ubuntu9.2","status": "ii "},{"package": "cloud-init","arch": "all","version": "0.7.5-0ubuntu1.20","status": "ii "},{"package": "command-not-found","arch": "all","version": "0.3ubuntu12","status": "ii "},{"package": "command-not-found-data","arch": "amd64","version": "0.3ubuntu12","status": "ii "},{"package": "console-setup","arch": "all","version": "1.70ubuntu8","status": "ii "},{"package": "coreutils","arch": "amd64","version": "8.21-1ubuntu5.4","status": "ii "},{"package": "cpio","arch": "amd64","version": "2.11+dfsg-1ubuntu1.2","status": "ii "},{"package": "cpp","arch": "amd64","version": "4:4.8.2-1ubuntu6","status": "ii "},{"package": "cpp-4.8","arch": "amd64","version": "4.8.4-2ubuntu1~14.04.3","status": "ii "},{"package": "crda","arch": "amd64","version": "1.1.2-1ubuntu2","status": "ii "},{"package": "cron","arch": "amd64","version": "3.0pl1-124ubuntu2","status": "ii "},{"package": "cryptsetup","arch": "amd64","version": "2:1.6.1-1ubuntu1","status": "ii "},{"package": "cryptsetup-bin","arch": "amd64","version": "2:1.6.1-1ubuntu1","status": "ii "},{"package": "curl","arch": "amd64","version": "7.35.0-1ubuntu2.9","status": "ii "},{"package": "dash","arch": "amd64","version": "0.5.7-4ubuntu1","status": "ii "},{"package": "dbus","arch": "amd64","version": "1.6.18-0ubuntu4.3","status": "ii "},{"package": "debconf","arch": "all","version": "1.5.51ubuntu2","status": "ii "},{"package": "debconf-i18n","arch": "all","version": "1.5.51ubuntu2","status": "ii "},{"package": "debianutils","arch": "amd64","version": "4.4","status": "ii "},{"package": "dh-python","arch": "all","version": "1.20140128-1ubuntu8.2","status": "ii "},{"package": "diffutils","arch": "amd64","version": "1:3.3-1","status": "ii "},{"package": "dkms","arch": "all","version": "2.2.0.3-1.1ubuntu5.14.04.8","status": "ii "},{"package": "dmidecode","arch": "amd64","version": "2.12-2","status": "ii "},{"package": "dmsetup","arch": "amd64","version": "2:1.02.77-6ubuntu2","status": "ii "},{"package": "dnsutils","arch": "amd64","version": "1:9.9.5.dfsg-3ubuntu0.9","status": "ii "},{"package": "dosfstools","arch": "amd64","version": "3.0.26-1ubuntu0.1","status": "ii "},{"package": "dpkg","arch": "amd64","version": "1.17.5ubuntu5.7","status": "ii "},{"package": "e2fslibs:amd64","arch": "amd64","version": "1.42.9-3ubuntu1.3","status": "ii "},{"package": "e2fsprogs","arch": "amd64","version": "1.42.9-3ubuntu1.3","status": "ii "},{"package": "eatmydata","arch": "amd64","version": "26-2","status": "ii "},{"package": "ed","arch": "amd64","version": "1.9-2","status": "ii "},{"package": "eject","arch": "amd64","version": "2.1.5+deb1+cvs20081104-13.1","status": "ii "},{"package": "ethtool","arch": "amd64","version": "1:3.13-1","status": "ii "},{"package": "file","arch": "amd64","version": "1:5.14-2ubuntu3.3","status": "ii "},{"package": "findutils","arch": "amd64","version": "4.4.2-7","status": "ii "},{"package": "fonts-ubuntu-font-family-console","arch": "all","version": "0.80-0ubuntu6","status": "ii "},{"package": "friendly-recovery","arch": "all","version": "0.2.25","status": "ii "},{"package": "ftp","arch": "amd64","version": "0.17-28","status": "ii "},{"package": "fuse","arch": "amd64","version": "2.9.2-4ubuntu4.14.04.1","status": "ii "},{"package": "gawk","arch": "amd64","version": "1:4.0.1+dfsg-2.1ubuntu2","status": "ii "},{"package": "gcc","arch": "amd64","version": "4:4.8.2-1ubuntu6","status": "ii "},{"package": "gcc-4.8","arch": "amd64","version": "4.8.4-2ubuntu1~14.04.3","status": "ii "},{"package": "gcc-4.8-base:amd64","arch": "amd64","version": "4.8.4-2ubuntu1~14.04.3","status": "ii "},{"package": "gcc-4.9-base:amd64","arch": "amd64","version": "4.9.3-0ubuntu4","status": "ii "},{"package": "gdisk","arch": "amd64","version": "0.8.8-1ubuntu0.1","status": "ii "},{"package": "geoip-database","arch": "all","version": "20140313-1","status": "ii "},{"package": "gettext-base","arch": "amd64","version": "0.18.3.1-1ubuntu3","status": "ii "},{"package": "gir1.2-glib-2.0","arch": "amd64","version": "1.40.0-1ubuntu0.2","status": "ii "},{"package": "gnupg","arch": "amd64","version": "1.4.16-1ubuntu2.4","status": "ii "},{"package": "gpgv","arch": "amd64","version": "1.4.16-1ubuntu2.4","status": "ii "},{"package": "grep","arch": "amd64","version": "2.16-1","status": "ii "},{"package": "groff-base","arch": "amd64","version": "1.22.2-5","status": "ii "},{"package": "grub-common","arch": "amd64","version": "2.02~beta2-9ubuntu1.12","status": "ii "},{"package": "grub-gfxpayload-lists","arch": "amd64","version": "0.6","status": "ii "},{"package": "grub-pc","arch": "amd64","version": "2.02~beta2-9ubuntu1.12","status": "ii "},{"package": "grub-pc-bin","arch": "amd64","version": "2.02~beta2-9ubuntu1.12","status": "ii "},{"package": "grub2-common","arch": "amd64","version": "2.02~beta2-9ubuntu1.12","status": "ii "},{"package": "gzip","arch": "amd64","version": "1.6-3ubuntu1","status": "ii "},{"package": "hdparm","arch": "amd64","version": "9.43-1ubuntu3","status": "ii "},{"package": "hostname","arch": "amd64","version": "3.15ubuntu1","status": "ii "},{"package": "ifupdown","arch": "amd64","version": "0.7.47.2ubuntu4.4","status": "ii "},{"package": "info","arch": "amd64","version": "5.2.0.dfsg.1-2","status": "ii "},{"package": "init-system-helpers","arch": "all","version": "1.14","status": "ii "},{"package": "initramfs-tools","arch": "all","version": "0.103ubuntu4.4","status": "ii "},{"package": "initramfs-tools-bin","arch": "amd64","version": "0.103ubuntu4.4","status": "ii "},{"package": "initscripts","arch": "amd64","version": "2.88dsf-41ubuntu6.3","status": "ii "},{"package": "insserv","arch": "amd64","version": "1.14.0-5ubuntu2","status": "ii "},{"package": "install-info","arch": "amd64","version": "5.2.0.dfsg.1-2","status": "ii "},{"package": "iproute2","arch": "amd64","version": "3.12.0-2ubuntu1","status": "ii "},{"package": "iptables","arch": "amd64","version": "1.4.21-1ubuntu1","status": "ii "},{"package": "iputils-ping","arch": "amd64","version": "3:20121221-4ubuntu1.1","status": "ii "},{"package": "iputils-tracepath","arch": "amd64","version": "3:20121221-4ubuntu1.1","status": "ii "},{"package": "irqbalance","arch": "amd64","version": "1.0.6-2ubuntu0.14.04.4","status": "ii "},{"package": "isc-dhcp-client","arch": "amd64","version": "4.2.4-7ubuntu12.7","status": "ii "},{"package": "isc-dhcp-common","arch": "amd64","version": "4.2.4-7ubuntu12.7","status": "ii "},{"package": "iso-codes","arch": "all","version": "3.52-1","status": "ii "},{"package": "kbd","arch": "amd64","version": "1.15.5-1ubuntu1","status": "ii "},{"package": "keyboard-configuration","arch": "all","version": "1.70ubuntu8","status": "ii "},{"package": "klibc-utils","arch": "amd64","version": "2.0.3-0ubuntu1.14.04.1","status": "ii "},{"package": "kmod","arch": "amd64","version": "15-0ubuntu6","status": "ii "},{"package": "krb5-locales","arch": "all","version": "1.12+dfsg-2ubuntu5.2","status": "ii "},{"package": "landscape-client","arch": "amd64","version": "14.12-0ubuntu0.14.04","status": "ii "},{"package": "landscape-common","arch": "amd64","version": "14.12-0ubuntu0.14.04","status": "ii "},{"package": "language-selector-common","arch": "all","version": "0.129.3","status": "ii "},{"package": "laptop-detect","arch": "amd64","version": "0.13.7ubuntu2","status": "ii "},{"package": "less","arch": "amd64","version": "458-2","status": "ii "},{"package": "libaccountsservice0:amd64","arch": "amd64","version": "0.6.35-0ubuntu7.2","status": "ii "},{"package": "libacl1:amd64","arch": "amd64","version": "2.2.52-1","status": "ii "},{"package": "libapparmor-perl","arch": "amd64","version": "2.8.95~2430-0ubuntu5.3","status": "ii "},{"package": "libapparmor1:amd64","arch": "amd64","version": "2.8.95~2430-0ubuntu5.3","status": "ii "},{"package": "libapt-inst1.5:amd64","arch": "amd64","version": "1.0.1ubuntu2.14","status": "ii "},{"package": "libapt-pkg4.12:amd64","arch": "amd64","version": "1.0.1ubuntu2.14","status": "ii "},{"package": "libarchive-extract-perl","arch": "all","version": "0.70-1","status": "ii "},{"package": "libasan0:amd64","arch": "amd64","version": "4.8.4-2ubuntu1~14.04.3","status": "ii "},{"package": "libasn1-8-heimdal:amd64","arch": "amd64","version": "1.6~git20131207+dfsg-1ubuntu1.1","status": "ii "},{"package": "libasprintf0c2:amd64","arch": "amd64","version": "0.18.3.1-1ubuntu3","status": "ii "},{"package": "libatomic1:amd64","arch": "amd64","version": "4.8.4-2ubuntu1~14.04.3","status": "ii "},{"package": "libattr1:amd64","arch": "amd64","version": "1:2.4.47-1ubuntu1","status": "ii "},{"package": "libaudit-common","arch": "all","version": "1:2.3.2-2ubuntu1","status": "ii "},{"package": "libaudit1:amd64","arch": "amd64","version": "1:2.3.2-2ubuntu1","status": "ii "},{"package": "libbind9-90","arch": "amd64","version": "1:9.9.5.dfsg-3ubuntu0.9","status": "ii "},{"package": "libblkid1:amd64","arch": "amd64","version": "2.20.1-5.1ubuntu20.7","status": "ii "},{"package": "libboost-iostreams1.54.0:amd64","arch": "amd64","version": "1.54.0-4ubuntu3.1","status": "ii "},{"package": "libbsd0:amd64","arch": "amd64","version": "0.6.0-2ubuntu1","status": "ii "},{"package": "libbz2-1.0:amd64","arch": "amd64","version": "1.0.6-5","status": "ii "},{"package": "libc-bin","arch": "amd64","version": "2.19-0ubuntu6.9","status": "ii "},{"package": "libc6:amd64","arch": "amd64","version": "2.19-0ubuntu6.9","status": "ii "},{"package": "libcap-ng0","arch": "amd64","version": "0.7.3-1ubuntu2","status": "ii "},{"package": "libcap2:amd64","arch": "amd64","version": "1:2.24-0ubuntu2","status": "ii "},{"package": "libcap2-bin","arch": "amd64","version": "1:2.24-0ubuntu2","status": "ii "},{"package": "libcgmanager0:amd64","arch": "amd64","version": "0.24-0ubuntu7.5","status": "ii "},{"package": "libck-connector0:amd64","arch": "amd64","version": "0.4.5-3.1ubuntu2","status": "ii "},{"package": "libclass-accessor-perl","arch": "all","version": "0.34-1","status": "ii "},{"package": "libcloog-isl4:amd64","arch": "amd64","version": "0.18.2-1","status": "ii "},{"package": "libcomerr2:amd64","arch": "amd64","version": "1.42.9-3ubuntu1.3","status": "ii "},{"package": "libcryptsetup4","arch": "amd64","version": "2:1.6.1-1ubuntu1","status": "ii "},{"package": "libcurl3:amd64","arch": "amd64","version": "7.35.0-1ubuntu2.9","status": "ii "},{"package": "libcurl3-gnutls:amd64","arch": "amd64","version": "7.35.0-1ubuntu2.9","status": "ii "},{"package": "libcwidget3","arch": "amd64","version": "0.5.16-3.5ubuntu1","status": "ii "},{"package": "libdb5.3:amd64","arch": "amd64","version": "5.3.28-3ubuntu3","status": "ii "},{"package": "libdbus-1-3:amd64","arch": "amd64","version": "1.6.18-0ubuntu4.3","status": "ii "},{"package": "libdbus-glib-1-2:amd64","arch": "amd64","version": "0.100.2-1","status": "ii "},{"package": "libdebconfclient0:amd64","arch": "amd64","version": "0.187ubuntu1","status": "ii "},{"package": "libdevmapper1.02.1:amd64","arch": "amd64","version": "2:1.02.77-6ubuntu2","status": "ii "},{"package": "libdns100","arch": "amd64","version": "1:9.9.5.dfsg-3ubuntu0.9","status": "ii "},{"package": "libdrm2:amd64","arch": "amd64","version": "2.4.67-1ubuntu0.14.04.1","status": "ii "},{"package": "libdumbnet1","arch": "amd64","version": "1.12-4build1","status": "ii "},{"package": "libedit2:amd64","arch": "amd64","version": "3.1-20130712-2","status": "ii "},{"package": "libelf1:amd64","arch": "amd64","version": "0.158-0ubuntu5.2","status": "ii "},{"package": "libept1.4.12:amd64","arch": "amd64","version": "1.0.12","status": "ii "},{"package": "libestr0","arch": "amd64","version": "0.1.9-0ubuntu2","status": "ii "},{"package": "libevent-2.0-5:amd64","arch": "amd64","version": "2.0.21-stable-1ubuntu1.14.04.1","status": "ii "},{"package": "libexpat1:amd64","arch": "amd64","version": "2.1.0-4ubuntu1.3","status": "ii "},{"package": "libffi6:amd64","arch": "amd64","version": "3.1~rc1+r3.0.13-12ubuntu0.1","status": "ii "},{"package": "libfreetype6:amd64","arch": "amd64","version": "2.5.2-1ubuntu2.5","status": "ii "},{"package": "libfribidi0:amd64","arch": "amd64","version": "0.19.6-1","status": "ii "},{"package": "libfuse2:amd64","arch": "amd64","version": "2.9.2-4ubuntu4.14.04.1","status": "ii "},{"package": "libgc1c2:amd64","arch": "amd64","version": "1:7.2d-5ubuntu2","status": "ii "},{"package": "libgcc-4.8-dev:amd64","arch": "amd64","version": "4.8.4-2ubuntu1~14.04.3","status": "ii "},{"package": "libgcc1:amd64","arch": "amd64","version": "1:4.9.3-0ubuntu4","status": "ii "},{"package": "libgck-1-0:amd64","arch": "amd64","version": "3.10.1-1","status": "ii "},{"package": "libgcr-3-common","arch": "all","version": "3.10.1-1","status": "ii "},{"package": "libgcr-base-3-1:amd64","arch": "amd64","version": "3.10.1-1","status": "ii "},{"package": "libgcrypt11:amd64","arch": "amd64","version": "1.5.3-2ubuntu4.4","status": "ii "},{"package": "libgdbm3:amd64","arch": "amd64","version": "1.8.3-12build1","status": "ii "},{"package": "libgeoip1:amd64","arch": "amd64","version": "1.6.0-1","status": "ii "},{"package": "libgirepository-1.0-1","arch": "amd64","version": "1.40.0-1ubuntu0.2","status": "ii "},{"package": "libglib2.0-0:amd64","arch": "amd64","version": "2.40.2-0ubuntu1","status": "ii "},{"package": "libglib2.0-data","arch": "all","version": "2.40.2-0ubuntu1","status": "ii "},{"package": "libgmp10:amd64","arch": "amd64","version": "2:5.1.3+dfsg-1ubuntu1","status": "ii "},{"package": "libgnutls-openssl27:amd64","arch": "amd64","version": "2.12.23-12ubuntu2.5","status": "ii "},{"package": "libgnutls26:amd64","arch": "amd64","version": "2.12.23-12ubuntu2.5","status": "ii "},{"package": "libgomp1:amd64","arch": "amd64","version": "4.8.4-2ubuntu1~14.04.3","status": "ii "},{"package": "libgpg-error0:amd64","arch": "amd64","version": "1.12-0.2ubuntu1","status": "ii "},{"package": "libgpm2:amd64","arch": "amd64","version": "1.20.4-6.1","status": "ii "},{"package": "libgssapi-krb5-2:amd64","arch": "amd64","version": "1.12+dfsg-2ubuntu5.2","status": "ii "},{"package": "libgssapi3-heimdal:amd64","arch": "amd64","version": "1.6~git20131207+dfsg-1ubuntu1.1","status": "ii "},{"package": "libhcrypto4-heimdal:amd64","arch": "amd64","version": "1.6~git20131207+dfsg-1ubuntu1.1","status": "ii "},{"package": "libheimbase1-heimdal:amd64","arch": "amd64","version": "1.6~git20131207+dfsg-1ubuntu1.1","status": "ii "},{"package": "libheimntlm0-heimdal:amd64","arch": "amd64","version": "1.6~git20131207+dfsg-1ubuntu1.1","status": "ii "},{"package": "libhx509-5-heimdal:amd64","arch": "amd64","version": "1.6~git20131207+dfsg-1ubuntu1.1","status": "ii "},{"package": "libicu52:amd64","arch": "amd64","version": "52.1-3ubuntu0.4","status": "ii "},{"package": "libidn11:amd64","arch": "amd64","version": "1.28-1ubuntu2.1","status": "ii "},{"package": "libio-string-perl","arch": "all","version": "1.08-3","status": "ii "},{"package": "libisc95","arch": "amd64","version": "1:9.9.5.dfsg-3ubuntu0.9","status": "ii "},{"package": "libisccc90","arch": "amd64","version": "1:9.9.5.dfsg-3ubuntu0.9","status": "ii "},{"package": "libisccfg90","arch": "amd64","version": "1:9.9.5.dfsg-3ubuntu0.9","status": "ii "},{"package": "libisl10:amd64","arch": "amd64","version": "0.12.2-1","status": "ii "},{"package": "libitm1:amd64","arch": "amd64","version": "4.8.4-2ubuntu1~14.04.3","status": "ii "},{"package": "libjson-c2:amd64","arch": "amd64","version": "0.11-3ubuntu1.2","status": "ii "},{"package": "libjson0:amd64","arch": "amd64","version": "0.11-3ubuntu1.2","status": "ii "},{"package": "libk5crypto3:amd64","arch": "amd64","version": "1.12+dfsg-2ubuntu5.2","status": "ii "},{"package": "libkeyutils1:amd64","arch": "amd64","version": "1.5.6-1","status": "ii "},{"package": "libklibc","arch": "amd64","version": "2.0.3-0ubuntu1.14.04.1","status": "ii "},{"package": "libkmod2:amd64","arch": "amd64","version": "15-0ubuntu6","status": "ii "},{"package": "libkrb5-26-heimdal:amd64","arch": "amd64","version": "1.6~git20131207+dfsg-1ubuntu1.1","status": "ii "},{"package": "libkrb5-3:amd64","arch": "amd64","version": "1.12+dfsg-2ubuntu5.2","status": "ii "},{"package": "libkrb5support0:amd64","arch": "amd64","version": "1.12+dfsg-2ubuntu5.2","status": "ii "},{"package": "libldap-2.4-2:amd64","arch": "amd64","version": "2.4.31-1+nmu2ubuntu8.3","status": "ii "},{"package": "liblocale-gettext-perl","arch": "amd64","version": "1.05-7build3","status": "ii "},{"package": "liblockfile-bin","arch": "amd64","version": "1.09-6ubuntu1","status": "ii "},{"package": "liblockfile1:amd64","arch": "amd64","version": "1.09-6ubuntu1","status": "ii "},{"package": "liblog-message-simple-perl","arch": "all","version": "0.10-1","status": "ii "},{"package": "liblwres90","arch": "amd64","version": "1:9.9.5.dfsg-3ubuntu0.9","status": "ii "},{"package": "liblzma5:amd64","arch": "amd64","version": "5.1.1alpha+20120614-2ubuntu2","status": "ii "},{"package": "libmagic1:amd64","arch": "amd64","version": "1:5.14-2ubuntu3.3","status": "ii "},{"package": "libmodule-pluggable-perl","arch": "all","version": "5.1-1","status": "ii "},{"package": "libmount1:amd64","arch": "amd64","version": "2.20.1-5.1ubuntu20.7","status": "ii "},{"package": "libmpc3:amd64","arch": "amd64","version": "1.0.1-1ubuntu1","status": "ii "},{"package": "libmpdec2:amd64","arch": "amd64","version": "2.4.0-6","status": "ii "},{"package": "libmpfr4:amd64","arch": "amd64","version": "3.1.2-1","status": "ii "},{"package": "libncurses5:amd64","arch": "amd64","version": "5.9+20140118-1ubuntu1","status": "ii "},{"package": "libncursesw5:amd64","arch": "amd64","version": "5.9+20140118-1ubuntu1","status": "ii "},{"package": "libnewt0.52:amd64","arch": "amd64","version": "0.52.15-2ubuntu5","status": "ii "},{"package": "libnfnetlink0:amd64","arch": "amd64","version": "1.0.1-2","status": "ii "},{"package": "libnih-dbus1:amd64","arch": "amd64","version": "1.0.3-4ubuntu25","status": "ii "},{"package": "libnih1:amd64","arch": "amd64","version": "1.0.3-4ubuntu25","status": "ii "},{"package": "libnl-3-200:amd64","arch": "amd64","version": "3.2.21-1ubuntu3","status": "ii "},{"package": "libnl-genl-3-200:amd64","arch": "amd64","version": "3.2.21-1ubuntu3","status": "ii "},{"package": "libnuma1:amd64","arch": "amd64","version": "2.0.9~rc5-1ubuntu3.14.04.2","status": "ii "},{"package": "libp11-kit0:amd64","arch": "amd64","version": "0.20.2-2ubuntu2","status": "ii "},{"package": "libpam-cap:amd64","arch": "amd64","version": "1:2.24-0ubuntu2","status": "ii "},{"package": "libpam-modules:amd64","arch": "amd64","version": "1.1.8-1ubuntu2.2","status": "ii "},{"package": "libpam-modules-bin","arch": "amd64","version": "1.1.8-1ubuntu2.2","status": "ii "},{"package": "libpam-runtime","arch": "all","version": "1.1.8-1ubuntu2.2","status": "ii "},{"package": "libpam-systemd:amd64","arch": "amd64","version": "204-5ubuntu20.19","status": "ii "},{"package": "libpam0g:amd64","arch": "amd64","version": "1.1.8-1ubuntu2.2","status": "ii "},{"package": "libparse-debianchangelog-perl","arch": "all","version": "1.2.0-1ubuntu1","status": "ii "},{"package": "libparted0debian1:amd64","arch": "amd64","version": "2.3-19ubuntu1.14.04.1","status": "ii "},{"package": "libpcap0.8:amd64","arch": "amd64","version": "1.5.3-2","status": "ii "},{"package": "libpci3:amd64","arch": "amd64","version": "1:3.2.1-1ubuntu5.1","status": "ii "},{"package": "libpcre3:amd64","arch": "amd64","version": "1:8.31-2ubuntu2.3","status": "ii "},{"package": "libpipeline1:amd64","arch": "amd64","version": "1.3.0-1","status": "ii "},{"package": "libplymouth2:amd64","arch": "amd64","version": "0.8.8-0ubuntu17.1","status": "ii "},{"package": "libpng12-0:amd64","arch": "amd64","version": "1.2.50-1ubuntu2.14.04.2","status": "ii "},{"package": "libpod-latex-perl","arch": "all","version": "0.61-1","status": "ii "},{"package": "libpolkit-agent-1-0:amd64","arch": "amd64","version": "0.105-4ubuntu3.14.04.1","status": "ii "},{"package": "libpolkit-backend-1-0:amd64","arch": "amd64","version": "0.105-4ubuntu3.14.04.1","status": "ii "},{"package": "libpolkit-gobject-1-0:amd64","arch": "amd64","version": "0.105-4ubuntu3.14.04.1","status": "ii "},{"package": "libpopt0:amd64","arch": "amd64","version": "1.16-8ubuntu1","status": "ii "},{"package": "libprocps3:amd64","arch": "amd64","version": "1:3.3.9-1ubuntu2.2","status": "ii "},{"package": "libpython-stdlib:amd64","arch": "amd64","version": "2.7.5-5ubuntu3","status": "ii "},{"package": "libpython2.7:amd64","arch": "amd64","version": "2.7.6-8ubuntu0.2","status": "ii "},{"package": "libpython2.7-minimal:amd64","arch": "amd64","version": "2.7.6-8ubuntu0.2","status": "ii "},{"package": "libpython2.7-stdlib:amd64","arch": "amd64","version": "2.7.6-8ubuntu0.2","status": "ii "},{"package": "libpython3-stdlib:amd64","arch": "amd64","version": "3.4.0-0ubuntu2","status": "ii "},{"package": "libpython3.4-minimal:amd64","arch": "amd64","version": "3.4.3-1ubuntu1~14.04.4","status": "ii "},{"package": "libpython3.4-stdlib:amd64","arch": "amd64","version": "3.4.3-1ubuntu1~14.04.4","status": "ii "},{"package": "libquadmath0:amd64","arch": "amd64","version": "4.8.4-2ubuntu1~14.04.3","status": "ii "},{"package": "libreadline6:amd64","arch": "amd64","version": "6.3-4ubuntu2","status": "ii "},{"package": "libroken18-heimdal:amd64","arch": "amd64","version": "1.6~git20131207+dfsg-1ubuntu1.1","status": "ii "},{"package": "librtmp0:amd64","arch": "amd64","version": "2.4+20121230.gitdf6c518-1","status": "ii "},{"package": "libsasl2-2:amd64","arch": "amd64","version": "2.1.25.dfsg1-17build1","status": "ii "},{"package": "libsasl2-modules:amd64","arch": "amd64","version": "2.1.25.dfsg1-17build1","status": "ii "},{"package": "libsasl2-modules-db:amd64","arch": "amd64","version": "2.1.25.dfsg1-17build1","status": "ii "},{"package": "libselinux1:amd64","arch": "amd64","version": "2.2.2-1ubuntu0.1","status": "ii "},{"package": "libsemanage-common","arch": "all","version": "2.2-1","status": "ii "},{"package": "libsemanage1:amd64","arch": "amd64","version": "2.2-1","status": "ii "},{"package": "libsepol1:amd64","arch": "amd64","version": "2.2-1ubuntu0.1","status": "ii "},{"package": "libsigc++-2.0-0c2a:amd64","arch": "amd64","version": "2.2.10-0.2ubuntu2","status": "ii "},{"package": "libsigsegv2:amd64","arch": "amd64","version": "2.10-2","status": "ii "},{"package": "libslang2:amd64","arch": "amd64","version": "2.2.4-15ubuntu1","status": "ii "},{"package": "libsqlite3-0:amd64","arch": "amd64","version": "3.8.2-1ubuntu2.1","status": "ii "},{"package": "libss2:amd64","arch": "amd64","version": "1.42.9-3ubuntu1.3","status": "ii "},{"package": "libssl1.0.0:amd64","arch": "amd64","version": "1.0.1f-1ubuntu2.21","status": "ii "},{"package": "libstdc++6:amd64","arch": "amd64","version": "4.8.4-2ubuntu1~14.04.3","status": "ii "},{"package": "libsub-name-perl","arch": "amd64","version": "0.05-1build4","status": "ii "},{"package": "libsystemd-daemon0:amd64","arch": "amd64","version": "204-5ubuntu20.19","status": "ii "},{"package": "libsystemd-login0:amd64","arch": "amd64","version": "204-5ubuntu20.19","status": "ii "},{"package": "libtasn1-6:amd64","arch": "amd64","version": "3.4-3ubuntu0.4","status": "ii "},{"package": "libterm-ui-perl","arch": "all","version": "0.42-1","status": "ii "},{"package": "libtext-charwidth-perl","arch": "amd64","version": "0.04-7build3","status": "ii "},{"package": "libtext-iconv-perl","arch": "amd64","version": "1.7-5build2","status": "ii "},{"package": "libtext-soundex-perl","arch": "amd64","version": "3.4-1build1","status": "ii "},{"package": "libtext-wrapi18n-perl","arch": "all","version": "0.06-7","status": "ii "},{"package": "libtimedate-perl","arch": "all","version": "2.3000-1","status": "ii "},{"package": "libtinfo5:amd64","arch": "amd64","version": "5.9+20140118-1ubuntu1","status": "ii "},{"package": "libtsan0:amd64","arch": "amd64","version": "4.8.4-2ubuntu1~14.04.3","status": "ii "},{"package": "libudev1:amd64","arch": "amd64","version": "204-5ubuntu20.19","status": "ii "},{"package": "libusb-0.1-4:amd64","arch": "amd64","version": "2:0.1.12-23.3ubuntu1","status": "ii "},{"package": "libusb-1.0-0:amd64","arch": "amd64","version": "2:1.0.17-1ubuntu2","status": "ii "},{"package": "libustr-1.0-1:amd64","arch": "amd64","version": "1.0.4-3ubuntu2","status": "ii "},{"package": "libuuid1:amd64","arch": "amd64","version": "2.20.1-5.1ubuntu20.7","status": "ii "},{"package": "libwind0-heimdal:amd64","arch": "amd64","version": "1.6~git20131207+dfsg-1ubuntu1.1","status": "ii "},{"package": "libwrap0:amd64","arch": "amd64","version": "7.6.q-25","status": "ii "},{"package": "libx11-6:amd64","arch": "amd64","version": "2:1.6.2-1ubuntu2","status": "ii "},{"package": "libx11-data","arch": "all","version": "2:1.6.2-1ubuntu2","status": "ii "},{"package": "libxapian22","arch": "amd64","version": "1.2.16-2ubuntu1","status": "ii "},{"package": "libxau6:amd64","arch": "amd64","version": "1:1.0.8-1","status": "ii "},{"package": "libxcb1:amd64","arch": "amd64","version": "1.10-2ubuntu1","status": "ii "},{"package": "libxdmcp6:amd64","arch": "amd64","version": "1:1.1.1-1","status": "ii "},{"package": "libxext6:amd64","arch": "amd64","version": "2:1.3.2-1ubuntu0.0.14.04.1","status": "ii "},{"package": "libxml2:amd64","arch": "amd64","version": "2.9.1+dfsg1-3ubuntu4.8","status": "ii "},{"package": "libxmuu1:amd64","arch": "amd64","version": "2:1.1.1-1","status": "ii "},{"package": "libxtables10","arch": "amd64","version": "1.4.21-1ubuntu1","status": "ii "},{"package": "libyaml-0-2:amd64","arch": "amd64","version": "0.1.4-3ubuntu3.1","status": "ii "},{"package": "linux-firmware","arch": "all","version": "1.127.22","status": "ii "},{"package": "linux-image-3.13.0-96-generic","arch": "amd64","version": "3.13.0-96.143","status": "ii "},{"package": "linux-image-extra-3.13.0-96-generic","arch": "amd64","version": "3.13.0-96.143","status": "ii "},{"package": "linux-image-generic","arch": "amd64","version": "3.13.0.96.104","status": "ii "},{"package": "locales","arch": "all","version": "2.13+git20120306-12.1","status": "ii "},{"package": "lockfile-progs","arch": "amd64","version": "0.1.17","status": "ii "},{"package": "login","arch": "amd64","version": "1:4.1.5.1-1ubuntu9.2","status": "ii "},{"package": "logrotate","arch": "amd64","version": "3.8.7-1ubuntu1","status": "ii "},{"package": "lsb-base","arch": "all","version": "4.1+Debian11ubuntu6.2","status": "ii "},{"package": "lsb-release","arch": "all","version": "4.1+Debian11ubuntu6.2","status": "ii "},{"package": "lshw","arch": "amd64","version": "02.16-2ubuntu1.3","status": "ii "},{"package": "lsof","arch": "amd64","version": "4.86+dfsg-1ubuntu2","status": "ii "},{"package": "ltrace","arch": "amd64","version": "0.7.3-4ubuntu5.1","status": "ii "},{"package": "make","arch": "amd64","version": "3.81-8.2ubuntu3","status": "ii "},{"package": "makedev","arch": "all","version": "2.3.1-93ubuntu1","status": "ii "},{"package": "man-db","arch": "amd64","version": "2.6.7.1-1ubuntu1","status": "ii "},{"package": "manpages","arch": "all","version": "3.54-1ubuntu1","status": "ii "},{"package": "mawk","arch": "amd64","version": "1.3.3-17ubuntu2","status": "ii "},{"package": "mime-support","arch": "all","version": "3.54ubuntu1.1","status": "ii "},{"package": "mlocate","arch": "amd64","version": "0.26-1ubuntu1","status": "ii "},{"package": "module-init-tools","arch": "all","version": "15-0ubuntu6","status": "ii "},{"package": "mount","arch": "amd64","version": "2.20.1-5.1ubuntu20.7","status": "ii "},{"package": "mountall","arch": "amd64","version": "2.53","status": "ii "},{"package": "mtr-tiny","arch": "amd64","version": "0.85-2","status": "ii "},{"package": "multiarch-support","arch": "amd64","version": "2.19-0ubuntu6.9","status": "ii "},{"package": "nano","arch": "amd64","version": "2.2.6-1ubuntu1","status": "ii "},{"package": "ncurses-base","arch": "all","version": "5.9+20140118-1ubuntu1","status": "ii "},{"package": "ncurses-bin","arch": "amd64","version": "5.9+20140118-1ubuntu1","status": "ii "},{"package": "ncurses-term","arch": "all","version": "5.9+20140118-1ubuntu1","status": "ii "},{"package": "net-tools","arch": "amd64","version": "1.60-25ubuntu2.1","status": "ii "},{"package": "netbase","arch": "all","version": "5.2","status": "ii "},{"package": "netcat-openbsd","arch": "amd64","version": "1.105-7ubuntu1","status": "ii "},{"package": "ntfs-3g","arch": "amd64","version": "1:2013.1.13AR.1-2ubuntu2","status": "ii "},{"package": "ntpdate","arch": "amd64","version": "1:4.2.6.p5+dfsg-3ubuntu2.14.04.8","status": "ii "},{"package": "open-iscsi","arch": "amd64","version": "2.0.873-3ubuntu9","status": "ii "},{"package": "open-vm-tools","arch": "amd64","version": "2:9.4.0-1280544-5ubuntu6.2","status": "ii "},{"package": "openssh-client","arch": "amd64","version": "1:6.6p1-2ubuntu2.8","status": "ii "},{"package": "openssh-server","arch": "amd64","version": "1:6.6p1-2ubuntu2.8","status": "ii "},{"package": "openssh-sftp-server","arch": "amd64","version": "1:6.6p1-2ubuntu2.8","status": "ii "},{"package": "openssl","arch": "amd64","version": "1.0.1f-1ubuntu2.21","status": "ii "},{"package": "overlayroot","arch": "all","version": "0.25ubuntu1.14.04.1","status": "ii "},{"package": "parted","arch": "amd64","version": "2.3-19ubuntu1.14.04.1","status": "ii "},{"package": "passwd","arch": "amd64","version": "1:4.1.5.1-1ubuntu9.2","status": "ii "},{"package": "patch","arch": "amd64","version": "2.7.1-4ubuntu2.3","status": "ii "},{"package": "pciutils","arch": "amd64","version": "1:3.2.1-1ubuntu5.1","status": "ii "},{"package": "perl","arch": "amd64","version": "5.18.2-2ubuntu1.1","status": "ii "},{"package": "perl-base","arch": "amd64","version": "5.18.2-2ubuntu1.1","status": "ii "},{"package": "perl-modules","arch": "all","version": "5.18.2-2ubuntu1.1","status": "ii "},{"package": "plymouth","arch": "amd64","version": "0.8.8-0ubuntu17.1","status": "ii "},{"package": "plymouth-theme-ubuntu-text","arch": "amd64","version": "0.8.8-0ubuntu17.1","status": "ii "},{"package": "policykit-1","arch": "amd64","version": "0.105-4ubuntu3.14.04.1","status": "ii "},{"package": "pollinate","arch": "all","version": "4.21-0ubuntu1~14.04","status": "ii "},{"package": "popularity-contest","arch": "all","version": "1.57ubuntu1","status": "ii "},{"package": "powermgmt-base","arch": "amd64","version": "1.31build1","status": "ii "},{"package": "ppp","arch": "amd64","version": "2.4.5-5.1ubuntu2.2","status": "ii "},{"package": "pppconfig","arch": "all","version": "2.3.19ubuntu1","status": "ii "},{"package": "pppoeconf","arch": "all","version": "1.20ubuntu1","status": "ii "},{"package": "procps","arch": "amd64","version": "1:3.3.9-1ubuntu2.2","status": "ii "},{"package": "psmisc","arch": "amd64","version": "22.20-1ubuntu2","status": "ii "},{"package": "python","arch": "amd64","version": "2.7.5-5ubuntu3","status": "ii "},{"package": "python-apt","arch": "amd64","version": "0.9.3.5ubuntu2","status": "ii "},{"package": "python-apt-common","arch": "all","version": "0.9.3.5ubuntu2","status": "ii "},{"package": "python-chardet","arch": "all","version": "2.0.1-2build2","status": "ii "},{"package": "python-cheetah","arch": "amd64","version": "2.4.4-3.fakesyncbuild1","status": "ii "},{"package": "python-configobj","arch": "all","version": "4.7.2+ds-5build1","status": "ii "},{"package": "python-debian","arch": "all","version": "0.1.21+nmu2ubuntu2","status": "ii "},{"package": "python-gdbm","arch": "amd64","version": "2.7.5-1ubuntu1","status": "ii "},{"package": "python-json-pointer","arch": "all","version": "1.0-2build1","status": "ii "},{"package": "python-jsonpatch","arch": "all","version": "1.3-4","status": "ii "},{"package": "python-minimal","arch": "amd64","version": "2.7.5-5ubuntu3","status": "ii "},{"package": "python-oauth","arch": "all","version": "1.0.1-3build2","status": "ii "},{"package": "python-openssl","arch": "amd64","version": "0.13-2ubuntu6","status": "ii "},{"package": "python-pam","arch": "amd64","version": "0.4.2-13.1ubuntu3","status": "ii "},{"package": "python-pkg-resources","arch": "all","version": "3.3-1ubuntu2","status": "ii "},{"package": "python-prettytable","arch": "all","version": "0.7.2-2ubuntu2","status": "ii "},{"package": "python-pycurl","arch": "amd64","version": "7.19.3-0ubuntu3","status": "ii "},{"package": "python-requests","arch": "all","version": "2.2.1-1ubuntu0.3","status": "ii "},{"package": "python-serial","arch": "all","version": "2.6-1build1","status": "ii "},{"package": "python-six","arch": "all","version": "1.5.2-1ubuntu1","status": "ii "},{"package": "python-twisted-bin","arch": "amd64","version": "13.2.0-1ubuntu1","status": "ii "},{"package": "python-twisted-core","arch": "all","version": "13.2.0-1ubuntu1","status": "ii "},{"package": "python-twisted-names","arch": "all","version": "13.2.0-1ubuntu1","status": "ii "},{"package": "python-twisted-web","arch": "all","version": "13.2.0-1ubuntu1","status": "ii "},{"package": "python-urllib3","arch": "all","version": "1.7.1-1ubuntu4","status": "ii "},{"package": "python-xapian","arch": "amd64","version": "1.2.16-2ubuntu1","status": "ii "},{"package": "python-yaml","arch": "amd64","version": "3.10-4ubuntu0.1","status": "ii "},{"package": "python-zope.interface","arch": "amd64","version": "4.0.5-1ubuntu4","status": "ii "},{"package": "python2.7","arch": "amd64","version": "2.7.6-8ubuntu0.2","status": "ii "},{"package": "python2.7-minimal","arch": "amd64","version": "2.7.6-8ubuntu0.2","status": "ii "},{"package": "python3","arch": "amd64","version": "3.4.0-0ubuntu2","status": "ii "},{"package": "python3-apport","arch": "all","version": "2.14.1-0ubuntu3.21","status": "ii "},{"package": "python3-apt","arch": "amd64","version": "0.9.3.5ubuntu2","status": "ii "},{"package": "python3-commandnotfound","arch": "all","version": "0.3ubuntu12","status": "ii "},{"package": "python3-dbus","arch": "amd64","version": "1.2.0-2build2","status": "ii "},{"package": "python3-distupgrade","arch": "all","version": "1:0.220.8","status": "ii "},{"package": "python3-gdbm:amd64","arch": "amd64","version": "3.4.3-1~14.04.2","status": "ii "},{"package": "python3-gi","arch": "amd64","version": "3.12.0-1ubuntu1","status": "ii "},{"package": "python3-minimal","arch": "amd64","version": "3.4.0-0ubuntu2","status": "ii "},{"package": "python3-newt","arch": "amd64","version": "0.52.15-2ubuntu5","status": "ii "},{"package": "python3-problem-report","arch": "all","version": "2.14.1-0ubuntu3.21","status": "ii "},{"package": "python3-pycurl","arch": "amd64","version": "7.19.3-0ubuntu3","status": "ii "},{"package": "python3-software-properties","arch": "all","version": "0.92.37.7","status": "ii "},{"package": "python3-update-manager","arch": "all","version": "1:0.196.21","status": "ii "},{"package": "python3.4","arch": "amd64","version": "3.4.3-1ubuntu1~14.04.4","status": "ii "},{"package": "python3.4-minimal","arch": "amd64","version": "3.4.3-1ubuntu1~14.04.4","status": "ii "},{"package": "readline-common","arch": "all","version": "6.3-4ubuntu2","status": "ii "},{"package": "resolvconf","arch": "all","version": "1.69ubuntu1.1","status": "ii "},{"package": "rsync","arch": "amd64","version": "3.1.0-2ubuntu0.2","status": "ii "},{"package": "rsyslog","arch": "amd64","version": "7.4.4-1ubuntu2.6","status": "ii "},{"package": "run-one","arch": "all","version": "1.17-0ubuntu1","status": "ii "},{"package": "screen","arch": "amd64","version": "4.1.0~20120320gitdb59704-9","status": "ii "},{"package": "sed","arch": "amd64","version": "4.2.2-4ubuntu1","status": "ii "},{"package": "sensible-utils","arch": "all","version": "0.0.9","status": "ii "},{"package": "sgml-base","arch": "all","version": "1.26+nmu4ubuntu1","status": "ii "},{"package": "shared-mime-info","arch": "amd64","version": "1.2-0ubuntu3","status": "ii "},{"package": "software-properties-common","arch": "all","version": "0.92.37.7","status": "ii "},{"package": "ssh-import-id","arch": "all","version": "3.21-0ubuntu1","status": "ii "},{"package": "strace","arch": "amd64","version": "4.8-1ubuntu5","status": "ii "},{"package": "sudo","arch": "amd64","version": "1.8.9p5-1ubuntu1.2","status": "ii "},{"package": "systemd-services","arch": "amd64","version": "204-5ubuntu20.19","status": "ii "},{"package": "systemd-shim","arch": "amd64","version": "6-2bzr1","status": "ii "},{"package": "sysv-rc","arch": "all","version": "2.88dsf-41ubuntu6.3","status": "ii "},{"package": "sysvinit-utils","arch": "amd64","version": "2.88dsf-41ubuntu6.3","status": "ii "},{"package": "tar","arch": "amd64","version": "1.27.1-1","status": "ii "},{"package": "tasksel","arch": "all","version": "2.88ubuntu15","status": "ii "},{"package": "tasksel-data","arch": "all","version": "2.88ubuntu15","status": "ii "},{"package": "tcpd","arch": "amd64","version": "7.6.q-25","status": "ii "},{"package": "tcpdump","arch": "amd64","version": "4.5.1-2ubuntu1.2","status": "ii "},{"package": "telnet","arch": "amd64","version": "0.17-36build2","status": "ii "},{"package": "time","arch": "amd64","version": "1.7-24","status": "ii "},{"package": "tmux","arch": "amd64","version": "1.8-5","status": "ii "},{"package": "tzdata","arch": "all","version": "2016f-0ubuntu0.14.04","status": "ii "},{"package": "ubuntu-keyring","arch": "all","version": "2012.05.19","status": "ii "},{"package": "ubuntu-minimal","arch": "amd64","version": "1.325","status": "ii "},{"package": "ubuntu-release-upgrader-core","arch": "all","version": "1:0.220.8","status": "ii "},{"package": "ubuntu-standard","arch": "amd64","version": "1.325","status": "ii "},{"package": "ucf","arch": "all","version": "3.0027+nmu1","status": "ii "},{"package": "udev","arch": "amd64","version": "204-5ubuntu20.19","status": "ii "},{"package": "ufw","arch": "all","version": "0.34~rc-0ubuntu2","status": "ii "},{"package": "unattended-upgrades","arch": "all","version": "0.82.1ubuntu2.4","status": "ii "},{"package": "update-manager-core","arch": "all","version": "1:0.196.21","status": "ii "},{"package": "update-notifier-common","arch": "all","version": "0.154.1ubuntu2","status": "ii "},{"package": "upstart","arch": "amd64","version": "1.12.1-0ubuntu4.2","status": "ii "},{"package": "ureadahead","arch": "amd64","version": "0.100.0-16","status": "ii "},{"package": "usbutils","arch": "amd64","version": "1:007-2ubuntu1.1","status": "ii "},{"package": "util-linux","arch": "amd64","version": "2.20.1-5.1ubuntu20.7","status": "ii "},{"package": "uuid-runtime","arch": "amd64","version": "2.20.1-5.1ubuntu20.7","status": "ii "},{"package": "vim","arch": "amd64","version": "2:7.4.052-1ubuntu3","status": "ii "},{"package": "vim-common","arch": "amd64","version": "2:7.4.052-1ubuntu3","status": "ii "},{"package": "vim-runtime","arch": "all","version": "2:7.4.052-1ubuntu3","status": "ii "},{"package": "vim-tiny","arch": "amd64","version": "2:7.4.052-1ubuntu3","status": "ii "},{"package": "w3m","arch": "amd64","version": "0.5.3-15","status": "ii "},{"package": "wget","arch": "amd64","version": "1.15-1ubuntu1.14.04.2","status": "ii "},{"package": "whiptail","arch": "amd64","version": "0.52.15-2ubuntu5","status": "ii "},{"package": "wireless-regdb","arch": "all","version": "2013.02.13-1ubuntu1","status": "ii "},{"package": "xauth","arch": "amd64","version": "1:1.0.7-1ubuntu1","status": "ii "},{"package": "xkb-data","arch": "all","version": "2.10.1-1ubuntu1","status": "ii "},{"package": "xml-core","arch": "all","version": "0.13+nmu2","status": "ii "},{"package": "xz-utils","arch": "amd64","version": "5.1.1alpha+20120614-2ubuntu2","status": "ii "},{"package": "zerofree","arch": "amd64","version": "1.0.2-1ubuntu1","status": "ii "},{"package": "zlib1g:amd64","arch": "amd64","version": "1:1.2.8.dfsg-1ubuntu1","status": "ii "},+ sed -i -e 's/,$/\n]}/g' -e 's/\(},\)/    \1\n/g' /etc/dib-manifests/dib-manifest-dpkg-image
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 99-write-dpkg-manifest completed
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 ----------------------- PROFILING -----------------------
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 Target: finalise.d
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 Script                                     Seconds
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 ---------------------------------------  ----------
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 50-bootloader                               195.060
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 50-remove-bogus-udev-links                    0.003
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 99-clean-up-cache                             0.021
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 99-write-dpkg-manifest                        0.018
+/usr/local/bin/dib-run-parts: line 132: warning: setlocale: LC_NUMERIC: cannot change locale (zh_CN.UTF-8)
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 
+dib-run-parts Sun Oct  2 04:22:12 UTC 2016 --------------------- END PROFILING ---------------------
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST Running /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/01-ccache
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST 01-ccache completed
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST Running /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/01-copy-manifests-dir
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/01-copy-manifests-dir:main:21            :   set -eu
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/01-copy-manifests-dir:main:22            :   set -o pipefail
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/01-copy-manifests-dir:main:24            :   '[' -d /tmp/dib_build.Y0FGIa3a/mnt//etc/dib-manifests ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/01-copy-manifests-dir:main:26            :   '[' -e /tmp/dib_build.Y0FGIa3a/mnt/etc/dib_arguments ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/01-copy-manifests-dir:main:27            :   sudo mv /tmp/dib_build.Y0FGIa3a/mnt/etc/dib_arguments /tmp/dib_build.Y0FGIa3a/mnt//etc/dib-manifests
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/01-copy-manifests-dir:main:29            :   '[' -e /tmp/dib_build.Y0FGIa3a/mnt/etc/dib_environment ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/01-copy-manifests-dir:main:30            :   sudo mv /tmp/dib_build.Y0FGIa3a/mnt/etc/dib_environment /tmp/dib_build.Y0FGIa3a/mnt//etc/dib-manifests
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/01-copy-manifests-dir:main:32            :   mkdir -p image.d/
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/01-copy-manifests-dir:main:33            :   cp --no-preserve=ownership -rv /tmp/dib_build.Y0FGIa3a/mnt//etc/dib-manifests image.d/
+'/tmp/dib_build.Y0FGIa3a/mnt//etc/dib-manifests' -> 'image.d/dib-manifests'
+'/tmp/dib_build.Y0FGIa3a/mnt//etc/dib-manifests/dib_environment' -> 'image.d/dib-manifests/dib_environment'
+'/tmp/dib_build.Y0FGIa3a/mnt//etc/dib-manifests/dib_arguments' -> 'image.d/dib-manifests/dib_arguments'
+'/tmp/dib_build.Y0FGIa3a/mnt//etc/dib-manifests/dib-manifest-dpkg-image' -> 'image.d/dib-manifests/dib-manifest-dpkg-image'
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST 01-copy-manifests-dir completed
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST Running /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/40-unblock-daemons
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST 40-unblock-daemons completed
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST Running /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/50-remove-img-build-proxy
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST 50-remove-img-build-proxy completed
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST Running /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/51-bootloader
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/51-bootloader:main:23                    :   set -eu
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/51-bootloader:main:24                    :   set -o pipefail
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/51-bootloader:main:26                    :   '[' -n /tmp/dib_build.Y0FGIa3a/mnt ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/51-bootloader:main:28                    :   source /home/xion/gitRepo/openstack/env/bin/../share/diskimage-builder/lib/img-functions
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/51-bootloader:main:30                    :   '[' -d /tmp/dib_build.Y0FGIa3a/mnt/boot/extlinux ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/51-bootloader:main:32                    :   '[' -d /tmp/dib_build.Y0FGIa3a/mnt/boot/syslinux ']'
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/51-bootloader:main:35                    :   exit 0
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST 51-bootloader completed
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST Running /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/60-untrim-dpkg
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST 60-untrim-dpkg completed
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST Running /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/99-tidy-logs
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/99-tidy-logs:main:22                     :   set -eu
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/99-tidy-logs:main:23                     :   set -o pipefail
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/99-tidy-logs:main:26                     :   sudo find /tmp/dib_build.Y0FGIa3a/mnt/var/log -type f -exec cp /dev/null '{}' ';'
++ /tmp/dib_build.Y0FGIa3a/hooks/cleanup.d/99-tidy-logs:main:29                     :   sudo find /tmp/dib_build.Y0FGIa3a/mnt/root -name '*.log' -type f -delete
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST 99-tidy-logs completed
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST ----------------------- PROFILING -----------------------
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST 
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST Target: cleanup.d
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST 
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST Script                                     Seconds
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST ---------------------------------------  ----------
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST 
+dib-run-parts Sun Oct  2 12:22:12 CST 2016 01-ccache                                     0.008
+dib-run-parts Sun Oct  2 12:22:12 CST 2016 01-copy-manifests-dir                         0.068
+dib-run-parts Sun Oct  2 12:22:12 CST 2016 40-unblock-daemons                            0.041
+dib-run-parts Sun Oct  2 12:22:12 CST 2016 50-remove-img-build-proxy                     0.008
+dib-run-parts Sun Oct  2 12:22:12 CST 2016 51-bootloader                                 0.016
+dib-run-parts Sun Oct  2 12:22:12 CST 2016 60-untrim-dpkg                                0.012
+dib-run-parts Sun Oct  2 12:22:12 CST 2016 99-tidy-logs                                  0.029
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST 
+dib-run-parts 2016年 10月 02日 星期日 12:22:12 CST --------------------- END PROFILING ---------------------
+Unmount /tmp/dib_build.Y0FGIa3a/mnt/sys
+Unmount /tmp/dib_build.Y0FGIa3a/mnt/proc
+Unmount /tmp/dib_build.Y0FGIa3a/mnt/dev/pts
+Unmount /tmp/dib_build.Y0FGIa3a/mnt/dev
+Unmount /tmp/dib_build.Y0FGIa3a/mnt
+/dev/loop0: [0081]:3 (/tmp/dib_image.BvPrfATI/image.raw)
+Converting image using qemu-img convert
+Image file image.qcow2 created...

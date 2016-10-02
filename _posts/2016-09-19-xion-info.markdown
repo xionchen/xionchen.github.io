@@ -82,6 +82,20 @@ image:
 
   - name: boot过程
     address: https://preview.edge.edx.org/c4x/Linux/LFS101/asset/chapter03_flowchart_scr15_1.jpg
+
+  - name: 千库网图片素材
+    address: 'http://588ku.com/'
+    tag:
+        - 图片
+        - 免费
+
+  - name: interactive python tour
+    address: 'http://interactivepython.org/runestone/static/pythonds/index.html'
+    tag:
+        - python教程
+        - 交互式教程
+
+
 ```
 
 ---
