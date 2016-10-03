@@ -158,6 +158,7 @@ Break 点的设置方法一般是: “break=[before|after]-hook-name”.
 ### 3.3 DIB element
 >dib的element很多,这里有详细的信息,但是有相当一部分的文档写的不是很好.需要阅读源码才知道到底是干什么的.如果有疑问也可以在这里讨论
 > DIB element: http://docs.openstack.org/developer/diskimage-builder/elements.html
+
 ### 3.4 DIB运行的阶段
 >dib通过element和阶段来组织脚本,一个element可能在不同的阶段做不同的事情.
 
