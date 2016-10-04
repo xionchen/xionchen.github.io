@@ -1,2 +1,5 @@
 id -u
 id -g
+目录有关操作
+basename
+grep " $TMP_MOUNT_PATH/tmp/ccache" /proc/mounts && exit   
