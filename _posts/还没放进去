@@ -5,4 +5,4 @@ basename
 grep " $TMP_MOUNT_PATH/tmp/ccache" /proc/mounts && exit  
 dd echo区别
 file
-ｓｙｓｃｔｌ 
+sysctl

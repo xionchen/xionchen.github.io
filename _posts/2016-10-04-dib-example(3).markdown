@@ -87,6 +87,7 @@ xion@xion-Aspire-7750G:/tmp/dib_build.oRGH38zL/hooks/extra-data.d$
 > 这个脚本属于package-install element
 
 脚本的内容如下,十分简单,但是package-install-squash这个命令值得细看一下
+
 ```shell
 1 #!/bin/bash                                                                                      
 2 if [ ${DIB_DEBUG_TRACE:-0} -gt 0 ]; then                                       
@@ -106,6 +107,7 @@ xion@xion-Aspire-7750G:/tmp/dib_build.oRGH38zL/hooks/extra-data.d$
 在**elements/package-installs/bin**下的package-installs-squash中说这个脚本的作用是把所有的安装包的文件汇总到一个文件中.
 
 查看一下目前镜像中的文件/tmp/package-install.json
+
 ```json
 1 {                                                                              
 2  "install.d": {                                                                
@@ -127,7 +129,10 @@ xion@xion-Aspire-7750G:/tmp/dib_build.oRGH38zL/hooks/extra-data.d$
 18 }                                                                              
 ~     
 ```
+
 它的格式是
+
+
 ```
 阶段:{
   操作:

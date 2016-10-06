@@ -57,6 +57,7 @@ run_d_in_target方法的流程图如下:
 ![](/img/post/run_d_in_target.png)
 
 其中run_in_target方法如下:
+
 ```shell
 56 function run_in_target () {                                                                
 57     cmd="$@"                                                                   
@@ -193,6 +194,7 @@ package-installs是一个用来统一调度安装的元素,但是由于历史原
 虽然脚本很简单,但是有几点值得注意:  
 1. 这里的install-packages -m 的-m是mapper.这里通过mapper的方式来对系统和包进行了解耦.
     - 例如这里的iscsi_package,具体的mapper如下:
+    
 ```json
     {                                                                                                   
   "family": {                                                                  
@@ -208,6 +210,7 @@ package-installs是一个用来统一调度安装的元素,但是由于历史原
     "iscsi_package": "open-iscsi"                                              
   }   
 ```    
+
 install-packages -m 通过iscsi_package和现在对应的操作系统,就能找到具体要安装的包的名字
 2. iscsi是用来干嘛的?为什么要安装它?
     - 使用iscsi可以通过网络来访问磁盘
@@ -254,6 +257,7 @@ $ find -name 'install-packages'
 └── README.rst
 
 ```
+
 这个元素会在extra-data install post-install和pre-install根据配置文件对包进行安装和删除.
 
 在这个例子中的配置文件如下:
@@ -281,6 +285,7 @@ $ find -name 'install-packages'
 
 ## 05-set-cloud-init-sources
 脚本如下:
+
 ```shell
 1 #!/bin/bash                                                                                      
  2                                                                                
@@ -312,6 +317,7 @@ $ find -name 'install-packages'
 28     fi                                                                         
 29 fi 
 ```
+
 在本例中,DIB_CLOUD_INIT_DATASOURCES的值是Ec2,这里把这个参数写到了[cloud-init](https://wiki.archlinux.org/index.php/Cloud-init)的配置文件中
 
 ## 10-cloud-init
@@ -319,6 +325,7 @@ $ find -name 'install-packages'
 
 ## 20-install-init-scripts
 脚本如下:
+
 ```shell
 1 +--  4 lines: !/bin/bash-------------------------------------------------------------------------
 5                                                                                
@@ -345,9 +352,11 @@ $ find -name 'install-packages'
 26     cp -RP $scripts_dir. $dest || true                                         
 27 fi  
 ```
+
 这里把希望开机启动的脚本拷贝到了对应的位置让他们发挥作用
 
 ## 50-store-build-settings
+
 ```shell
 1 +--  2 lines: !/bin/bash-------------------------------------------------------------------------
 3                                                                                
@@ -365,11 +374,13 @@ $ find -name 'install-packages'
 15     cp /tmp/in_target.d/dib_arguments /etc/                                    
 16 fi  
 ```
+
 这里保存了创建dib的参数
 
 ## 80-disable-rfc3041
 
 这个脚本里面，有用的就下面几句话
+
 ```shell
 24 # This will disable the disable Privacy extensions for IPv6 (RFC3041)          
 25 cat > /etc/sysctl.d/99-cloudimg-ipv6.conf <<EOF                                
@@ -378,6 +389,7 @@ $ find -name 'install-packages'
 28 net.ipv6.conf.default.use_tempaddr=0                                           
 29 EOF 
 ```
+
 作用是禁止ipv6
 
 ## 99-autoremove
@@ -385,6 +397,6 @@ $ find -name 'install-packages'
 
     apt-get -y autoremove
     
-> 这一片主要讲了pre-install和install阶段的脚本的内容.
-> dib中的package-installs方法 
+> 这一片主要讲了pre-install和install阶段的脚本的内容.  
+> dib中的package-installs方法和   
 > 下一篇会继续说之后的内容.
