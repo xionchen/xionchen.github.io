@@ -36,7 +36,8 @@ tags:
 
       $ disk-image-create vm ubuntu-minimal
 
-日志文件被我放在这里:  [DIB_日志](https://github.com/xionchen/note/blob/master/dib/Dib-log.markdown)
+日志文件被我放在这里:  [DIB_日志](https://github.com/xionchen/note/blob/master/dib/Dib-log.markdown)  
+有任何问题,都希望能够留言一起探讨.
 
 ---
 
@@ -81,7 +82,7 @@ mktemp是用于创建临时目录的(可以看做是随机生产文件名)
     OUT_IMAGE_PATH:  和IMAGE_DIR是一样的
     TMP_HOOKS_PATH:  所有的钩子(脚本)被拷贝到的地方.
 
-## 3. root阶段
+## 3. root阶段入口方法
 
 >root阶段准备好了制作进行所需的"base"
 
@@ -152,7 +153,8 @@ dib-run-parts流程图如下:
 dib-run-parts首先会寻找 environment.d文件夹,将其中的环境变量导入
 然后以此运行该阶段的脚本
 
-> 之前了解了run_d方法的流程,但是实际上完成root阶段工作的还是root阶段的脚本,所以在下一篇中会详细分析例子中的root阶段运行的脚本.
+> 之前了解了run_d方法的流程,但是实际上完成root阶段工作的还是root阶段的脚本.  
+> 在下一篇中会详细分析例子中的root阶段运行的脚本.
 
 
 

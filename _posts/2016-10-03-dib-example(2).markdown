@@ -35,7 +35,8 @@ tags:
 
       $ disk-image-create vm ubuntu-minimal
 
-日志文件被我放在这里:  [DIB_日志](https://github.com/xionchen/note/blob/master/dib/Dib-log.markdown)
+日志文件被我放在这里:  [DIB_日志](https://github.com/xionchen/note/blob/master/dib/Dib-log.markdown)  
+有任何问题,都希望能够留言一起探讨.
 
 ---
 
@@ -374,5 +375,5 @@ popd会弹出目前栈顶的目录
 
 这个脚本配为dpkg配置了force-unsafe-io和无语言,主要是dpkg的配置.
 
-下一篇介绍extra-data.d和pre-install.d
+下一篇介绍extra-data.d
 
