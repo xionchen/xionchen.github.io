@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "从日志分析DIB流程(4) pre-install阶段和install阶段"
+title:      "从日志分析DIB流程(4) 安装阶段"
 subtitle:   " \"diskimage-builder 是openstack社区用于制作镜像的工具.为了深入了解dib制作镜像的全过程,对一个简单的例子进行贯通的分析.\""
 date:       2016-10-04 12:00:00
 author:     "Xion"
@@ -12,7 +12,7 @@ tags:
     - 从日志分析DIB
 ---
 
-# 从日志分析DIB流程(4) pre-install阶段和install阶段
+# 从日志分析DIB流程(4) 安装阶段
 ---
 
 >dib这几篇博客是干货,基于下面三个客观条件:    
@@ -41,7 +41,7 @@ tags:
 ---
 
 
-
+安装阶段包括 pre-install阶段,install阶段和post-install阶段
 
 # run_d_in_target
 只有有的阶段利用了chroot,也之前略有不同.
@@ -397,6 +397,93 @@ $ find -name 'install-packages'
 
     apt-get -y autoremove
     
-> 这一片主要讲了pre-install和install阶段的脚本的内容.  
-> dib中的package-installs方法和   
-> 下一篇会继续说之后的内容.
+# post-install阶段
+> post-install阶段做一下安装的收尾工作,同样,它也是在chroot下运行的
+
+在本例子中post-install阶段中运行的脚本如下:
+
+```
+-rwxrwxr-x  1 xion xion 197 10月  1 11:22 00-package-installs
+-rwxrwxr-x  1 xion xion 674 10月  1 11:22 10-enable-init-scripts
+-rwxrwxr-x  1 xion xion 211 10月  1 11:22 95-package-uninstalls
+-rwxrwxr-x  1 xion xion 832 10月  1 11:22 97-dkms
+
+```
+
+00-package-installs和95-package-uninstalls在之前已经说明过作用了
+
+## 10-enable-init-scripts
+这个脚本的内容如下:
+
+```shell
+1 #!/bin/bash                                                                                      
+2                                                                                
+3 if [ ${DIB_DEBUG_TRACE:-0} -gt 0 ]; then                                       
+4     set -x                                                                     
+5 fi                                                                             
+6 set -eu                                                                        
+7 set -o pipefail                                                                
+8                                                                                
+9 SCRIPTS_DIR="$(dirname $0)/../init-scripts/${DIB_INIT_SYSTEM}/"                
+10 if [[ -d "${SCRIPTS_DIR}" ]]; then                                             
+11     # figure out init prefix                                                   
+12     case "${DIB_INIT_SYSTEM}" in                                               
+13         upstart) ;;                                                            
+14         openrc)                                                                
+15             # only gentoo needs manual runlevel adding                         
+16             for INIT_SCRIPT in "${SCRIPTS_DIR}"*; do                           
+17                 rc-update add $(basename "${INIT_SCRIPT}") default             
+18             done                                                               
+19             ;;                                                                 
+20         systemd) ;;                                                            
+21         sysv) ;;                                                               
+22         *)                                                                     
+23             echo "ERROR: DIB_INIT_SYSTEM (${DIB_INIT_SYSTEM}) is not a known type"
+24             exit 1                                                             
+25             ;;                                                                 
+26     esac                                                                       
+27 fi                                                                             
+```
+
+如果初始化是openrc的方式,需要执行一下rc-update
+
+## 97-dkms
+这个脚本的内容如下:
+
+```shell
+1 +--  3 lines: !/bin/bash-------------------------------------------------------------------------
+4                                                                                
+5 if [ ${DIB_DEBUG_TRACE:-0} -gt 0 ]; then                                       
+6     set -x                                                                     
+7 fi                                                                             
+8 set -eu                                                                        
+9 set -o pipefail                                                                
+10                                                                                
+11 modules=$(dkms status | tr ',:' ' ' | awk '{ print $1 "/" $2 }')               
+12 kernels=$(ls /usr/src/linux-headers-*-*-* -d | sed -e 's|/usr/src/linux-headers-||' || echo "")
+13 # NOTE(bnemec): On Fedora, the versions can be found in /usr/src/kernels       
+14 if [ -z "$kernels" ]; then                                                     
+15     kernels=$(ls /usr/src/kernels/* -d | sed -e 's|/usr/src/kernels/||' || echo "")
+16 fi                                                                             
+17 if [ -z "$kernels" ]; then                                                     
+18     echo "Warning: No kernel versions found for DKMS"                          
+19 fi                                                                             
+20 __ARCH=$ARCH                                                                   
+21 unset ARCH                                                                     
+22                                                                                
+23 for module in $modules ; do                                                    
+24     for kernel in $kernels ; do                                                
+25         dkms build $module -k $kernel                                          
+26         dkms install $module -k $kernel                                        
+27     done                                                                       
+28 done                                                                           
+29                                                                                
+30 ARCH=$__ARCH                                                                   
+31                                                                                
+32 dkms status  
+```
+
+[dkms](https://zh.wikipedia.org/wiki/%E5%8A%A8%E6%80%81%E5%86%85%E6%A0%B8%E6%A8%A1%E5%9D%97%E6%94%AF%E6%8C%81) 是指 Dynamic Kernel Module Support. Fedora和Ubuntu支持DKMS
+
+
+到这里,安装就完成了

@@ -6,3 +6,10 @@ grep " $TMP_MOUNT_PATH/tmp/ccache" /proc/mounts && exit
 dd echo区别
 file
 sysctl
+du
+eval
+tune2fs
+parted
+ppc  prep
+partprobe
+kpartx
