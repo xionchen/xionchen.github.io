@@ -16,7 +16,7 @@ tags:
 > 它的源码地址位于: https://github.com/openstack/diskimage-builder
 > 官方的文档位于: http://docs.openstack.org/developer/diskimage-builder/
 
-这里对这个工具的安装和使用进行简单的介绍
+这里对这个工具的安装和使用进行简单的介绍,在后续的blog中会以一个例子介绍dib的工作流程
 
 # 1 安装
 dib的安装方式有两种:**pip安装**和**源码安装**.
