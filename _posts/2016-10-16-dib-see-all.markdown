@@ -58,6 +58,7 @@ disk-image-create是DIB的入口,整个disk-image-create的流程如下;
 ![](/img/post/dib-all.png)
 
 有几点值得注意:
+
 #### 阶段
 
 各种阶段,(root,extra-data,pre_install,install,post_install,block-device,fianlise)除了chroot中和chroot外没有任何区别,只是用他们来规范操作(当然意义是不同的,但是运行的流程是相同的).
