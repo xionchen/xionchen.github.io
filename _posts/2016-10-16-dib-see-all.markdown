@@ -1,24 +1,28 @@
----                                                                                                  
-layout:     post                                                               
-title:      "Diskimage-builder总览"                                            
-subtitle:   " \"diskimage-builder 是openstack社区用于制作镜像的工具,这里对DIB进行了一个总览\"" 
-date:       2016-10-16 12:00:00                                                
-author:     "Xion"                                                             
-header-img: "img/post-bg-building.jpg"                                         
-catalog: true                                                                  
-tags:                                                                          
-    - opentack-infra                                                           
-    - diskimage-builder                                                        
----   
+---
+layout:     post
+title:      "Diskimage-builder总览"
+subtitle:   " \"diskimage-builder 是openstack社区用于制作镜像的工具,这里对DIB进行了一个总览\""
+date:       2016-10-16 12:00:00
+author:     "Xion"
+header-img: "img/post-bg-building.jpg"
+catalog: true
+tags:
+    - opentack-infra
+    - diskimage-builder
+---
 
 # DIB总览
 
-# 概览
+## 概览
+
 ### 语言
+
 这个项目主要以shell和python为主,尤其是shell.但是目录结构还是遵循了python的目录结构
 
 ### 测试
+
 #### Testr与setuptool集成
+
 基本上openstack项目中,含有tox测试都是利用这个框架来运行的.可以有如下的功能
 
 - 并行测试
