@@ -8,14 +8,14 @@ header-img: "img/post-bg-vim.jpg"
 catalog: true
 tags:
     - vim
-  
+
 ---
 
 # 每日Vim
-- 首先,这里不会介绍插件.因为不是所有环境都有插件.  
+- 首先,这里不会介绍插件.因为不是所有环境都有插件.
 - 其次,如果想一起学,除了day0以外,每天大概就花10分钟左右,因为学习vim是个过程,慢慢学就会了,所以每天的内容不多,但是没事休闲的时候要记得玩玩.
-- 然后,开始的时候不要在工作中使用vim.    
-- 再然后,把键盘的大写锁定映射为Esc键.  
+- 然后,开始的时候不要在工作中使用vim.
+- 再然后,把键盘的大写锁定映射为Esc键.
 - 最后,总有一天你会发现,vim会极大的提升你的效率.
 
 # day0
@@ -24,7 +24,7 @@ tags:
 
 - [Learn vim in a week](https://www.youtube.com/watch?v=_NUO4JEtkDw)我就是看这个视频找到了学习方法
 
-- [OpenVim](http://www.openvim.com/tutorial.html)交互式的vim学习网址,能够学到最基础的vim操作  
+- [OpenVim](http://www.openvim.com/tutorial.html)交互式的vim学习网址,能够学到最基础的vim操作
 
 - [Vim Adventures](http://vim-adventures.com/)vim小游戏
 
@@ -48,6 +48,7 @@ function specialAdd(a, b) {
 接下来可以试试 **}** 移动(选中整个段).如果输入 **v}** 就会选中整个方法.因为是在视觉模式下,查看移动就很容易.然后我们就可以结合 **y** 利用 **y}** 来复制(yank) 整个方法.
 
 但是如果方法里面有空行,这个就不靠谱了
+
 ```
 function specialAdd(a, b) {
   if (!a || !b) {
