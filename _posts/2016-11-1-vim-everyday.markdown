@@ -90,6 +90,6 @@ function specialAdd(a, b) {
 vim里面有一种的玩法--动作+操作,例如复制一个词, **yaw**(yank a word) ,删除一个句子, **das**(delete a sentence) , **yap** (复制一段)
 
 这里的 'aw' 'as' 'ap' 被成为motion,除了这些常见的motion以外, 搜索也能作为motion.
-距离而言,使用 **d/,<CR>** (CR表示回车) 可以删除到逗号. 更加快捷的方式是使用 **dt,**.
+距离而言,使用**d/,\<CR\>**(CR表示回车) 可以删除到逗号. 更加快捷的方式是使用**dt,**.
 
-(扩展阅读 vim中的motion)[http://vimdoc.sourceforge.net/htmldoc/motion.html#operator]
+[扩展阅读 vim中的motion](http://vimdoc.sourceforge.net/htmldoc/motion.html#operator)
