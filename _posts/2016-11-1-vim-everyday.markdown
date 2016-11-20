@@ -138,4 +138,4 @@ vim 的强大很大程度上取决于操作符和动作结合的方式,例如`d{
 ## 定义自己的动作
 
 在vim中还可以定义自己的工作,可以通过`h :map-operator`来定制自己的动作
-[这里定义了所有文件的注释的操作](https://github.com/tpope/vim-commentary/blob/master/plugin/commentary.vim)
+[commentary](https://github.com/tpope/vim-commentary/blob/master/plugin/commentary.vim)这个插件定义了所有的注释和取消注释的命令,使用`\\`就能够触发,例如使用`\\ap`可以注释一段,使用`\\\\`可以注释当前行
