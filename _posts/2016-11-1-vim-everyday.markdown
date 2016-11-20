@@ -110,3 +110,32 @@ line four
 `.`的作用就是用来重复更改的操作.这里的`>G`就是一个操作,除此之外,从进入插入模式开始,所有的改变,也都会记录为一个操作.
 
 例如,按`i`进入插入模式 输入"abc".然后回到普通模式`ESC`,然后按`.`.就会重复的输入abc
+
+# day5 操作符 + 动作命令
+
+vim 的强大很大程度上取决于操作符和动作结合的方式,例如`d{motion}`命令可以对一个字符`dl`,一个完整的单词`dw`,或者一个段落来进行操作`dp`.使用`:h operator`
+
+下面列出了vim中的左右操作
+
+```
+        c       c       change
+        d       d       delete
+        y       y       yank into register (does not change the text)
+        ~       ~       swap case (only if 'tildeop' is set)
+        g~      g~      swap case
+        gu      gu      make lowercase
+        gU      gU      make uppercase
+        !       !       filter through an external program
+        =       =       filter through 'equalprg' or C-indenting if empty
+        gq      gq      text formatting
+        g?      g?      ROT13 encoding
+        >       >       shift right
+        <       <       shift left
+        zf      zf      define a fold
+        g@      g@      call function set with the 'operatorfunc' option
+```
+
+## 定义自己的动作
+
+在vim中还可以定义自己的工作,可以通过`h :map-operator`来定制自己的动作
+[这里定义了所有文件的注释的操作](https://github.com/tpope/vim-commentary/blob/master/plugin/commentary.vim)
