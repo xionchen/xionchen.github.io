@@ -11,6 +11,7 @@ tags:
     - 设计模式
 ---
 
+---
 
 <!-- toc orderedList: -->
 
@@ -20,7 +21,7 @@ tags:
 - [UML](#uml)
 - [python 代码实现](#python-代码实现)
 	- [用户类](#用户类)
-	- [抽象工厂](#抽象工厂)
+	- [抽象工厂](#抽象工厂-1)
 	- [抽象产品](#抽象产品)
 	- [实际产品](#实际产品)
 	- [实际工厂](#实际工厂)
@@ -57,6 +58,8 @@ tags:
 ![](/img/python_abs_fac_uml.png)
 
 下面是plantuml的编码
+
+plantuml可以通过编码生产各种诸如类图，流程图这样的图标，而不用通过手动的修改。
 ```
 @startuml
 skinparam monochrome true
