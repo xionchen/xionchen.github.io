@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Python设计模式(二) ——Borg模式"
-subtitle:   " \"python不需要单例，Borg模式\""
+subtitle:   " \"或许你不需要单例，而是Borg模式\""
 date:       2017-03-1 12:00:00
 author:     "Xion"
 header-img: "img/python-design-background02.jpg"
@@ -28,12 +28,10 @@ tags:
 
 <!-- tocstop -->
 
+---
 
 
 
-
-<!-- untoc -->
-#
 
 ## 故事
 
