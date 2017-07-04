@@ -89,11 +89,21 @@ layout: default
                 </ul>
 
                 <hr>
-                <!-- UY BEGIN -->
-                <div id="uyan_frame"></div>
-                <script type="text/javascript" src="/js/uyan.js"></script>
-                <!-- UY END -->
-
+            <div id="container"></div>
+            <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+            <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+            <script>
+            var gitment = new Gitment({
+              id: 'location.href', // 可选。默认为 location.href
+              owner: 'xionchen',
+              repo: 'comment',
+              oauth: {
+                client_id: '5cee39c33fd0f2266171',
+                client_secret: '5727bf5c6aea24b54399995c5bb8c48cfa6ee53e',
+              },
+            })
+            gitment.render('container')
+            </script>
             </div>
 
     <!-- Side Catalog Container -->
