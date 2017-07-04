@@ -2,7 +2,7 @@
 layout:     post
 title:      "Python设计模式(三) ——builder模式"
 subtitle:   " \"建造者模式与工厂模式比较类似,但是略有不同\""
-date:       2017-03-1 12:00:00
+date:       2017-07-1 12:00:00
 author:     "Xion"
 header-img: "img/python-design-background03.jpg"
 catalog: true
@@ -42,9 +42,8 @@ tags:
 - Director负责指挥， Builder负责实施；
 - Director负责制定步骤，Builder负责执行具体步骤；
 
-引用[看到的博客总的一句话](http://www.cnblogs.com/byeyear/p/3789832.html)
 
-**说得更加极端一点，只有Director才知道要做出来的是什么东西，但不具体动手；而Builder只负责根据Director的指挥去做事情，但它甚至不知道自己做出来的是什么——虽然最终产品是由Builder交付的。**
+**例如我们要建造一个房子，在建造者模式中。有专门负责建造房子的人(Director)，用来建造房子的步骤(Builder)，和定实际建造房房子的细节(xxxBuilder)以及建造的房子(product)**
 
 乍一看似乎和工厂模式或者抽象工厂模式十分类似,区别在于抽象工厂和工厂模式是为了实现多态,而建造者模式是为了屏蔽复杂对象的创建,将可能存在的多个对象的构建通过"建造者"统一起来,提供固定的创建者.
 
