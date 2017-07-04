@@ -86,91 +86,91 @@ class ConcreteBuilder{
 Director类
 
 ```
-import ABC                                                                          
-                                                                                 
-# Director                                                                       
-class Director(object):                                                             
-                                                                                 
-    def __init__(self):                                                             
-        self.builder = None                                                      
-                                                                                    
-    def construct_building(self):                                                
-        self.builder.new_building()                                              
-        self.builder.build_floor()                                                  
-        self.builder.build_size()                                                
-                                                                                 
-    def get_building(self):                                                      
-        return self.builder.building    
+import ABC
+
+# Director
+class Director(object):
+
+    def __init__(self):
+        self.builder = None
+
+    def construct_building(self):
+        self.builder.new_building()
+        self.builder.build_floor()
+        self.builder.build_size()
+
+    def get_building(self):
+        return self.builder.building
 ```
 
 Builder类
 ```
-# Abstract Builder                                                               
-class Builder(object):                                                           
-    __metaclass__ = ABCMeta                                                      
-    def __init__(self):                                                          
-        self.building = None                                                     
-                                                                                 
-    def new_building(self):                                                      
-        self.building = Building()                                               
-                                                                                 
-    @ABC.abstractmethod                                                          
-    def build_floor(self):                                                          
-        raise NotImplementedError                                                   
-                                                                                    
-    @ABC.abstractmethod                                                             
-    def build_size(self):                                                           
-        raise NotImplementedError  
+# Abstract Builder
+class Builder(object):
+    __metaclass__ = ABCMeta
+    def __init__(self):
+        self.building = None
+
+    def new_building(self):
+        self.building = Building()
+
+    @ABC.abstractmethod
+    def build_floor(self):
+        raise NotImplementedError
+
+    @ABC.abstractmethod
+    def build_size(self):
+        raise NotImplementedError
 ```
 
 两个ConcreteBuilder类
 ```
-# Concrete Builder                                                               
-                                                                                 
-                                                                                 
-class BuilderHouse(Builder):                                                     
-                                                                                 
-    def build_floor(self):                                                       
-        self.building.floor = 'One'                                              
-                                                                                 
-    def build_size(self):                                                        
-        self.building.size = 'Big'                                               
-                                                                                 
-                                                                                 
-class BuilderFlat(Builder):                                                      
-                                                                                 
-    def build_floor(self):                                                       
-        self.building.floor = 'More than One'                                    
-                                                                                 
-    def build_size(self):                                                        
-        self.building.size = 'Small'       
+# Concrete Builder
+
+
+class BuilderHouse(Builder):
+
+    def build_floor(self):
+        self.building.floor = 'One'
+
+    def build_size(self):
+        self.building.size = 'Big'
+
+
+class BuilderFlat(Builder):
+
+    def build_floor(self):
+        self.building.floor = 'More than One'
+
+    def build_size(self):
+        self.building.size = 'Small'
 ```
 
 Product类
 ```
-# Product                                                                        
-class Building(object):                                                          
-                                                                                 
-    def __init__(self):                                                          
-        self.floor = None                                                        
-        self.size = None                                                         
-                                                                                 
-    def __repr__(self):                                                          
-        return 'Floor: {0.floor} | Size: {0.size}'.format(self)      
+# Product
+class Building(object):
+
+    def __init__(self):
+        self.floor = None
+        self.size = None
+
+    def __repr__(self):
+        return 'Floor: {0.floor} | Size: {0.size}'.format(self)
 ```
 
 使用例子
 ```
-if __name__ == "__main__":                                                       
-    director = Director()                                                        
-    director.builder = BuilderHouse()                                            
-    director.construct_building()                                                
-    building = director.get_building()                                           
-    print(building)                                                              
-    director.builder = BuilderFlat()                                             
-    director.construct_building()                                                
-    building = director.get_building()                                           
-    print(building)  
+if __name__ == "__main__":
+    director = Director()
+    director.builder = BuilderHouse()
+    director.construct_building()
+    building = director.get_building()
+    print(building)
+    director.builder = BuilderFlat()
+    director.construct_building()
+    building = director.get_building()
+    print(building)
 ```
 
 ### 类图
@@ -216,4 +216,4 @@ class Builder{
 
 
 *注*：
->所有的设计模式相关的代码都在[这里](https://github.com/xionchen/python-patterns)这也是从别的地方看到的，关于Borg的部分写的十分准确,可以直接参考
+>所有的设计模式相关的代码都在[这里](https://github.com/xionchen/python-patterns)这也是从别的地方看到的，关于builder模式的部分写与文中的内容基本相同,可以直接参考
