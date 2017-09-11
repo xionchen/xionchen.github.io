@@ -70,7 +70,7 @@ duoshuo_short_name : xionchen
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "努力搬砖"
+sidebar-about-description: "人类，男性"
 sidebar-avatar: /img/avatar-xion.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
