@@ -1,0 +1,107 @@
+# 代码简洁之道
+
+## 介绍
+
+### 为什么要保持代码简洁
+> 花时间保持代码整洁不但有关效率，还有关生存
+
+> 代码逻辑应当直截了当，叫缺陷难以隐藏；尽量减少依赖关系，
+使之便于维护；依据某种分层战略完善错误处理代码；性能调至最优，省得引诱别人做没规矩的
+优化
+
+> 读与写花费时间的比例超过 10:1。写新代码时，我们一直在读旧代码。
+### 什么是好代码:
+
+- 能通过所有的测试
+- 没有重复代码,提高构建简单抽象
+- 体现系统中的全部设计理念
+- 包括尽量少的尸体,比如类,方法,函数
+
+### 一种方法
+如果每次签入时，代码都比签出时干净，那么代码就不会腐坏。清理并不一定要花多少功夫，
+也许只是改好一个变量名，拆分一个有点过长的函数，消除一点点重复代码，清理一个嵌套 if 语
+句。
+
+## 命名
+
+### 用好名字对代码可读性的提高
+
+```
+public List<int[]> getThem() {
+List<int[]> list1 = new ArrayList<int[]>();
+for (int[] x : theList)
+if (x[0] == 4)
+list1.add(x);
+return list1;
+}
+```
+
+```
+public List<int[]> getFlaggedCells() {
+List<int[]> flaggedCells = new ArrayList<int[]>();
+for (int[] cell : gameBoard)
+if (cell[STATUS_VALUE] == FLAGGED)
+flaggedCells.add(cell);
+return flaggedCells;
+}
+```
+
+```
+public List<Cell> getFlaggedCells() {
+List<Cell> flaggedCells = new ArrayList<Cell>();
+for (Cell cell : gameBoard)
+if (cell.isFlagged())
+flaggedCells.add(cell);
+return flaggedCells;
+}
+```
+
+### 容易混淆的名字
+
+### 做有意义的区分
+
+### 使用能读出来的名称
+
+### 方法名是动词短语
+
+## 函数
+
+### 短小,保持缩进
+
+### 只做一件事
+in
+### 每个函数一个抽象层级
+
+> 函数内的语句基本是同一个抽象层级的
+
+### switch语句,用抽象取代或者放在抽象层次低的函数
+
+### 用描述性的名称
+
+> 别害怕长名称。长而具有描述性的名称，要比短而令人费解的名称好。长而具有描述性的名
+称，要比描述性的长注释好。使用某种命名约定，让函数名称中的多个单词容易阅读，然后使用
+这些单词给函数取个能说清其功用的名称。
+
+*多花时间在取名上*
+
+### 减少函数参数
+
+- 使用dict封装
+- 使用类封装
+- 不要大于三个
+
+### 不要有副作用
+
+### 输出参数
+```
+例如:
+appendFooter(s);
+public void appendFooter(StringBuffer report)
+更容易理解的方式
+Footer：
+report.appendFooter();
+```
+
+### 函数要么做什么,要么回答什么
+
+### 把try catch代码块单独抽离出来

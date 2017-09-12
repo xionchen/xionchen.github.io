@@ -1,211 +1,48 @@
 ---
 layout:     post
-title:      "如何给你的变量命名"
-subtitle:   " \"手机充电器就是该模式最好的例子\""
-date:       2017-07-1 12:00:00
+title:      "优化变量的几条建议"
+subtitle:   " \"从命名开始提高编程效率\""
+date:       2017-09-10 12:00:00
 author:     "Xion"
 header-img: "img/python-design-background04.jpg"
 catalog: true
 tags:
-    - python
-    - 设计模式
+    - 代码设计
 ---
 
 
+![](/img/true_coder.gif)
 
+现实中的程序员和电影中的程序员
 
-<!-- toc orderedList:0 -->
+相比较于科幻电影中的程序员，现实中的程序员在写代码的时候，大部分实践不是用在了输入上，而是用在了阅读代码上。根据调查，程序员在写和阅读的时间比大约是1:10.通过这个数据，完全可以想象代码的可读性对的编程效率影响有多大。结合大量的实践来看，仅仅对代码中的变量和方法修改成一个合适的名字就能够很大程度上提高代码的可读性。因此，给变量和方法一个正确的名字，是一个低投入高性价比的事情。
 
-- [适配器模式](#适配器模式)
-- [类图](#类图)
-- [例子](#例子)
-	- [代码](#代码)
-	- [类图](#类图-1)
-- [优点&缺点](#优点缺点)
-	- [优点](#优点)
-	- [缺点](#缺点)
-- [规则](#规则)
+道理我们或许都懂，但是想要做好还是需要一点点启发。在这里，结合一些现有的资料和我自己的亲生体会，给大家一些如何优化命名的建议。
 
-<!-- tocstop -->
+# 建议一：如果在同一段代码中有十分相近的命名，改掉它
 
+这是一个容易犯的一个错误，**如果你发先交换两个变量的名字不会妨碍对程序的理解，那么你就需要重新命名了[1]**。假如在一段代码的开头定义了两个十分相似的变量名，然后在接下来的代码中用到这两个变量，最后的结果很有可能是把这两个变量搞混。最让人懊恼的情况是：有的地方搞混了，有的地方没搞混。尤其是在使用python这种动态类型的语言的时候，你的变量就变成了一个**薛定谔的变量**：在这个变量没有被运行产生报错之前，对于阅读这份代码的人，它既是A变量也是B变量。
 
+# 建议二：一旦你想到一个更好的命名，马上改掉它
 
-
-
-
-
-## 适配器模式
-
-我们的手机需要3.6V或者5V的电源来进行充电,但是我们家里面插座使用的电源一般是220V的交流电.所以我们需要手机充电器作为一个适配器来进行电源的转换.
-
-对应到代码中适配器(Adapter)是对于两个不同的接口之间的桥梁
-
-## 类图
-
-构建者模式的类图如下所示:
-
-plantuml代码如下
-![](/img/builder_pattern.png)
-
-使用的puml代码如下
+**变量、函数或类的名称应该已经答复了所有的大问题。它该告诉你，它为什么会存在，它做
+什么事，应该怎么用。如果名称需要注释来补充，那就不算是名副其实。[2]**
+现在在各种IDE，或者编辑器的插件的帮助下，重命名一个变量并不是一件十分繁琐的事情。几乎所有的IDE都提供了重命名的功能，这是有原因的，为什么不用呢？
+借用书中的一个例子来说明这个问题,这里我改成了python版
+有下面一个函数
 ```
-skinparam monochrome true
-"Director" o-- "Builder"
-"Builder" <|-- "ConcreteBuilder"
-"ConcreteBuilder" ..> Product : << create >>
-
-class Director{
-  builder: Builder
-  construct()
-}
-class Builder{
-  builderPart()
-}
-class ConcreteBuilder{
-  builderPart()
-  getResult() :Product
-}
-```
-上面的类图中各个部分的作用如下:
-- Director类提供了构造的函数
-- Builder提供了创造project的接口
-- ConcreteBuilder是实际的Builder
-
-## 例子
-
-### 代码
-
-Director类
-
-```
-import ABC
-
-# Director
-class Director(object):
-
-    def __init__(self):
-        self.builder = None
-
-    def construct_building(self):
-        self.builder.new_building()
-        self.builder.build_floor()
-        self.builder.build_size()
-
-    def get_building(self):
-        return self.builder.building
+def getThem(){
+  list1 = []
+  for x in the_list:
+      if x[0] == 4:
+          list1.append(x)
+  return list1
+} 
 ```
 
-Builder类
-```
-# Abstract Builder
-class Builder(object):
-    __metaclass__ = ABCMeta
-    def __init__(self):
-        self.building = None
-
-    def new_building(self):
-        self.building = Building()
-
-    @ABC.abstractmethod
-    def build_floor(self):
-        raise NotImplementedError
-
-    @ABC.abstractmethod
-    def build_size(self):
-        raise NotImplementedError
-```
-
-两个ConcreteBuilder类
-```
-# Concrete Builder
+# TBD
 
 
-class BuilderHouse(Builder):
 
-    def build_floor(self):
-        self.building.floor = 'One'
-
-    def build_size(self):
-        self.building.size = 'Big'
-
-
-class BuilderFlat(Builder):
-
-    def build_floor(self):
-        self.building.floor = 'More than One'
-
-    def build_size(self):
-        self.building.size = 'Small'
-```
-
-Product类
-```
-# Product
-class Building(object):
-
-    def __init__(self):
-        self.floor = None
-        self.size = None
-
-    def __repr__(self):
-        return 'Floor: {0.floor} | Size: {0.size}'.format(self)
-```
-
-使用例子
-```
-if __name__ == "__main__":
-    director = Director()
-    director.builder = BuilderHouse()
-    director.construct_building()
-    building = director.get_building()
-    print(building)
-    director.builder = BuilderFlat()
-    director.construct_building()
-    building = director.get_building()
-    print(building)
-```
-
-### 类图
-![](\img\python-design-builder-pattern-example.png)
-
-puml代码
-```
-skinparam monochrome true
-"Director" o-- "Builder"
-"Builder" <|-- "BuilderHouse"
-"Builder" <|-- "BuilderFlat"
-"BuilderHouse" ..> Building : << create >>
-"BuilderFlat" ..> Building : << create >>
-
-class Director{
-  builder: Builder
-  construct()
-}
-
-class Builder{
-  builderPart()
-}
-
-```
-## 优点&缺点
-
-### 优点
-
-- 同一个Product类实际上可以是不同的东西(取决于ConcreteBuilder)
-- 封装了构造和表示的代码
-- 控制了构建的过程
-
-### 缺点
-
-- 需要为每个project提供一个单独的ConcreteBuilder类
-- 需要builder类是可变的
-
-## 规则
-
-- creational的模式都是可以互补的,在使用一种模式的时候,你也可以使用别的,例如把builder模式和单例模式结合使用
-- Builder模式最重要的意义是针对复杂的初始化过程.抽象工厂强调的是产品的系列.Builder最后一步才返回对象,但是一旦抽象工厂实现了,对象马上就能返回
-- 通常,设计的开始会使用工厂模式(简单,个性,易于子类的扩展)但是随着面对需求的复杂会专向抽象工厂,Prototype或者是builder模式,这两种模式更加灵活同事也更加复杂.
-
-
-*注*：
->所有的设计模式相关的代码都在[这里](https://github.com/xionchen/python-patterns)这也是从别的地方看到的，关于builder模式的部分写与文中的内容基本相同,可以直接参考
+[1] 《代码大全》 11章变量名的力量
+[2] 《代码简洁之道》 1章
