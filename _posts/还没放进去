@@ -2,7 +2,7 @@ id -u
 id -g
 目录有关操作
 basename
-grep " $TMP_MOUNT_PATH/tmp/ccache" /proc/mounts && exit  
+grep " $TMP_MOUNT_PATH/tmp/ccache" /proc/mounts && exit
 dd echo区别
 file
 sysctl
@@ -13,3 +13,77 @@ parted
 ppc  prep
 partprobe
 kpartx
+sed
+awk
+
+
+3种下载文件的方法
+
+`下面三个例子来源于《fluent python》这本书内容比较丰富，是本好书。我修改了里面的url，让这段代码能改够运行。`
+
+## 方法一，串行
+
+```
+import os
+import time
+import sys
+
+import requests
+
+POP20_CC = ('CN IN US ID BR PK NG RU JP '
+            'MX PH VN ET EG DE IR TR CD FR').split()
+
+BASE_URL = 'http://flags.fmcdn.net/data/flags/h80'
+
+DEST_DIR = 'downloads/'
+
+
+def save_flag(img, filename):
+    path = os.path.join(DEST_DIR, filename)
+    with open(path, 'wb') as fp:
+        fp.write(img)
+
+
+def get_flag(cc):
+    url = '{}/{cc}.png'.format(BASE_URL, cc=cc.lower())
+    resp = requests.get(url)
+    return resp.content
+
+
+def show(text):
+    print(text, end=' ')
+    sys.stdout.flush()
+
+
+def download_many(cc_list):
+    for cc in sorted(cc_list):
+        image = get_flag(cc)
+        show(cc)
+        save_flag(image, cc.lower() + '.png')
+
+    return len(cc_list)
+
+
+def main(download_many):
+    t0 = time.time()
+    count = download_many(POP20_CC)
+    elapsed = time.time() - t0
+    msg = '\n{} flags downloaded in {:.2f}s'
+    print(msg.format(count, elapsed))
+
+
+if __name__ == '__main__':
+    main(download_many)
+
+```
+
+执行结果
+```
+19 flags downloaded in 17.99s
+```
+
+上面的代码虽然简单，也有很多值得学习的地方，变量名命民清晰，方法作用单一明确，代码写的很规范，看到这样的代码，心情都舒畅了一点，假如每天看到的代码都是这样的，估计能多活几年。
+
+## 方法二，并行
+
+`python中的并行`
