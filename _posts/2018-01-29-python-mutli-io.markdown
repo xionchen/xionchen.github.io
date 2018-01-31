@@ -278,7 +278,7 @@ dis.dis(bar)
             8 RETURN_VALUE
 ```
 
-通过上马的结果可以看出，print被转化成来两句，PRINT_ITEM和PRINT_NEWLINE，所以print xxx这个表达不是原子的。
+通过上马的结果可以看出，print被转化成来两句，PRINT_ITEM和PRINT_NEWLINE，所以print xxx这个表达不是原子(并不是说只有一句就是原子的，而是有两句一定不是原子的)的。
 ### 缓存
 
 可是为什么多进程没有问题呢？
