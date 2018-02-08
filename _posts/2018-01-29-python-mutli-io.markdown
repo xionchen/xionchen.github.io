@@ -11,6 +11,33 @@ tags:
     - 并发问题
 ---
 
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [一、性能比较](#一性能比较)
+	- [利用pool创建多进程](#利用pool创建多进程)
+	- [利用pool创建多线程](#利用pool创建多线程)
+- [比较](#比较)
+	- [通过时间比较](#通过时间比较)
+	- [看内部调用](#看内部调用)
+		- [线程](#线程)
+		- [多进程](#多进程)
+- [二、print错乱问题](#二print错乱问题)
+	- [复现](#复现)
+	- [原因](#原因)
+		- [原子操作](#原子操作)
+		- [缓存](#缓存)
+- [三、解决方法](#三解决方法)
+	- [3.1 不用python的换行，而是自己写换行](#31-不用python的换行而是自己写换行)
+		- [例子：](#例子)
+		- [分析](#分析)
+	- [3.2 使用sys.stdout.write()](#32-使用sysstdoutwrite)
+		- [解释](#解释)
+	- [3.3 使用python3](#33-使用python3)
+- [四、总结](#四总结)
+- [注释](#注释)
+
+<!-- /TOC -->
+
 
 # 一、性能比较
 
@@ -350,12 +377,39 @@ do something, args:12
 
 在打印来多行之后，一样会出现错乱的情况
 
-# 解决方法
+# 三、解决方法
 
-## 不用python的换行，而是自己写换行
+## 3.1 不用python的换行，而是自己写换行
 
 将`print "xxx"`写为`print "xxx\n",`
 
+### 例子：
+```
+from multiprocessing import Pool
+WORKER = 10
+
+
+def job(arg):
+    print("do something, args:%s\n\n\n" % arg)
+
+
+def p_map(func, iter, worker):
+    pool = Pool(WORKER)      
+    pool.map(func, iter)
+    pool.close()
+    pool.join()
+
+
+def main():
+    iter_obj = range(1, 20)
+    p_map(job, iter_obj, WORKER)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+### 分析
 差异如下
 ```
 >>> def bar():
@@ -463,23 +517,52 @@ https://github.com/python/cpython.git
 ```
 基本能证实上面的猜想
 
-## 使用sys.stdout.write()
+## 3.2 使用sys.stdout.write()
 
+将上面的代码修改如下:
+```
+from multiprocessing import Pool
+WORKER = 10
+
+
+def job(arg):
+    print("do something, args:%s\n\n\n" % arg)
+
+
+def p_map(func, iter, worker):
+    pool = Pool(WORKER)      
+    pool.map(func, iter)
+    pool.close()
+    pool.join()
+
+
+def main():
+    iter_obj = range(1, 20)
+    p_map(job, iter_obj, WORKER)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+### 解释
 `sys.stdout`是一个文件描述符[3],它指向当期进程的标准输出，一般而言就是指向console。但是
 在unix的世界观下，一切都是文件，console也是个文件。这里调用write就是调用的文件的write，查看一些资料这里
 的写是原子的(由于GIL的存在)。
 
-## 使用python3
+## 3.3 使用python3
 
 python3 在很多地方已经有了不小的改动，并且在2020年python2会停止维护。很多在python2中出现的
 问题，在python3中已经没有来。
 
 使用python3运行一样的代码，将print写成函数的形式，就已经不会有打印错乱的现象了。
 
-# 总结
+
+除此之外换python3还可以获得更好的社区支持。
+# 四、总结
 
 1. 介绍了使用进程池和线程持来进行并发的方法，对比了两者的性能。python中多线程开销小，但是执行的效率没有多进程高。
-2. 示范了timeit，strace的例子。
+2. 示范了timeit，strace的例子做性能调教的例子。
 3. 分析来print错乱的原因。
 4. 给出了三种解决方法。
 
