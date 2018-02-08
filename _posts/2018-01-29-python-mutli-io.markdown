@@ -31,13 +31,13 @@ tags:
 		- [例子：](#例子)
 		- [分析](#分析)
 	- [3.2 使用sys.stdout.write()](#32-使用sysstdoutwrite)
-		- [解释](#解释)
+		- [例子](#例子)
+		- [分析](#分析)
 	- [3.3 使用python3](#33-使用python3)
 - [四、总结](#四总结)
 - [注释](#注释)
 
 <!-- /TOC -->
-
 
 # 一、性能比较
 
@@ -519,7 +519,7 @@ https://github.com/python/cpython.git
 
 ## 3.2 使用sys.stdout.write()
 
-将上面的代码修改如下:
+### 例子
 ```
 from multiprocessing import Pool
 WORKER = 10
@@ -545,7 +545,7 @@ if __name__ == "__main__":
     main()
 ```
 
-### 解释
+### 分析
 `sys.stdout`是一个文件描述符[3],它指向当期进程的标准输出，一般而言就是指向console。但是
 在unix的世界观下，一切都是文件，console也是个文件。这里调用write就是调用的文件的write，查看一些资料这里
 的写是原子的(由于GIL的存在)。
