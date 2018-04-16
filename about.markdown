@@ -16,6 +16,7 @@ ansible | jenkins | git | CI | devops | container<br>
 <br>
 <h2>偶尔也拍点照片</h2>
 <a href="http://xionchen.lofter.com/">我的lofter主页</a><br>
+<h3>by the way,可能在有的博文里看到一些奇奇怪怪的照片</h3>
 <tr>
 <style>
 img {

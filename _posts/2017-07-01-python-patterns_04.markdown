@@ -4,7 +4,7 @@ title:      "Python设计模式(四) ——适配器模式"
 subtitle:   " \"手机充电器就是该模式最好的例子\""
 date:       2017-07-1 12:00:00
 author:     "Xion"
-header-img: "img/python-design-background04.jpg"
+header-img: "img/1528572216.jpg"
 catalog: true
 tags:
     - python

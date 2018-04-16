@@ -4,7 +4,7 @@ title:      "优化变量的几条建议"
 subtitle:   " \"从命名开始提高编程效率\""
 date:       2017-09-10 12:00:00
 author:     "Xion"
-header-img: "img/python-design-background04.jpg"
+header-img: "img/1378279119.jpg"
 catalog: true
 tags:
     - 代码设计
@@ -37,7 +37,7 @@ def getThem(){
       if x[0] == 4:
           list1.append(x)
   return list1
-} 
+}
 ```
 
 # TBD
