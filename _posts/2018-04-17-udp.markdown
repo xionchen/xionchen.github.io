@@ -1,0 +1,72 @@
+---
+layout:     post
+title:      "udp连接报错error no 111原因分析"
+subtitle:   " \"从一个实际的例子出发\""
+date:       2017-09-10 12:00:00
+author:     "Xion"
+header-img: "img/python-design-background04.jpg"
+catalog: true
+tags:
+    - 问题分析
+---
+
+# 问题构造
+
+```
+有以下两个python程序，你可以在本地运行，它们看起来相似，执行起来却有不同的结果
+```
+
+### 程序一
+```python
+import socket
+hostname,port = ('localhost', 1060)
+data = b'123'
+MAX_BYTES=65535
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #[1]
+sock.connect((hostname, port))                          #[2]
+sock.send(data)                                         #[3]
+data = sock.recvfrom(MAX_BYTES)                         #[4]
+print('The server says {!r}'.format(data.decode('ascii')))
+
+```
+- [1] AF_INET表示IP，SOCK_DGRAM表示UDP协议，这句话的意思是创建一个UDP套接字
+- [2] connect不会进行任何网络操作，只是将hostname和port保存到操作系统的内存
+- [3] 发送bytes b'123'
+- [4] 接收请求
+
+#### 运行效果如下
+```
+Traceback (most recent call last):
+  File "test", line 8, in <module>
+    data = sock.recvfrom(MAX_BYTES)
+socket.error: [Errno 111] Connection refused
+```
+
+### 程序二
+```python
+import socket
+hostname,port = ('localhost', 1060)
+data = b'123'
+MAX_BYTES=65535
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #[1]
+sock.connect((hostname, port))
+data = sock.recvfrom(MAX_BYTES)
+print('The server says {!r}'.format(data.decode('ascii')))
+```
+运行后会一直阻塞住
+
+
+### 分析
+
+已知：
+
+- python中的recv就是linux系统调用中的recv。
+- recv默认是阻塞的 。
+- 使用的协议是UDP,面向数据报，而不是面向连接的。
+
+# 问题原因讲解
+
+```
+这个问题挺有意思的，我先是查阅的python的源码，发现没有任何问题，
+然后查阅来别的资料，最后找到了原因，原因我先不写
+```
