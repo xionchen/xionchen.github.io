@@ -2,7 +2,7 @@
 layout:     post
 title:      "udp连接报错error no 111原因分析"
 subtitle:   " \"从一个实际的例子出发\""
-date:       2017-09-10 12:00:00
+date:       2018-04-17 12:00:00
 author:     "Xion"
 header-img: "img/1878823053.jpg"
 catalog: true
@@ -13,7 +13,8 @@ tags:
 # 问题构造
 
 ```
-有以下两个python程序，你可以在本地运行，它们看起来相似，执行起来却有不同的结果
+有以下两个python程序，你可以在本地运行，它们看起来相似，执行起来却有不同的结果。
+最后同样执行来sock.recvfrom这个函数，一个报错了，另一个却没有报错。
 ```
 
 ### 程序一
@@ -53,7 +54,7 @@ sock.connect((hostname, port))
 data = sock.recvfrom(MAX_BYTES)
 print('The server says {!r}'.format(data.decode('ascii')))
 ```
-运行后会一直阻塞住
+运行后会一直阻塞住，但是却不会报错
 
 
 ### 分析
@@ -68,5 +69,26 @@ print('The server says {!r}'.format(data.decode('ascii')))
 
 ```
 这个问题挺有意思的，我先是查阅的python的源码，发现没有任何问题，
-然后查阅来别的资料，最后找到了原因，原因我先不写
 ```
+最终通过在《unix网络编程：卷1套接字联网API》一书中找到了答案。
+
+可以通过一个实验来说吗原因：
+
+## 使用tcpdump抓包
+先开启tcpdump，然后运行上面的第一个程序，tcpdump的结果如下：
+
+```
+➜ sudo tcpdump -i lo "udp or icmp" and dst 127.0.0.1 -v
+tcpdump: listening on lo, link-type EN10MB (Ethernet), capture size 262144 bytes
+01:39:58.454346 IP (tos 0x0, ttl 64, id 1043, offset 0, flags [DF], proto UDP (17), length 31)
+    xion.45117 > xion.1060: UDP, length 3
+01:39:58.454359 IP (tos 0xc0, ttl 64, id 15527, offset 0, flags [none], proto ICMP (1), length 59)
+    xion > xion: ICMP xion udp port 1060 unreachable, length 39
+
+```
+
+这个ICMP是一个**异步错误**(asynchronous error)。这个错误是又sendto引起的，但是到了sendto是返回成功的。
+
+但是sendto的返回是成功仅仅表示的是接口输出队列中具有存放所形成的ip数据报的空间。这个错，直到下一次udp操作的时候才会被返回。
+
+对于upd套接字而言，有一个基本规则：由它引发的错误不返回给它，除非它已经建立连接。也就是说如果上述的两个程序总，都没用调用connect那么这个错误也不会被返回来。
