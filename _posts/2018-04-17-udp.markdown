@@ -72,7 +72,7 @@ print('The server says {!r}'.format(data.decode('ascii')))
 ```
 最终通过在《unix网络编程：卷1套接字联网API》一书中找到了答案。
 
-可以通过一个实验来说吗原因：
+可以通过一个实验来说明原因：
 
 ## 使用tcpdump抓包
 先开启tcpdump，然后运行上面的第一个程序，tcpdump的结果如下：
@@ -87,7 +87,7 @@ tcpdump: listening on lo, link-type EN10MB (Ethernet), capture size 262144 bytes
 
 ```
 
-这个ICMP是一个**异步错误**(asynchronous error)。这个错误是又sendto引起的，但是到了sendto是返回成功的。
+这个与upd中的**异步错误有关**：这个ICMP是一个**异步错误**(asynchronous error)。这个错误是又sendto引起的，但是sendto是返回成功的，直到下次调用receive的时候才被返回给进程。因此上面的两段代码有了不同的表象。
 
 但是sendto的返回是成功仅仅表示的是接口输出队列中具有存放所形成的ip数据报的空间。这个错，直到下一次udp操作的时候才会被返回。
 
