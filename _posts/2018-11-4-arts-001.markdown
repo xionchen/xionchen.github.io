@@ -2,13 +2,17 @@
 layout:     post
 title:      "ARTS_001"
 subtitle:   " \"week 01, keep going\""
-date:       2018-05-05 12:00:00
+date:       2018-11-03 12:00:00
 author:     "Xion"
 header-img: "img/arts.jpg"
 catalog: true
 tags:
-    - arts 
+    - arts
+    - 算法
 ---
+
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 
 
 这是[耗子叔](https://coolshell.cn)发起的一个活动，每周为一个周期,需要完成以下内容
