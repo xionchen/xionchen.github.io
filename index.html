@@ -4,6 +4,7 @@ description: "没事多看看,没坏处"
 ---
 
 {% for post in paginator.posts %}
+{% unless post.tags contains 'arts' %}
 <div class="post-preview">
     <a href="{{ post.url | prepend: site.baseurl }}">
         <h2 class="post-title">
@@ -23,6 +24,7 @@ description: "没事多看看,没坏处"
         </p>
 </div>
 <hr>
+{% endunless %}
 {% endfor %}
 
 <!-- Pager -->
