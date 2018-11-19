@@ -1,0 +1,255 @@
+---
+layout:     post
+title:      "RL Course by David Silver"
+subtitle:   " \"RL基本的概念理解\""
+date:       2018-11-17 12:00:00
+author:     "Xion"
+header-img: "img/rl.jpg"
+catalog: true
+tags:
+    - 强化学习
+---
+
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+* [RL Course by David Silver](#rl-course-by-david-silver)
+* [Lecture 1: Introduction to Reinforcement Learning](#lecture-1-introduction-to-reinforcement-learning)
+	* [两本书推荐](#两本书推荐)
+	* [什么是强化学习](#什么是强化学习)
+	* [RL的特点](#rl的特点)
+	* [强化学习](#强化学习)
+		* [example of reward](#example-of-reward)
+		* [Agent and Environment](#agent-and-environment)
+		* [History and State](#history-and-state)
+			* [State](#state)
+			* [例子](#例子)
+		* [full Observable](#full-observable)
+		* [Partal observability](#partal-observability)
+	* [RL agent的组成](#rl-agent的组成)
+		* [policy](#policy)
+		* [Value function](#value-function)
+		* [model](#model)
+		* [例子](#例子-1)
+	* [RL分类](#rl分类)
+	* [Learning and Planning](#learning-and-planning)
+	* [balance Exploration and Exploitation](#balance-exploration-and-exploitation)
+	* [Prediction and Control](#prediction-and-control)
+	* [总结](#总结)
+
+<!-- /code_chunk_output -->
+
+
+# RL Course by David Silver 
+
+#Lecture 1: Introduction to Reinforcement Learning
+
+
+## 两本书推荐
+- An Introduction to Reinforcement Learning, Sutton and
+Barto, 1998
+概念多一些
+- Algorithms for Reinforcement Learning, Szepesvari
+数学细节多一些
+
+都有免费的online版本
+
+## 什么是强化学习
+
+![](/img/intro_RL.png)
+
+多种交叉的学科
+
+## RL的特点
+-  no supervisor, only a reward signal
+- Feddback is delayed, not instantaneous
+- time really matters（连续的处理）
+- Agent’s actions affect the subsequent data it receives(与环境产生交互)
+
+## 强化学习
+
+每个时刻都有一个$R_t$,表示t时刻的reward。强化学习的目标就是最大化$R_t$。
+
+### example of reward
+- Fly stunt manoeuvres in a helicopter
+    - +ve reward for following desired trajectory
+    - −ve reward for crashing
+- Defeat the world champion at Backgammon
+    -   +/−ve reward for winning/losing a game
+- Manage an investment portfolio
+    - +ve reward for each $ in bank
+- Control a power station
+    - +ve reward for producing power
+    - −ve reward for exceeding safety thresholds
+- Make a humanoid robot walk
+    - +ve reward for forward motion
+    - −ve reward for falling over
+
+目标：选择最大化$R_t$的action
+- action可能影响时间很长
+- 可能会延迟
+- 可能需要放弃一些暂时的reward
+
+### Agent and Environment
+
+![](/img/intro_RL2.png)
+
+在每个时间，对于agent而言
+- 执行动作$A_t$
+- 收到环境信息$O_t$
+- 收到reward$R_t$
+
+在每个时间，对于enviroment而言
+- 收到动作$A_t$
+- 发出$O_t$
+- 发出$R_t$
+
+### History and State
+**history**：
+$H_t = O_1,R_1,A_1,...A_t-1,O_t,R_t$
+
+将要发生的事情，取决于$H_t$
+
+**State**是信息的summary
+$S_t = f(H_t)$
+
+#### State
+
+**environment state** $S_t^e$
+
+environment对于agent是不可见的，即使可见也包含不相干的内容
+
+**agent state** $S_t^a$
+
+可以是$H_t$的任意函数
+$S_t^a = f(H_t)$
+
+**information state(a.k.a Markov state)**
+含有所有的历史有信息,是个信息论的该你那
+当下面条件满足的时候$S_t$是 Markov
+$P[S_{t+1}|S_t]=P[S_{t=1}|S_1,..,S_t]$
+- 未来与过去是独立的
+$H_{1:t} --> S_t --> H_{t+1: \infty}$
+
+- 一旦state确定了，所有的history都可以被丢弃
+- environment state $S_t^e$ 是 Markov
+- history of everything $H_t$是Markov
+
+
+#### 例子
+![](/img/intro_RL3.png)
+
+### full Observable
+
+$O_t = S_t^a=S_t^e$
+即可以观察到所有情况，这是个 Markov decision process(MDP)
+
+### Partal observability
+
+agent state != environment state
+
+通常这是个 **partially observable Markov decision process(POMDP)**
+
+这样agent需要有自己的state，例如
+- 完整的历史$S_t^a = H_t$
+- 对环境状态分布的估计$S_t^a =(P[s_t^e=s1],...,p[S_t^e=s_n])$
+- RNN $S_t^a = \sigma(S_t-1^a W_S +O_tW_o)$
+
+## RL agent的组成
+下面这些并不一定是都是必要的
+
+- Policy agent如何选择action
+- Value function 如何评价一个state或者是action
+- Model 表示environment
+
+### policy
+policy是agent的行为
+他是state到action的映射
+**确定的policy**
+$a=\pi(s)$
+**随机的policy**
+$\pi(a|s)=P[A_t=a|S_t=s]$
+
+### Value function
+评估action
+
+$V_{\pi}(s)=E_\pi[R_t+\gamma R_{t+1}+\gamma ^2 R_{t+2}|S_t=s]$
+
+### model
+
+model预测环境
+$P$预测next state
+$R$预测 next(immediate) review
+![](/img/infro_RL_f1.png)
+
+### 例子
+
+![](/img/infro_RL_example.png)
+
+## RL分类
+- Value Based
+    - No policy(implicit)
+    - Value Function
+- Policy Base
+    - Policy
+    - No value Function
+- Actor Critic 结合两者
+    - Policy
+    - Value Function
+
+---
+- Model Free
+    - Policy and/or ValueFunction
+    - No model
+- Model base
+    - Policy and/or value function
+    - model
+![](/img/intro_RL_cate.png)
+
+## Learning and Planning
+
+- 强化学习
+    - 环境不可知
+    - agent与环境交互
+    - 提升policy
+- Planning
+    - model可知
+    - agent的行为可由model得到
+    - agent提升policy
+    - a.k.a. deliberation, reasoning, introspection, pondering,
+thought, search 更像搜索
+
+
+## balance Exploration and Exploitation
+
+Exploitation: 最大化以知最优
+Exploration：最大化经验化环境
+
+例子：
+- Restaurant Selection
+    - Exploitation Go to your favourite restaurant
+    - Exploration Try a new restaurant
+- Online Banner Advertisements
+    - Exploitation Show the most successful advert
+    - Exploration Show a different advert
+- Oil Drilling
+    - Exploitation Drill at the best known location
+    - Exploration Drill at a new location
+- Game Playing
+    - Exploitation Play the move you believe is best
+    - Exploration Play an experimental move
+
+## Prediction and Control
+
+预测：Given a policy，衡量它
+控制：选择最好的策略
+
+## 总结
+
+- $O_t,R_t,A_t$ 表示的是agent与环境的交互
+- $H_t$,$S_t$ 表示的是历史的提炼
+- $S_t$ 是 Markov 可以理解为信息足够，可以进行推断
+- agent中model，policy，value funcion和分类
+- 强化学习用于解决不同的问题，Learning和Planing，Prediction和Control，Exploration and Exploitation

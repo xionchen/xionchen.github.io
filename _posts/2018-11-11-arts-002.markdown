@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      "ARTS_002"
-subtitle:   " \"week 02\""
+title:      "ARTS_003"
+subtitle:   " \"week 03\""
 date:       2018-11-11 12:00:00
 author:     "Xion"
 header-img: "img/arts.jpg"
@@ -34,6 +34,10 @@ tags:
 			* [Approximate Dynamic Programming 类动态规划](#approximate-dynamic-programming-类动态规划)
 		* [直接搜索策略](#直接搜索策略)
 			* [抽样优化](#抽样优化)
+				* [Policy Gradient](#policy-gradient)
+				* [纯随即搜索](#纯随即搜索)
+		* [深度强化学习](#深度强化学习)
+		* [总结](#总结)
 * [Tip](#tip)
 * [Share](#share)
 

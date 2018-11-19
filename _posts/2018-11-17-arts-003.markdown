@@ -1,0 +1,355 @@
+---
+layout:     post
+title:      "ARTS_003"
+subtitle:   " \"week 03\""
+date:       2018-11-17 12:00:00
+author:     "Xion"
+header-img: "img/arts.jpg"
+catalog: true
+tags:
+    - arts
+    - 算法
+    - 动态规划 
+    - 强化学习
+---
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+* [[Algrothm] knight-dialer](#algrothm-knight-dialer)
+	* [problem](#problem)
+	* [思路](#思路)
+	* [我的解法](#我的解法)
+		* [递归](#递归)
+		* [存储](#存储)
+		* [改为递归](#改为递归)
+	* [solution](#solution)
+* [[Review]](#review)
+* [[Tip] python type hint](#tip-python-type-hint)
+	* [what](#what)
+	* [why](#why)
+	* [how](#how)
+* [[Share] 美团技术leader：写给工程师的十条精进原则](#share-美团技术leader写给工程师的十条精进原则)
+
+<!-- /code_chunk_output -->
+
+
+这是[耗子叔](https://coolshell.cn)发起的一个活动，每周为一个周期,需要完成以下内容
+
+ - Algrothm: leetcode算法题目
+ - Review: 阅读并且点评一篇英文技术文章
+ - Tip/Techni: 学习一个技术技巧
+ - Share: 分享一篇有观点和思考的技术文章
+
+# [Algrothm] knight-dialer
+
+## problem
+
+https://leetcode.com/problems/knight-dialer/
+
+```
+A chess knight can move as indicated in the chess diagram below:
+
+ .           
+
+图片可以点击原链接查看 
+
+This time, we place our chess knight on any numbered key of a phone pad (indicated above), and the knight makes N-1 hops.  Each hop must be from one key to another numbered key.
+
+Each time it lands on a key (including the initial placement of the knight), it presses the number of that key, pressing N digits total.
+
+How many distinct numbers can you dial in this manner?
+
+Since the answer may be large, output the answer modulo 10^9 + 7.
+
+ 
+
+Example 1:
+
+Input: 1
+Output: 10
+Example 2:
+
+Input: 2
+Output: 20
+Example 3:
+
+Input: 3
+Output: 46
+ 
+
+Note:
+
+1 <= N <= 5000
+```
+
+## 思路
+
+
+- 获取到状态转移的关系
+- 这是一个典型的动态规划的问题，可以按照三个步骤的思路来处理(https://xionchen.github.io/2018/11/03/arts-001/#dp%E7%90%86%E8%A7%A3)
+    - 递归
+    - 存储
+    - 改为从头开始 
+
+## 我的解法
+
+- 状态转移关系，用字典表示
+```
+        {1:[6,7],
+         2:[7,9],
+         3:[4,8],
+         4:[3,9,0],
+         5:[],
+         6:[1,7,0],
+         7:[2,6],
+         8:[1,3],
+         9:[2,4],
+         0:[4,6]}
+```
+### 递归
+```
+     def knightDialer(self, N):
+        """
+        :type N: int
+        :rtype: int
+        """
+        def move_to(now_number, n):
+            key = '{}|{}'.format(n, now_number)
+
+            if n == 1:
+                if move_to_cache.get(key):
+                    return move_to_cache.get(key)
+                move_to_cache[key] = len(preview_numbers_of[now_number])
+                return len(preview_numbers_of[now_number])
+            else:
+                if move_to_cache.get(key):
+                    return move_to_cache.get(key)
+                now = 0
+                for number in preview_numbers_of[now_number]:
+                    now += move_to(number, n-1)
+
+                move_to_cache[key] = now
+                return now
+
+        preview_numbers_of = {1: [6, 8],
+                              2: [7, 9],
+                              3: [4, 8],
+                              4: [3, 9, 0],
+                              6: [1, 7, 0],
+                              7: [2, 6],
+                              8: [1, 3],
+                              9: [2, 4],
+                              0: [4, 6]}
+        move_to_cache = {}
+
+        if N == 1:
+            return 10
+        else:
+            sum_num = 0
+            for k, v in preview_numbers_of.items():
+                sum_num += move_to(k, N-1)
+            return sum_num   
+```        
+
+显然这样效率非常低，可以profile以下看看，求N=10的情况下，move to被调用了6576次，显然其中有很多重复求解的情况
+
+```
+move_to	11643	3	3
+<method 'items' of 'dict' objects>	1	0	0
+<built-in method builtins.__build_class__>	1	0	0
+<built-in method builtins.len>	6576	0	0
+<built-in method builtins.print>	1	0	0
+<module>	1	3	0
+Solution	1	0	0
+knightDialer	1	3	0
+```
+
+### 存储
+```
+  class Solution(object):
+    def knightDialer(self, N):
+        """
+        :type N: int
+        :rtype: int
+        """
+        def move_to(now_number, n):
+            key = '{}|{}'.format(now_number,n)
+
+            if n == 1:
+                if move_to_cache.get(key):
+                    return move_to_cache.get(key)
+                move_to_cache[key] = len(preview_numbers_of[now_number])
+                return len(preview_numbers_of[now_number])
+            else:
+                if move_to_cache.get(key):
+                    return move_to_cache.get(key)
+                now = 0
+                for number in preview_numbers_of[now_number]:
+                    now += move_to(number, n-1)
+
+                move_to_cache[key] = now
+                return now
+
+        preview_numbers_of = {1: [6, 8],
+                              2: [7, 9],
+                              3: [4, 8],
+                              4: [3, 9, 0],
+                              6: [1, 7, 0],
+                              7: [2, 6],
+                              8: [1, 3],
+                              9: [2, 4],
+                              0: [4, 6]}
+        move_to_cache = {}
+        if N == 1:
+            return 10
+        else:
+            sum_num = 0
+            for k, v in preview_numbers_of.items():
+                sum_num += move_to(k, N-1)
+            return sum_num
+
+
+if __name__ == '__main__':
+    s = Solution()
+    print(s.knightDialer(N=10))  
+```        
+
+再profle一下看看
+
+```
+<method 'format' of 'str' objects>	169	0	0
+<method 'get' of 'dict' objects>	257	0	0
+<method 'items' of 'dict' objects>	1	0	0
+<built-in method builtins.__build_class__>	1	0	0
+<built-in method builtins.len>	18	0	0
+<built-in method builtins.print>	1	0	0
+<module>	1	0	0
+move_to	169	0	0
+Solution	1	0	0
+knightDialer	1	0	0
+```
+
+结果显然好了不少
+
+
+### 改为递归
+```
+    def knightDialer(self, N):
+        preview_numbers_of = [ [4, 6],  [6, 8],  [7, 9],  [4, 8], [0, 3, 9], [], [0, 1, 7], [2, 6], [1, 3],
+              [2, 4]]
+        dp = [[0] * 10 for _ in range(N)]
+        mod = 10 ** 9 + 7
+        for i in range(10): dp[0][i] = 1
+
+        for i in range(1, N):
+            for j in range(10):
+                for number in preview_numbers_of[j]:
+                    dp[i][j] += dp[i - 1][number]
+                dp[i][j] %= mod
+
+        return sum(dp[N - 1]) % mod
+```
+
+其实改为递归之后还是存在超时问题，后来修改了不少地方：
+- 状态转移字典改为数组，减少了hash
+- 列表推导改为了循环，使用inner操作
+- 之前没注意还有mod 10 ** 9 +7 ，加上了
+- 一样的代码要多跑几遍，leetcode的服务器有时候比较慢
+
+最终才没有超时
+
+## solution
+官反提供的solution基本与自己实现的一致，有一些小细节不一样。
+
+```
+class Solution(object):
+    def knightDialer(self, N):
+        MOD = 10**9 + 7
+        moves = [[4,6],[6,8],[7,9],[4,8],[3,9,0],[],
+                     [1,7,0],[2,6],[1,3],[2,4]]
+
+        dp = [1] * 10
+        for hops in xrange(N-1):
+            dp2 = [0] * 10
+            for node, count in enumerate(dp):
+                for nei in moves[node]:
+                    dp2[nei] += count
+                    dp2[nei] %= MOD
+            dp = dp2
+        return sum(dp) % MOD
+```
+
+- dp不是一次性生成的，是append出来的，这个看了python里面list的实现，基本与java一致，是数组，所以一次性生存可以防止频繁的resize。
+- 使用了xrange，这个在python3中就没去别了，py2里面xrange比较快。
+- 每一步都mod，参考了[python里面加法的实现](https://www.laurentluce.com/posts/python-integer-objects-implementation/),这样确实能够减少运算。
+
+
+# [Review]
+还是强化学习有关内容
+https://github.com/wwxFromTju/awesome-reinforcement-learning-zh
+
+内容比较多，并且独立完整，所有详细的内容记录在了这里
+[RL Course by David Silver](/2018/11/17/RL/)
+
+# [Tip] python type hint 
+
+
+## what
+https://www.python.org/dev/peps/pep-0484/
+
+这个特性我非常喜欢，正好最经用到了。其实就是python的类型提示，它有什么用呢？
+
+## why
+python的优点在于灵活，缺点也在于灵活，所以这个语言的下限其实非常低，可以写出非常难以阅读的代码。类型提示在某种程度上可以有效的改善这种情况。
+
+正如我在[一篇博客](https://xionchen.github.io/2017/09/10/how-to-name-varible/)里面提到，**阅读源码的时间是你写代码时间的十倍以上**。任何写起来爽的同时降低的代码可读性的操作都是一时之爽。
+
+这点上有点类似mongodb一样，mongodb在易用性下了大功夫，但是在事务处理，安全方面却做的不是很好，维护成本非常高。这就导致了一个现象，大家一开始做poc或者创业公司很喜欢用mongodb。但是随着业务压力的上升，渐渐的都只能离开它(这种情况近几年有所改善)。
+
+所以**生孩子**的效率固然重要，但是绝对不能忽视**养孩子**的成本。
+
+说了这么多就是为了说明一件事，type hint用好了，真的很有用。它能有效的帮助代码最初的设计结构不被破坏，有效的提高代码可读性，而且还有一点，自动提升能更加准确和智能。
+
+## how
+
+首先是官方的[文档](https://docs.python.org/3/library/typing.html)
+如果有一点python基础的话应该很快就能掌握。这里我只简单的写个例子。
+
+```
+from type import List
+class Book:
+    def __init__(self):
+        ...
+
+class BookService:
+    def __init__(self):
+       ...
+       ...
+    
+    def get_books_by_type(type: str) -> List(Book):
+       ...
+
+```
+这样就很明确，type是一个str类型，它会返回一个Book的list。
+
+这样避免的type这个变量的模糊和返回类型的模糊，如果没有标注，有的人可能试图传入一个别的类型作为type，或者在修改代码的时候直接返回一个Book obj而不是Book 的list。
+
+当然，这些都能写道函数的注释里，但是我的观点的代码的自解释性优先与注释。所以更推荐这种方式。
+
+# [Share] 美团技术leader：写给工程师的十条精进原则
+
+[美团技术leader：写给工程师的十条精进原](https://mp.weixin.qq.com/s?__biz=MzI2MTIzMzY3Mw==&mid=2247486912&idx=1&sn=b71bbaab558745a3658171ad205ac148&chksm=ea5cc0a6dd2b49b01f4735343633cbc32642e6b6ea85be094faf566d292da64fde04b1f55b67&mpshare=1&scene=1&srcid=11175R3J4PqrFn3XGcTpJnBU&pass_ticket=Fj91IQqnz1DbIoqdo%2Bm7aT0dkonybsX2Ekd3flay5U58%2BgUjR%2BlDBsbDa2QsvOlb#rd)
+
+
+这些都是进入职场的工程师必备的素质:
+- Owner意识
+- 时间观念
+- 以始为终
+- 保持敬畏
+- 事不过二
+- 设计优先
+- P/PC平衡
+- 善于提问
+- 空杯心态
