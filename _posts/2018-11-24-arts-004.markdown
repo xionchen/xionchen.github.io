@@ -1,0 +1,216 @@
+---
+layout:     post
+title:      "ARTS_004"
+subtitle:   " \"week 04\""
+date:       2018-11-25 12:00:00
+author:     "Xion"
+header-img: "img/arts.jpg"
+catalog: true
+tags:
+    - arts
+    - 算法
+    - 动态规划 
+    - 强化学习
+---
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+* [[Algrothm]  Find Duplicate Subtrees](#algrothm-find-duplicate-subtrees)
+	* [problem](#problem)
+	* [思路](#思路)
+	* [我的解法](#我的解法)
+	* [solution](#solution)
+* [[Review]](#review)
+* [[Tip] python type hint](#tip-python-type-hint)
+	* [what](#what)
+	* [why](#why)
+	* [how](#how)
+* [[Share] 美团技术leader：写给工程师的十条精进原则](#share-美团技术leader写给工程师的十条精进原则)
+
+<!-- /code_chunk_output -->
+
+
+这是[耗子叔](https://coolshell.cn)发起的一个活动，每周为一个周期,需要完成以下内容
+
+ - Algrothm: leetcode算法题目
+ - Review: 阅读并且点评一篇英文技术文章
+ - Tip/Techni: 学习一个技术技巧
+ - Share: 分享一篇有观点和思考的技术文章
+
+# [Algrothm]  Find Duplicate Subtrees
+
+## problem
+
+https://leetcode.com/problems/find-duplicate-subtrees/
+
+```
+652. Find Duplicate Subtrees
+Medium
+571
+124
+
+
+Given a binary tree, return all duplicate subtrees. For each kind of duplicate subtrees, you only need to return the root node of any one of them.
+
+Two trees are duplicate if they have the same structure with same node values.
+
+Example 1:
+
+        1
+       / \
+      2   3
+     /   / \
+    4   2   4
+       /
+      4
+The following are two duplicate subtrees:
+
+      2
+     /
+    4
+and
+
+    4
+Therefore, you need to return above trees' root in the form of a list.
+```
+
+## 思路
+
+- 从树顶开始找，生存所有子树
+例如按照图中所示例子：
+
+树：[1,2,3,4,null,2,4,null,null,4,null,null,null]
+
+- 第一层，[2,4,null],[3,2,4,4,null,null,null]
+- 第二层，[4],[2,4,null],[4]
+- 第三层次，[4]
+
+相同的有[2,4,null],[4]
+
+在遍历上可以做一些优化：
+
+
+
+
+## 我的解法
+
+最直接粗暴的解法
+```python
+class Solution:
+    def findDuplicateSubtrees(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[TreeNode]
+        """
+
+        def treeNodeToString(root):
+            if not root:
+                return "[]"
+            output = ""
+            queue = [root]
+            current = 0
+            while current != len(queue):
+                node = queue[current]
+                current = current + 1
+
+                if not node:
+                    output += "null, "
+                    continue
+
+                output += str(node.val) + ", "
+                queue.append(node.left)
+                queue.append(node.right)
+            return "[" + output[:-2] + "]"
+
+        if not root:
+            return []
+        all_tree = set()
+        dup_tree = set()
+        ret = []
+
+        pre_layer = [root]
+
+        while True:
+            now_layer = [child for node in pre_layer for child in [node.left, node.right]]
+            pre_layer = [node for node in now_layer if node]
+            if not any(now_layer):
+                break
+            for node in now_layer:
+                if not node:
+                    continue
+                node_list = treeNodeToString(node)
+                if node_list in all_tree and node_list not in dup_tree:
+                    dup_tree.add(node_list)
+                    ret.append(node)
+                all_tree.add(node_list)
+        return ret
+```
+
+
+中间修改了很多内容，但是本来不打算使用递归，但是写起来就非常复杂，最终采用了递归
+
+```
+ class Solution(object):
+    def findDuplicateSubtrees(self, root):
+        def dfs(root):
+            if not root: return '*'
+            tree_str = str(rool.val) + dfs(root.left) + dfs(root.right) 
+            if tree in dic and dic[tree] == 1:
+                res.append(root)
+            dic[tree] = dic.get(tree_str, 0) + 1
+            return tree
+        res = []
+        dic = {}
+        dfs(root)
+        return res   
+```
+
+
+## solution
+```
+class Solution(object):
+    def findDuplicateSubtrees(self, root):
+        trees = collections.defaultdict()
+        trees.default_factory = trees.__len__
+        count = collections.Counter()
+        ans = []
+        def lookup(node):
+            if node:
+                uid = trees[node.val, lookup(node.left), lookup(node.right)]
+                count[uid] += 1
+                if count[uid] == 2:
+                    ans.append(node)
+                return uid
+
+        lookup(root)
+        return ans
+```
+这个答案改进了一步，如果已经计算过的结果就会直接得出，不会再计算一边
+
+
+对于二叉树，采用递归的方式，一般不会造成多余的计算，因为无论是bfs还是dfs，都之会完整的遍历树一遍。
+
+# [Review]
+还是强化学习有关内容
+https://github.com/wwxFromTju/awesome-reinforcement-learning-zh
+
+内容比较多，并且独立完整，所有详细的内容记录在了这里
+[RL Course by David Silver](/2018/11/17/RL/)
+
+# [Tip] python ray 
+
+ray是一个分布式执行引擎。
+
+[文档](https://ray.readthedocs.io/en/latest/tutorial.html)
+[这里](https://www.cnblogs.com/fanzhidongyzby/p/7901139.html)讲的还比较清楚
+
+
+
+# [Share] We Don't Need More Coders
+
+- We are drowning in technology that was created for its own sake, then aggressively marketed, lobbied, and otherwise pushed to reluctant consumers.
+
+
+是一个讲述技术危害的文章，个人感觉讲的比较片面，但是也值得一看
