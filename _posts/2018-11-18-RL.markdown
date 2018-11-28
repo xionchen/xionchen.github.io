@@ -38,6 +38,16 @@ tags:
 	* [balance Exploration and Exploitation](#balance-exploration-and-exploitation)
 	* [Prediction and Control](#prediction-and-control)
 	* [总结](#总结)
+* [Lecture 2: Markov Decision Process](#lecture-2-markov-decision-process)
+	* [Markov Processes](#markov-processes)
+		* [Introduction](#introduction)
+		* [Markov Property](#markov-property)
+	* [Markov Reward Process](#markov-reward-process)
+		* [Value Function](#value-function-1)
+		* [Example](#example)
+	* [MDP Markov Decision Process](#mdp-markov-decision-process)
+		* [例子](#例子-2)
+		* [Example Optimal value fn](#example-optimal-value-fn)
 
 <!-- /code_chunk_output -->
 
@@ -253,3 +263,187 @@ Exploration：最大化经验化环境
 - $S_t$ 是 Markov 可以理解为信息足够，可以进行推断
 - agent中model，policy，value funcion和分类
 - 强化学习用于解决不同的问题，Learning和Planing，Prediction和Control，Exploration and Exploitation
+
+# Lecture 2: Markov Decision Process
+
+## Markov Processes
+
+### Introduction
+
+- Almost all RL problems can be formalised as MDPs
+
+### Markov Property
+
+- state是有足够的统计量用于预测未来
+
+ ![](/img/MK_01.png)
+
+ ### Markov Chains
+
+ Markov Process(or Markov Chain)
+
+ S 是一组状态
+ P 是状态转移概论矩阵
+ $P_{ss'}=P[S_{t+1}=s'|S_t=s]$
+
+ ### Example: Student Markov Chain
+
+
+ ![](/img/MK_02.png)
+
+ 进行sample 有这些可能的序列
+
+ ![](/img/MK_03.png)
+
+ Transition Matrix
+
+ ![](/img/MK_04.png)
+
+## Markov Reward Process
+
+带有value judgement的 Markov 过程
+
+ S 是一组状态
+ P 是状态转移概论矩阵
+ $P_{ss'}=P[S_{t+1}=s'|S_t=s]$
+ $R_s=E[R_{t+1}|S_t=s]$
+
+ ### Student MRP
+
+ ![](/img/MK_04.png)
+
+ ### return 
+G： Goal
+ $G_t=R_{t=1}+\gamma R_{t+2}=\sum_{k=0} \gamma^k R_{t+k+1}$
+
+ $\gamma$ 是 discount 属于 [0,1]
+$\gamma$ 接近0 会比较贪心,接近1则会导致比较长远的进化
+
+为什么使用discount
+
+- 数学上方便
+- 防止Markov process中的环
+- 没有环境的完美model，所与更远的reword,占比更小
+- 人和动物都对马上发生的事情反映
+- 如果在经济上，表示了interest
+- 如果知道序列会终止，可以不使用discount
+
+### Value Function
+
+$v(s)=E[G_t|S_t=s]$
+
+如果你从state s开始，Goal是什么。
+
+### Example
+
+$S_1=C_1$做sample，然后按照公式计算，gamma取0.5
+ ![](/img/MK_return.png)
+
+ gamma取0
+
+ ![](/img/MK_gamma0.png)
+
+ gamma取0.9
+
+ ![](/img/MK_gamma09.png)
+
+ ### Bellman Equation
+
+ value function 由两部分组成
+ - 立刻的reward $R_{t+1}$
+ - discounted 的 接下来的状态$\gamma v(S_{t+1})$
+
+ ![](/img/MK_10.png)
+ ![](/img/MK_11.png)
+
+ ### Example
+
+ ![](/img/MK_12.png)
+
+ ### Bellman Equation in Matrix Form
+
+ $v = R + \gamma P v$
+ R 马上的回报
+
+ 
+ ![](/img/MK_13.png)
+
+ ### Solving the Bellman Equation
+
+ ![](/img/MK_14.png)
+
+
+## MDP Markov Decision Process
+
+马尔科夫过程是一个元组$S,A,P,R,\gamma$
+
+$S$ 是一组有限的states集合
+$A$ 是一组有限的action集合
+$P$ 是一个状态转换概率矩阵
+$P_{ss'}^a=P[S_{t+1}=s|S_t=s,A_t=a]$
+$R$是reward function，$R_s^a=E[R_{t+1}|S_t=s,A_t=a]$
+$\gamma$ 是 discount factor
+
+### 例子
+
+
+ ![](/img/MK_15.png)
+
+ ### policy
+
+A policy π is a distribution over actions given states,
+$π(a|s) = P [A_t = a | S_t = s]$ 
+
+- policy 具有对于agent行为的完全的定义
+- 在MDP中，action只基现在的状态
+
+ ![](/img/MK_16.png)
+
+
+ ### Value Function
+state-value function:
+从s状态，遵从policy pi 的 期望 
+
+ $v_π (s) = E_π [G_t | S_t = s]$
+
+action-valute function:
+
+在s 状态，采取a操作，然后遵从policy pi 的期望
+
+ $q π (s, a) = E π [G t | S t = s, A t = a]$
+
+ ### value function example
+
+ ![](/img/MK_17.png)
+
+ ### Bellman Expectation Equation
+
+ ![](/img/MK_18.png)
+
+ ### Bellman Expectation Equation 
+
+ ![](/img/MK_19.png)
+
+
+ ## Optimal Value Function
+
+在所有的policies下有可能获得的最大值
+$v_∗ (s) = \max v_π (s)$
+π
+
+在action下能获得的最大数值
+$q_∗ (s, a) = \max q_π (s, a)$
+
+- optimal value fn 表明了MDP有可能的最好性能
+- 如果optimal value fn能够被知道，那么MDP就被"解决了" 
+
+
+### Example Optimal value fn
+
+ ![](/img/MK_20.png)
+
+ ## Optimal Policy
+
+ 如果有 
+
+ $π ≥ π'  if v_π (s) ≥ v_{π'}(s), ∀s$
