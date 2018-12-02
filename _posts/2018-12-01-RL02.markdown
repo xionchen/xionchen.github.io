@@ -1,0 +1,103 @@
+---
+layout:     post
+title:      "RL Course by David Silver 02"
+subtitle:   " \"RL基本的概念理解\""
+date:       2018-12-01 12:00:00
+author:     "Xion"
+header-img: "img/rl.jpg"
+catalog: true
+tags:
+    - 强化学习
+---
+
+
+
+* [RL Course by David Silver](#rl-course-by-david-silver)
+
+# RL Course by David Silver 
+
+# Lecture 3: Planing by Dynamic Programming
+
+## Inroduction
+
+### DP是什么
+
+这里不是特指编程里面的DP
+
+- 把复杂问题分解为子问题
+    - 解决子问题
+    - 把子问题的解决结合起来
+
+### DP的需要满足的条件
+
+- 可以分解为子问题
+- 子问题重复重现，可以被存储和重用
+
+---
+
+- Markov decision process满足这两个条件
+
+### Planning by DP
+
+
+#### 预测问题
+- Input: $MDP<S, A, P, R, γ_i >$ and policy π
+- Output: value function$v_\pi$
+
+#### 控制问题
+
+- Input: $MDP<S, A, P, R, γ_i >$ 
+- Output: optimal value function 
+and optimal policy
+
+## Policy Evaluation
+
+评估给定的policy $\pi$
+
+
+### example
+
+#### 问题定义
+![](/img/RL-dp01.png)
+
+#### 过程
+![](/img/RL-dp02.png)
+
+- 左边的图计算过程：上一步的状态+当前这一步的状态
+
+- 右边的policy得到的结果，根据左边的分数得到
+
+## 获取最好的policy
+
+给定一个policy $\pi$
+- Evaluate the policy
+$v_\pi(s)=E[R_{t+1}+\gamma R_{}]$
+- $\pi'=greedy(v_\pi)$
+
+使用获得最高value的action
+
+虽然更多的iteration可以提高policy，但是它最终是收敛的。
+
+### 为什么是收敛的,为什么是最优policy
+
+![](/img/RL-dp03.png)
+
+这个过程中
+
+![](/img/RL-dp04.png)
+
+如果提升停止了，那么Bellman optimality equation就被满足了，所以此时的$\pi$是最优 policy
+
+### 如何stop early
+
+因为没必要找到最优的 value 才能获得最优的 policy
+
+- n个迭代
+- 引入停止条件
+- 不是每次都更新
+
+### Principle of Optimality
+
+
+
+![](/img/RL-dp05.png)

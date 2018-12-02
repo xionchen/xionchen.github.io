@@ -444,6 +444,21 @@ $q_∗ (s, a) = \max q_π (s, a)$
 
  ## Optimal Policy
 
- 如果有 
 
  $π ≥ π'  if v_π (s) ≥ v_{π'}(s), ∀s$
+
+ ### Example Optimal Policy
+
+
+ ![](/img/MK_21.png)
+
+ ## 如何计算
+
+ - Bellman 优化等式是非线性的
+ - 没有近似的solution
+ - 采用迭代的方法
+     - Value iteration
+     - Policy Iteration
+     - Q-learning
+     - Sarsa
+     
