@@ -1,0 +1,279 @@
+---
+layout:     post
+title:      "ARTS_006"
+subtitle:   " \"week 06\""
+date:       2018-12-08 12:00:00
+author:     "Xion"
+header-img: "img/arts.jpg"
+catalog: true
+tags:
+    - arts
+    - 算法
+    - 贪心算法
+    - 强化学习
+---
+
+
+
+
+这是[耗子叔](https://coolshell.cn)发起的一个活动，每周为一个周期,需要完成以下内容
+
+ - Algrothm: leetcode算法题目
+ - Review: 阅读并且点评一篇英文技术文章
+ - Tip/Techni: 学习一个技术技巧
+ - Share: 分享一篇有观点和思考的技术文章
+
+# [Algrothm] Patching-array
+
+```
+330. Patching Array
+Hard
+244
+45
+
+
+Given a sorted positive integer array nums and an integer n, add/patch elements to the array such that any number in range [1, n] inclusive can be formed by the sum of some elements in the array. Return the minimum number of patches required.
+
+Example 1:
+
+Input: nums = [1,3], n = 6
+Output: 1 
+Explanation:
+Combinations of nums are [1], [3], [1,3], which form possible sums of: 1, 3, 4.
+Now if we add/patch 2 to nums, the combinations are: [1], [2], [3], [1,3], [2,3], [1,2,3].
+Possible sums are 1, 2, 3, 4, 5, 6, which now covers the range [1, 6].
+So we only need 1 patch.
+Example 2:
+
+Input: nums = [1,5,10], n = 20
+Output: 2
+Explanation: The two patches can be [2, 4].
+Example 3:
+
+Input: nums = [1,2,2], n = 5
+Output: 0
+```
+## 思路
+
+这题稍微有些难度，因为这种类型的基本上没看过。
+
+由空序列开始，推导一个最小的序列：
+```
+1   -> 1
+1,2 -> 3
+1,2,4  -> 7
+1,2,4,8  -> 15 
+1,2,4,8,16   -> 31
+```
+
+如果有序列[1,2,2],要加入一个元素，让它覆盖范围最大，那么就要加入6，即[1,2,2,6]可以覆盖[1,11]
+解答的关键点在于得到这样一个规律：如果有nums，可以覆盖[1，N]，那么nums.append(N+1),就可以恰好可以覆盖[1,2N+1]。
+
+
+可以得到两种不同的情况：
+- 1、nums 自身可以覆盖[1,M],M=sum(nums)
+    - 如果M>N,不用补全，结束
+    - 如果M<N,每次补n=sum(nums),覆盖[1,2M+1]
+- 2、nums 自身无法覆盖[1,M],那么补全缺失的数字，然后问题转化为问题1
+
+## 答案
+```python
+class Solution(object):
+    def minPatches(self, nums, n):
+        """
+        :type nums: List[int]
+        :type n: int
+        :rtype: int
+        """
+        res_nums = []
+        tmp = 1
+        for num in nums:
+            while num>tmp:
+                res_nums.append(tmp)
+                tmp *= 2
+                if tmp-1>=n:
+                    return len(res_nums)
+            if num<=tmp:
+                tmp = tmp+num
+            if tmp-1>=n:
+                return len(res_nums)
+        while tmp-1<n:
+            print tmp
+            res_nums.append(tmp)
+            tmp = 2 * tmp 
+        return len(res_nums)
+
+```
+
+## solution
+
+这题没有官方的solution，但是有discuss的答案还不错。
+
+这个答案不错。
+```
+/*
+首先可以确定的是，
+nums中必然包含1，如果不包含1，那么[1,n]这个范围中的1就没法实现
+其次数组中的元素不能重复使用，如果允许重复使用，那么把1重复多次，就可以组成任意整数。
+令miss为[0,n]中缺少的最小整数，意味着我们可以实现[0,miss)范围内的任意整数。
+如果数组中有某个整数x<=miss, 那么我们可以把[0,miss)区间的所有整数加上x，区间变成了[x, miss+x)，由于区间[0,miss)和[x, miss+x)重叠，两个区间可以无缝连接起来，意味着我们可以把区间[0,miss)扩展到[0, miss+x)。
+如果数组中不存在小于或等于miss的元素，则区间[0,miss)和[x, miss+x) 脱节了，连不起来。此时我们需要添加一个数，最大限度的扩展区间[0, miss)。那添加哪个数呢？当然是添加miss本身，这样区间[0,miss)和[miss, miss+miss)恰好可以无缝拼接。
+举个例子，令nums=[1, 2, 4, 13, 43], n=100，我们需要让[1,100]内的数都能够组合出来。
+使用数字1,2,4，我们可以组合出[0, 8)内的所有数，但无法组合出8，由于下一个数是13，比8大，根据规则2，我们添加8，把区间从[0,8)扩展到[0,16)。
+下一个数是13，比16小，根据规则1，我们可以把区间从[0,16)扩展到[0,29)。
+
+下一个数是43，比29大，根据规则2，添加29，把区间从[0,29)扩大到[0,58)。
+
+由于43比58小，根据规则1，可以把区间从[0,58)扩展到[0,101)，刚好覆盖了[1,100]内的所有数。
+
+最终结果是添加2个数，8和29，就可以组合出[1,100]内的所有整数。
+*/
+
+class Solution {
+public:
+    int minPatches(vector<int>& nums, int n) {
+        long long r=0;
+        int nextn=1;
+        int index=0;
+        int res=0;
+        while(r<n){
+            if(index<(int)nums.size()&&r>=(nums[index]-1)){
+                r+=nums[index++];
+            }else{
+                res++;
+                r+=(r+1);
+            }
+        }
+        return res;
+    }
+};
+
+/*
+需要注意的测试用例：
+[1,2,31,33]
+2147483647
+
+[1000000]
+1000
+*/
+```
+# [Review] 
+
+# [Tip] 实用装饰器
+
+参考资料 *python cook book*
+
+在python中，装饰器，类装饰器，元类都属于元编程的范畴
+
+## 包装函数
+
+python中用装饰器来对函数进行包装
+```
+@wrapper
+def bar():
+    xxx
+bar()
+```
+等同于
+```
+wrappered = wrapper(bar）
+wrappered()
+```
+
+## 包装函数时候拷贝元数据
+
+使用装饰器会导致新的函数的元数据丢失，可以使用funtools的wrap来避免这个问题
+
+```python
+import time
+from functools import wraps
+
+def timethis(func):
+    @wraps(func)
+    def wrapper(*args,**kwargs):
+        start = time.time()
+        result = func(*args,**kwargs)
+        end = time.time()
+        print(func.__name__, end-start)
+        return result
+    return wrapper
+
+@timsthis
+def countdown(n:int):
+    while n > 0:
+        n -=1
+
+countdown.__name__
+# countdown
+```
+
+## 利用装饰器对函数参数进行强制类型检查
+
+```python
+
+from inspect import signature
+from functools import wraps
+
+def typeassert(* ty_args, ** ty_kwars):
+    def decorate(func):
+        if not __debug__:
+            return func
+        
+        sig = signature(func)
+        # 返回一个ordereddict，将typeassert输入了类型和func的参数名映射在一起。
+        bound_types = sig.bind_partial(* ty_args, ** ty_kwars).arguments
+
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            bound_values = sig.bind(*args, **kwargs)
+            for name, value in bound_values.arguments.items():
+                if name in bound_types:
+                    if not isinstnace(value, bound_tyes[name]):
+                        raise TypeError('Argument {} must be {}'.format(name,bound_types[name]))
+            return fun(*args, **kwargs)
+        return wrapper
+    return decoreate
+        
+
+
+
+```
+
+
+# [Share] 2018年30个的机器学习项目 
+
+## 原文链接
+https://medium.mybridge.co/30-amazing-machine-learning-projects-for-the-past-year-v-2018-b853b8621ac7
+
+## 项目
+
+1. FastText，快速文本表示和分类的仓库。 **11786 stars**
+1. Deep-photo-styletransfer，论文 “Deep Photo Style Transfer” 的代码 **9747 stars**
+1.  ageitgey/face_recognition 世界上最简单的面部识别api **8672 stars**
+1. magenta,用机器学习生成的ai和艺术 **8113 stars**
+1. Sonnet 给予tensorflow的网络仓库 **5731 stars**
+1. deeplearn.js web上的硬件加速的ml仓库 **5462 stars**
+1. Fast Style Transfoer Tensorflow下的风格转移 **4843 stars**
+1. Pysc2: 星际2，学习环境  **3683 stars**
+1. AirSim 基于虚幻引擎的自动驾驶模拟 **3861 stars**
+1. Facets 数据可视化 **3371 stars**
+1. Style2Pains AI图片上色 **3310 stars**
+1. Tensor2Tensor 生成序列模型的序列的lib**3087 stars**
+1. pytorch-CycleGAN-and-pix2pix PyTorch下生成图片的仓库  **2847 stars**
+1. Faiss  搞笑相似搜索和聚类密集向量的lib**2629 stars**
+1. Fashion-mnis 类似与Mnist的产品数据库**2780 stars**
+1. ParlAI 用于评估AI模型的框架**2578 stars**
+1. Fairseq 序列到序列的工具**2571 stars**
+1. Pyro 深度通用概率编程  **2387 stars**
+1. iGAN GAN实现的图像生成  **2369 stars**
+1. deep-image-prior  没有学习的图像恢复 **2188 stars**
+1. Face_classification 实时面部+情感+性别识别  **1967 stars**
+1. Speech-to-Text-WaveNet 端到端的语音到文字的转化 **1961 stars**
+1. StarGAN   **1954 stars**
+1. Ml-agents Unity ML agent**1658 stars**
+1. DeepVideoAnalytics 分布式可视化搜索和可视化数据分析平台 **1494 stars**
+1. OpenNMT  开源神经机器翻译**1490 stars**
+1. Pix2pixHD 使用条件GAN合成和操作2048x1024图像 **1283 stars**
+1.  Horovod TensorFlow的分布式训练框架**1188 stars**
+1.  AI-Blocks 可视化机器学习 **899 stars**
+1. deep-voice-conversion Deep neural networks for voice conversion (voice style transfer) in Tensorflow **845 stars**

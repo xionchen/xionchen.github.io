@@ -1,0 +1,81 @@
+---
+layout:     post
+title:      "ARTS_008"
+subtitle:   " \"week 08\""
+date:       2018-12-23 12:00:00
+author:     "Xion"
+header-img: "img/arts.jpg"
+catalog: true
+tags:
+    - arts
+    - 算法
+---
+
+
+
+
+这是[耗子叔](https://coolshell.cn)发起的一个活动，每周为一个周期,需要完成以下内容
+
+ - Algrothm: leetcode算法题目
+ - Review: 阅读并且点评一篇英文技术文章
+ - Tip/Techni: 学习一个技术技巧
+ - Share: 分享一篇有观点和思考的技术文章
+
+# [Algrothm]   Rectangle Area
+```
+223. Rectangle Area
+Medium
+
+199
+
+413
+
+Favorite
+
+Share
+Find the total area covered by two rectilinear rectangles in a 2D plane.
+
+Each rectangle is defined by its bottom left corner and top right corner as shown in the figure.
+
+Rectangle Area
+
+Example:
+
+Input: A = -3, B = 0, C = 3, D = 4, E = 0, F = -1, G = 9, H = 2
+Output: 45
+```
+## 思路
+
+这题重点在于要求相交的小矩形的面积
+
+1、是否相交
+2、如果没相交，简单题。
+3、如果相交，
+
+## answer
+我不是非常喜欢这道题目，因为题目关于点的位置描述比较模糊
+```python
+class Solution:
+    def computeArea(self, A, B, C, D, E, F, G, H):
+        """
+        :type A: int
+        :type B: int
+        :type C: int
+        :type D: int
+        :type E: int
+        :type F: int
+        :type G: int
+        :type H: int
+        :rtype: int
+        """
+        area1 = abs(C-A)*abs(B-D)
+        area2 = abs(E-G)*abs(F-H)
+        w = min(C,G)-max(A,E)
+        h = min(D, H)-max(B,F)
+        if w<=0 or h<=0:
+            return area1 + area2
+        else:
+            return area1 + area2 - w*h
+```
+
+# [Share] 

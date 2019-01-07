@@ -1,0 +1,246 @@
+---
+layout:     post
+title:      "ARTS_010"
+subtitle:   " \"week 10\""
+date:       2019-01-06 12:00:00
+author:     "Xion"
+header-img: "img/arts.jpg"
+catalog: true
+tags:
+    - arts
+    - 算法
+---
+
+
+
+
+这是[耗子叔](https://coolshell.cn)发起的一个活动，每周为一个周期,需要完成以下内容
+
+ - Algrothm: leetcode算法题目
+ - Review: 阅读并且点评一篇英文技术文章
+ - Tip/Techni: 学习一个技术技巧
+ - Share: 分享一篇有观点和思考的技术文章
+
+# [Algrothm]  Maximum XOR of Two Numbers in an Array
+
+## question
+```
+421. Maximum XOR of Two Numbers in an Array
+Medium
+
+Given a non-empty array of numbers, a0, a1, a2, … , an-1, where 0 ≤ ai < 231.
+
+Find the maximum result of ai XOR aj, where 0 ≤ i, j < n.
+
+Could you do this in O(n) runtime?
+
+Example:
+
+Input: [3, 10, 5, 25, 2, 8]
+
+Output: 28
+
+Explanation: The maximum result is 5 ^ 25 = 28.
+
+```
+
+## 思路
+
+如果暴力搜索，复杂度为$C_n^2$。显然不满足题目要求。
+
+想了半天没有想到解法，最后参考了一个答案。
+
+从高位到地位
+1、高位有，高位没有
+```
+11001
+10001
+00001
+
+
+i: 4
+mask: 0b10000
+set([16, 0])
+guess: 0b10000 16
+guess ^ prefix: 0
+best: 16
+
+i: 3
+mask: 0b11000
+set([24, 16, 0])
+guess: 0b11000 24
+guess ^ prefix: 0
+best: 24
+
+i: 2
+mask: 0b11100
+set([24, 16, 0])
+guess: 0b11100 28
+guess ^ prefix: 4
+guess ^ prefix: 12
+guess ^ prefix: 28
+best: 24
+
+i: 1
+mask: 0b11110
+set([24, 16, 0])
+guess: 0b11010 26
+guess ^ prefix: 2
+guess ^ prefix: 10
+guess ^ prefix: 26
+best: 24
+i: 0
+
+mask: 0b11111
+set([25, 1, 17])
+guess: 0b11001 25
+guess ^ prefix: 0
+guess ^ prefix: 24
+guess ^ prefix: 8
+best: 24
+```
+
+从思路上，其实就是通过从高位到低位的遍历，逐渐缩小搜索的范围，每次搜索的范围最大为n，最小为1，总共需要搜索32次。也有一点像动态规划的感觉，如果从31-i位是最大的，那么它一定是31-(i-1)位最大的子序列。因此最终遍历到i=1时，就能获得完整的数字。
+
+## answer
+```
+class Solution(object):
+    def findMaximumXOR(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        best = 0
+        mask = 0
+        for i in range(32, -1, -1): # 从高位置 忘地位置搜索
+            mask = mask | (1 << i) 
+            s = {n & mask for n in nums} 
+            guess = best | (1 << i) 
+            for prefix in s:
+                if guess ^ prefix in s:
+                    best = guess
+                    break                
+        return best
+```
+## solution
+
+还有一种解法是利用树来解的，其实思想也非常类似。但是实现起来比位操作的繁琐很多。
+
+# [Review] 性能诊断-CPU篇
+
+# [Tip] 如何让你的python程序运行的更加快速
+
+首先这里不使用极端的方法，例如c扩展或者JIT编译器。
+
+主要是一些优化的小tips
+
+## 使用函数
+
+```
+import sys
+import csv
+
+with opne(sys.argv[1]) as f:
+    for row in csv.reader(f):
+    # do something
+```
+
+```
+import sys
+import csv
+def main(filename):
+    with opne(filename) as f:
+        for row in csv.reader(f):
+        # do something
+main(sys.argv[1])
+```
+
+这是由于局部变量和全局变量的差异导致的，在python中，局部变量的操作更快。
+
+## 有选择性的消除属性访问
+
+```
+import math
+
+def compute_roots(nums):
+    result = []
+    for n in nums:
+        result.append(math.sqrt(n))
+    return result
+```
+
+```
+import math
+
+def compute_roots(nums):
+    result = []
+    result_append = result.append
+    for n in nums:
+        result_append(math.sqrt(n))
+    return result
+```
+
+这是由于在使用.的时候，在底层，会触发特殊方法，例如__getattribute__()和__getattr__(),这些方法会导致查询字典的操作。但是需要注意的是，这个只在大量循环的时候才有效果。
+
+##  理解变量所处的位置
+
+```
+# slower
+class SomeClass:
+    ...
+    def method(self):
+        for x in s:
+            op(self.value)
+
+# faster
+
+class SomeClass:
+   ...
+   def method(self):
+       value = self.value
+       for x in s:
+           op(value)
+```
+
+因为使用局部参数的效率比使用类变量的效率要高
+
+## 避免不必要的抽象
+
+```
+class A:
+    def __init__(self,x,y):
+        self.x = x
+        self.y = y
+    
+    @property
+    def y(self):
+        return self._y
+    
+    @y.setter
+    def y(self,value):
+        self._y = value
+# slower
+a.x
+# faster
+a.y
+```
+使用额外的处理层装饰代码的时候，代码的运行速度会变慢。因此，在python中使用setter/getter其实不是很python的写法，这种做法要避免。
+
+## 总结
+
+优化应该从大的方向上考虑，不会针对代码中的每个细节都去考虑。相反，因为针对性能瓶颈去优化，例如内存的循环、被执行很多次的代码。
+
+
+# [Share] Introducing the AI Transformation Playbook
+
+Andrew Ng 写的一个材料，分享如何让AI使能你的公司。
+
+[阅读地址](https://landing.ai/ai-transformation-playbook/)
+
+这本书一共会分为5个部分：
+
+1. 执行测试点项目以获得动力
+1. 建立内部的AI团队
+1. 提供广泛的AI培训
+1. 执行人工只能战略
+1. 开发内部和外部沟通渠道

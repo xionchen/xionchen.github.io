@@ -1,0 +1,95 @@
+---
+layout:     post
+title:      "ARTS_008"
+subtitle:   " \"week 08\""
+date:       2018-12-29 12:00:00
+author:     "Xion"
+header-img: "img/arts.jpg"
+catalog: true
+tags:
+    - arts
+    - 算法
+---
+
+
+
+
+这是[耗子叔](https://coolshell.cn)发起的一个活动，每周为一个周期,需要完成以下内容
+
+ - Algrothm: leetcode算法题目
+ - Review: 阅读并且点评一篇英文技术文章
+ - Tip/Techni: 学习一个技术技巧
+ - Share: 分享一篇有观点和思考的技术文章
+
+# [Algrothm]  Pow(x,n)
+```
+50. Pow(x, n)
+Medium
+
+679
+
+1717
+
+Favorite
+
+Share
+Implement pow(x, n), which calculates x raised to the power n (xn).
+
+Example 1:
+
+Input: 2.00000, 10
+Output: 1024.00000
+Example 2:
+
+Input: 2.10000, 3
+Output: 9.26100
+Example 3:
+
+Input: 2.00000, -2
+Output: 0.25000
+Explanation: 2-2 = 1/22 = 1/4 = 0.25
+Note:
+
+-100.0 < x < 100.0
+n is a 32-bit signed integer, within the range [−231, 231 − 1]
+
+```
+
+## 思路
+
+这题一看就透露着一种诡异，限制条件来看，是需简化n，利用二分的思想，可以实现log2(n)
+
+## 解答
+
+竟然真的这样就可以过了，不过答案修改了一下，利用的dp和位运算来提高速度。
+```python
+class Solution(object):
+    def myPow(self, x, n):
+        negative = True if n<0 else False
+        now,base,n = 1,x,abs(n)
+        for i in xrange(0,32):
+            if n & (1<<i)  > 0:
+                now = now * base    
+            base = base * base            
+        return 1/now if negative else now
+```
+
+## solution
+
+这个题目也可以使用二分查找来解：
+
+```java
+public class Solution {
+    public double pow(double x, int n) {
+        if(n == 0)
+            return 1;
+        if(n<0){
+            n = -n;
+            x = 1/x;
+        }
+        return (n%2 == 0) ? pow(x*x, n/2) : x*pow(x*x, n/2);
+    }
+}
+```
+
+ [Share] 

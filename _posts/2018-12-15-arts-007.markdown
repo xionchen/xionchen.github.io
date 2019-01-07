@@ -1,0 +1,366 @@
+---
+layout:     post
+title:      "ARTS_007"
+subtitle:   " \"week 07\""
+date:       2018-12-15 12:00:00
+author:     "Xion"
+header-img: "img/arts.jpg"
+catalog: true
+tags:
+    - arts
+    - 算法
+---
+
+
+
+
+这是[耗子叔](https://coolshell.cn)发起的一个活动，每周为一个周期,需要完成以下内容
+
+ - Algrothm: leetcode算法题目
+ - Review: 阅读并且点评一篇英文技术文章
+ - Tip/Techni: 学习一个技术技巧
+ - Share: 分享一篇有观点和思考的技术文章
+
+# [Algrothm] Largest Plus Sign
+
+[题目链接](https://leetcode.com/problems/largest-plus-sign/)
+```
+764. Largest Plus Sign
+Medium
+
+217
+
+44
+
+Favorite
+
+Share
+In a 2D grid from (0, 0) to (N-1, N-1), every cell contains a 1, except those cells in the given list mines which are 0. What is the largest axis-aligned plus sign of 1s contained in the grid? Return the order of the plus sign. If there is none, return 0.
+
+An "axis-aligned plus sign of 1s of order k" has some center grid[x][y] = 1 along with 4 arms of length k-1 going up, down, left, and right, and made of 1s. This is demonstrated in the diagrams below. Note that there could be 0s or 1s beyond the arms of the plus sign, only the relevant area of the plus sign is checked for 1s.
+
+Examples of Axis-Aligned Plus Signs of Order k:
+
+Order 1:
+000
+010
+000
+
+Order 2:
+00000
+00100
+01110
+00100
+00000
+
+Order 3:
+0000000
+0001000
+0001000
+0111110
+0001000
+0001000
+0000000
+Example 1:
+
+Input: N = 5, mines = [[4, 2]]
+Output: 2
+Explanation:
+11111
+11111
+11111
+11111
+11011
+In the above grid, the largest plus sign can only be order 2.  One of them is marked in bold.
+Example 2:
+
+Input: N = 2, mines = []
+Output: 1
+Explanation:
+There is no plus sign of order 2, but there is of order 1.
+Example 3:
+
+Input: N = 1, mines = [[0, 0]]
+Output: 0
+Explanation:
+There is no plus sign, so return 0.
+Note:
+
+N will be an integer in the range [1, 500].
+mines will have length at most 5000.
+mines[i] will be length 2 and consist of integers in the range [0, N-1].
+(Additionally, programs submitted in C, C++, or C# will be judged with a slightly smaller time limit.)
+
+```
+
+## 思路
+
+
+这题是要找给定的图像中，最大的十字的order。
+
+假如最大的十字是N阶，其中必然包含一个N-1阶的十字。
+
+1.状态：N=i的十字的点(node1,node2,node3)
+
+2.转移：node上下左右是否为1，
+是，那么记录。
+否则，去掉
+
+3.状态： 剩下的node
+
+结果，最后一个非空的node列表的N
+
+
+上面这个思路显然有问题，复杂度达到了O（n^3）
+
+答案肯定会超时。(实际上我已经写了一个超时的答案，这个故事告诉我，在想方法之前，先简单计算写算法复杂度，别做无用功)
+
+
+转换下思路，其实需要求解的是这样的一个矩阵，假如N=5
+```
+1 1 1 1 1
+1 2 2 2 1
+1 2 3 2 1
+1 2 2 2 1
+1 1 1 1 1
+```
+如果[4,2]被挖走
+```
+1 1 1 1 1
+1 2 2 2 1
+1 2 2 2 1
+1 2 1 2 1
+1 1 0 1 1
+```
+如果[2,2]被挖走
+```
+1 1 1 1 1
+1 2 1 2 1
+1 1 0 1 1
+1 2 1 2 1
+1 1 1 1 1
+```
+
+所以个点的最大order 取决于，它上、下、左、右的最近点的距离的最小值。
+第i行，第j列的左测的距离等于第i行，j-1列的值+1
+其他方向也以此类推
+## 代码
+```
+class Solution(object):
+    def orderOfLargestPlusSign(self, N, mines):
+        mines_set = {tuple(mine) for mine in mines}
+        matrix_lf = [[0] * N for _ in range(N)]
+        matrix_up = [[0] * N for _ in range(N)]
+        ret = 0
+
+        for row in range(N):
+            count = 0
+            for col in range(N):
+                count = 0 if (row, col) in mines_set else count + 1
+                matrix_lf[row][col] = count
+
+            count = 0
+            for col in range(N - 1, -1, -1):
+                count = 0 if (row, col) in mines_set else count + 1
+                if count < matrix_lf[row][col]:
+                    matrix_lf[row][col] = count
+
+        for col in range(N):
+            count = 0
+            for row in range(N):
+                count = 0 if (row, col) in mines_set else count + 1
+                matrix_up[row][col] = count
+
+            count = 0
+            for row in range(N - 1, -1, -1):
+                count = 0 if (row, col) in mines_set else count + 1
+                if count < matrix_up[row][col]:
+                    matrix_up[row][col] = count
+
+        for col in range(N):
+            for row in range(N):
+                tmp = min(matrix_up[row][col], matrix_lf[row][col])
+                if tmp > ret:
+                    ret = tmp
+
+        return ret
+```
+
+
+## solution
+
+看了别人的答案，可以将这两个矩阵合成为一个，四个循环也合为一个，这样代码可以变的更加简洁。
+
+## 总结
+
+1、**有了一个思路之后，先计算算法复杂度**！！！！这个很重要。
+
+2、人的视角是从总体看，**计算机的视角是从单点来看的(因为有cpu有pc寄存器，及时是多进程，本质上也是单个进程的叠加)。人是高度并行化的动物(参考神经网络)**，要理解这一点避免想问题的时候陷入误区。因为有时候人的直观解法是个高度并行的解法，但是在计算机里面效率不一定高!!!
+https://www.udacity.com/course/deep-learning--ud730
+# [Review] 
+# [Tip]
+# [Share] Recognizing Traffic Lights With Deep Learning
+
+
+
+[这篇文章](https://medium.freecodecamp.org/recognizing-traffic-lights-with-deep-learning-23dae23287cc)讲述了如何在红绿灯识别比赛中获得第一名
+
+## 问题
+
+图片分类问题，将图片分类为红灯、绿灯和无灯。
+
+通过准确率和模型的大小来评分。
+
+## 工具
+
+作者使用Caffe和aws来训练(在aws上花了263美刀)
+
+
+[此处](https://github.com/davidbrai/deep-learning-traffic-lights)有作者使用的代码
+
+## 效果
+
+95%的准确率，7.84MB大小的模型
+
+## 作者心路历程
+
+### 转移学习
+
+使用预训练的ImageNet，很快准确率就有了90%
+
+### SqueezeNet
+
+因为比较小的模型得分更高，作者参考使用了SqueezeNet
+
+
+[这篇论文说明了squeezeNet](https://arxiv.org/abs/1602.07360)
+
+经过调试之后有了92%的准确率。
+
+### 旋转图片
+
+由于测试样本中存在一部分垂直的图片，并且图片的元数据没有包含图片的方位信息，这影响了识别的效果。
+
+一开始作者尝试让模型与旋转无关，随机旋转了 0,90,180,270度。效果不好。然后根据四个方向的预测来平均（根据概率），效果不错。
+
+92% -> 92.6%
+
+### 过采样修建
+
+作者采用5个采样，4个角的和1个中心的，然后按照概率平均后得到结果
+
+准确率:
+92% -> 92.46%
+
+### 采用更低的学习率进行更多的学习
+
+在vc点采用更小的学习率，这样通常能够提高0-0.5%的准确率
+
+### 更多的训练数据
+
+一开始作者采用64%做训练，16%做验证，20%做测试。然后作者使用了更高比例的训练数据，结合了图片旋转和更低学习率。
+
+92.6% -> 93.5%
+
+### 重新标记错误的训练数据
+
+在训练之后，作者发现了有一些执行度很高的数据被分类错误了。最后发现是数据有问题，作者对训练数据进行了重新label。
+
+93.5% -> 94.1%
+
+
+### 多个模型结合
+
+作者最终将三个不同的模型结合，达到了更高的准确率
+
+## 什么是没用的
+
+作者也总结了一些没用的东西
+
+### 对抗过拟合
+
+作者尝试了以下手段
+
+- 增加网络的droput
+- 数据增强，平移，放缩，倾斜
+- 使用90%的数据而不是80%的数据做训练。
+
+这些没有显著的效果
+
+### 平衡样本
+
+
+最初的样本不平衡。作者通过过采样的方式平衡了样本，当时效果不明显。
+
+### 区分白天和晚上
+
+可以通过像素密度来区分白天或者是晚上，但是没有很好的效果。
+
+### 使用更好的SqueezeNet的变种
+
+作者实验了 使用残差连接的网络和使用dense-sparse-dense的网络。也没有明显效果
+
+### 定位交通灯的位置
+
+[参考文章](http://deepsense.io/deep-learning-right-whale-recognition-kaggle/)
+
+作者标记了大约2000个样本，但是最终过拟合了。可能更多的样本会有效。
+
+### 使用困难的例子来训练
+
+使用了确信度不是很高的一些数据来专门训练。效果不明显
+
+### 不同的优化算法
+
+使用Adam来替代SGD，也没有明显效果
+
+### 增加更多的模型
+
+使用不同参数，开始的速度，dropout比例，不同的训练数据，效果都不明显。
+
+## 最终的模型细节
+
+最终的模型由3个squeezeNet的模型组成。
+
+
+### 模型1 预先训练的网络+过采样
+
+模型预先用ImageNet训练过。
+
+数据增强：
+
+- 随机的水平镜像。
+- 随机的227x227的采样。
+
+预测的时候使用了10个输入的平均值。
+
+这10个输入为：
+5个227x227的过采样样本
+水平镜像
+
+准确率 94.21%
+模型大小 2.6 MB
+
+### 模型2 增加旋转
+
+与模型1基本一直，但是增加了旋转。
+
+准确率 94.1%
+模型大小 2.6 MB
+
+### 模型3 从头开始训练
+
+模型3基本与模型1一致，但是没用经过预训练，这样可以提取出一些新的特征。
+
+准确率 92.92%
+模型大小 2.6 MB
+
+### 三个模型结合在一起
+
+通过grid-search的方法搜索到三个模型的权重。
+
+准确率 94.83%
+
+最终的测试集上达到了94.995%的准确率。
+
+[作者自己学习的课程](https://www.udacity.com/course/deep-learning--ud730)

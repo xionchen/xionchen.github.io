@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      "ARTS_003"
-subtitle:   " \"week 03\""
+title:      "ARTS_002"
+subtitle:   " \"week 02\""
 date:       2018-11-11 12:00:00
 author:     "Xion"
 header-img: "img/arts.jpg"
