@@ -1,0 +1,174 @@
+---
+layout:     post
+title:      "ARTS_011"
+subtitle:   " \"week 11\""
+date:       2019-01-11 12:00:00
+author:     "Xion"
+header-img: "img/arts.jpg"
+catalog: true
+tags:
+    - arts
+    - 算法
+---
+
+
+
+
+这是[耗子叔](https://coolshell.cn)发起的一个活动，每周为一个周期,需要完成以下内容
+
+ - Algrothm: leetcode算法题目
+ - Review: 阅读并且点评一篇英文技术文章
+ - Tip/Techni: 学习一个技术技巧
+ - Share: 分享一篇有观点和思考的技术文章
+
+# [Algrothm]  Friend Circles
+
+## question
+```
+547. Friend Circles
+Medium
+
+850
+
+63
+
+Favorite
+
+Share
+There are N students in a class. Some of them are friends, while some are not. Their friendship is transitive in nature. For example, if A is a direct friend of B, and B is a direct friend of C, then A is an indirect friend of C. And we defined a friend circle is a group of students who are direct or indirect friends.
+
+Given a N*N matrix M representing the friend relationship between students in the class. If M[i][j] = 1, then the ith and jth students are direct friends with each other, otherwise not. And you have to output the total number of friend circles among all the students.
+
+Example 1:
+Input: 
+[[1,1,0],
+ [1,1,0],
+ [0,0,1]]
+Output: 2
+Explanation:The 0th and 1st students are direct friends, so they are in a friend circle. 
+The 2nd student himself is in a friend circle. So return 2.
+Example 2:
+Input: 
+[[1,1,0],
+ [1,1,1],
+ [0,1,1]]
+Output: 1
+Explanation:The 0th and 1st students are direct friends, the 1st and 2nd students are direct friends, 
+so the 0th and 2nd students are indirect friends. All of them are in the same friend circle, so return 1.
+Note:
+N is in range [1,200].
+M[i][i] = 1 for all students.
+If M[i][j] = 1, then M[j][i] = 1.
+
+```
+
+##  思路
+自己想到的思路主要是从数据结构上考虑的
+
+思路1：
+1  --> {1}
+2  --> {2}
+3  --> {3}
+
+人指向盆友全，盆友圈也指向人，一旦发现有两个人是朋友，通知圈子中所有人更新
+
+
+思路2：
+构造一个这样的数据结构
+
+circle{
+    people: {}
+    belong_to: circle_id
+}
+
+因为小圈子肯定属于大圈子
+
+
+## 解法
+
+屌丝方法，最快情况下复杂度达到o(n),n是len(M)
+```python
+class Solution(object):
+    def findCircleNum(self, M):
+        """
+        :type M: List[List[int]]
+        :rtype: int
+        """
+        people_nums = len(M)
+        people2zones = {i: {i} for i in range(people_nums)}
+        zone2people = {(i,): [i, ] for i in range(people_nums)}
+
+        for people in range(people_nums):
+            for friend in range(people, people_nums):
+                if M[people][friend] == 1:
+                    this_circle = people2zones[people]
+                    circle = people2zones[friend]
+                    this_peoples = zone2people[tuple(this_circle)]
+                    peoples = zone2people[tuple(circle)]
+                    this_circle.update(circle)
+                    new_circle = this_circle
+                    for p in set(this_peoples + peoples):
+                        people2zones[p] = new_circle
+                        zone2people[tuple(new_circle)] = list(set(this_peoples + peoples))
+
+        ret = len({id(v) for v in people2zones.values()})
+        return ret
+```
+```python
+class Circle(object):
+    def __init__(self,peoples):
+        self.peoples = set(peoples)
+        self.belong_to = None
+
+    def __hash__(self):
+        return hash(tuple(self.peoples))
+
+    def __repr__(self):
+        return str(tuple(self.peoples))
+
+class Solution(object):
+
+
+    def findCircleNum(self, M):
+        people_nums = len(M)
+        circles = [Circle([i,]) for i in range(people_nums)]
+        circle_register = set(circles)
+
+        for people in range(people_nums):
+            for friend in range(people+1, people_nums):
+                if M[people][friend] == 1:
+                    this_circle = circles[people]
+                    other_circle = circles[friend]
+                    while True:
+                        tmp = this_circle.belong_to
+                        if not tmp:
+                            break
+                        this_circle = tmp
+                    while True:
+                        tmp = other_circle.belong_to
+                        if not tmp:
+                            break
+                        other_circle = tmp
+                    circle_register.discard(this_circle)
+                    circle_register.discard(other_circle)
+                    new_circle = Circle(this_circle.peoples.union(other_circle.peoples))
+                    circle_register.add(new_circle)
+                    this_circle.belong_to = new_circle
+                    other_circle.belong_to = new_circle
+        return len(circle_register)
+      
+```
+
+## solution
+
+其实这里运用了一个union find的方法，以前没接触过
+![](/img/find_union.png)
+这里介绍了一下union find是怎么做的
+https://www.youtube.com/watch?v=VJnUwsE4fWA
+
+这里给自己暴露了一个问题，算法基础结构不知道，并查集。
+# [Review] 
+
+# [Tip] 
+
+# [Share] 

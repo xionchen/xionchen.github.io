@@ -1,0 +1,341 @@
+---
+layout:     post
+title:      "ARTS_011"
+subtitle:   " \"week 11\""
+date:       2019-01-19 12:00:00
+author:     "Xion"
+header-img: "img/arts.jpg"
+catalog: true
+tags:
+    - arts
+    - 算法
+---
+
+
+
+
+这是[耗子叔](https://coolshell.cn)发起的一个活动，每周为一个周期,需要完成以下内容
+
+ - Algrothm: leetcode算法题目
+ - Review: 阅读并且点评一篇英文技术文章
+ - Tip/Techni: 学习一个技术技巧
+ - Share: 分享一篇有观点和思考的技术文章
+
+# [Algrothm]  Longest Palindromic Substring
+
+## problem
+
+```
+5. Longest Palindromic Substring
+Medium
+
+2856
+
+275
+
+Favorite
+
+Share
+Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
+
+Example 1:
+
+Input: "babad"
+Output: "bab"
+Note: "aba" is also a valid answer.
+Example 2:
+
+Input: "cbbd"
+Output: "bb"
+```
+##
+
+这题是一道经典题目，以前做过，但是时间很久了重新思考下。
+
+先考虑原始方法
+
+分为两类，奇数和偶数
+
+奇数
+
+如果以第i个中对称中点
+xxxxxxxxx
+   .
+从i两边开始找
+i-1 == i+1 直到不满足条件
+
+偶数
+
+如果以第i个和i+1个为对称重点
+
+
+xxxxxxx
+   ..
+
+从i-1 == i+2直到不满足条件。
+
+
+
+这样算法复杂度 = n(1+2+3+...+(n/2)),大约是O(n^3),a最长为1000 1000^3 太大不可以接受。
+
+然后看下计算过程中可以重复利用的部分。
+如果,
+
+先试试看，从小的对称开始找，然后增大，直到找不到
+
+## answer
+
+最终的解法利用了动态规划，需要注意的是，这里需要分开考虑奇数和偶数的情况，否则就会有问题
+```python
+class Solution:
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+
+        def get_left_and_right(str_length, center_index):
+            if str_length % 2 == 0:
+                left = center_index - str_length / 2 + 1
+                right = center_index + str_length / 2
+            else:
+                left = center_index - (str_length - 1) / 2
+                right = center_index + (str_length - 1) / 2
+            return int(left), int(right)
+
+        def check_palindrome(str_length, center_index):
+            left, right = get_left_and_right(str_length, center_index)
+            if left < 0 or right >= s_length:
+                return False
+            if s[left] == s[right]:
+                return True
+            return False
+
+        if s == "":
+            return ""
+
+        s_length = len(s)
+        length = 1
+        candidate_list_map = {'odd': list(range(len(s))),
+                              'even': list(range(len(s)))}
+        ret_s_map = {'odd': None, 'even': None}
+        while True:
+            now_status = 'even' if length % 2 == 0 else 'odd'
+            if ret_s_map[now_status] is not None:
+                length += 1
+                continue
+                
+            final_status = now_status
+            tmp_candidate_list = [center_index for center_index in candidate_list_map[now_status] if
+                                  check_palindrome(length, center_index)]
+            if not tmp_candidate_list:
+                _left, _right = get_left_and_right(length - 2, candidate_list_map[now_status][0])
+                ret_s_map[now_status] = s[_left: _right + 1]
+            if ret_s_map['odd'] is not None and ret_s_map['even'] is not None:
+                break
+            candidate_list_map[now_status] = tmp_candidate_list
+            length = length + 1
+
+        return ret_s_map[final_status]
+```
+上面这个太长了，可读性也不是非常好，需要参考其他答案修改一把
+
+## solution
+
+### tips:
+
+1,将字符串转化为
+aba -> a#b#a
+bbbb -> b#b#b#b
+
+这样就不用分开考虑奇数和偶数了。
+
+实际上正确答案应该用马拉车算法
+## O(N) 解法(Manacher's Algorithm)
+
+###  输入处理
+首先将字符串转化为#间隔的，字符串的总长度一定是个奇数
+
+例如：s = "abaaba"
+转化为t = "#a#b#a#a#b#c#"
+
+### 构造数组
+然后我们可以构造一个p数列。p[i]表示t[i]字母的回文半径。
+
+
+对于t = "#a#b#a#a#b#c#"
+我们最终希望得到一个这样的数据:
+```
+t = # a # b # a # a # b # a #
+p = 0 1 0 3 0 1 6 1 0 3 0 1 0
+```
+如果有p，我们马上就能找到最长的回文字符串P6=6,即"abaaba"
+
+### 求解数组
+那么如何求解p呢
+
+首先我们需要使用的第一个性质就对称的性质，因为我们发现P6左右是对称的。
+
+假设我们有s， “babcbabcbaccba”
+
+![](/img/manacher1.png)
+
+当我们需要求解p[13]的时候，可以利用对称的性质，p[13]=p[9]
+即,p[i] = p[c-(i-c)]=p[2c-i]
+
+但是如果i=15的时候就不能这样更新了
+下面是例子
+
+![](/img/manacher2.png)
+
+如果利用对称原则，p[15]=p[7],但是实际上，p[15]为中心的回文是'a#b#c#b#a'
+
+即半径=4,因为我们可以发现p[7]覆盖的范围是0-14。
+但是在考虑对称的时候，实际上我们只能观测到2-11.因此，我们只能考虑这个范围内的取值，即使p[15] = R -i。
+
+综合上面两种情况,在只观察图中前20个元素的情况下，可以得到p[i] = min(p[c2-i],R-i)。
+
+如果我们继续往后考虑更多的元素，只需要判断
+t[i+i+p[i]] ==t[i-1-p[i]]即可。
+这样就可以得到最终的结果。
+
+####例子：
+c表示中心
+r表示最新的半径
+i表示当前更新的值
+每次更新p[i]的最后一部操作都是暴力搜索得到p[i]的数值。
+但是p[i]可以不从0开始搜索，因为可以利用回文的对称性，设置一个更加近似的起点。
+这其实有点动态规划的感觉。
+
+```
+i=1,左右两边不对称，因此p[1]=0
+ c
+ r
+ i
+^#a#b#a#a#b#c#$
+000000000000000
+
+i = 2,左右两边对称半径为1，因此p[2]=1
+最大的对称范围就是r
+  c
+   r
+  i
+^#a#b#a#a#b#c#$
+001000000000000
+
+此处i=r,不在半径内，直接考虑#元素左右的对称情况即可，这里p[3]=0
+  c
+   r
+   i
+^#a#b#a#a#b#c#$
+001000000000000
+
+上一个阶段的r已经小于i了，因此直接考虑暴力搜索，可以得到b下的半径为3
+    c
+       r
+    i
+^#a#b#a#a#b#c#$
+001030000000000
+
+利用对称原则
+    c
+       r
+     i
+^#a#b#a#a#b#c#$
+001030000000000
+
+    c
+       r
+      i
+^#a#b#a#a#b#c#$
+001030100000000
+
+       c
+           r
+       i
+^#a#b#a#a#b#c#$
+001030140000000
+
+       c
+           r
+        i
+^#a#b#a#a#b#c#$
+001030141000000
+       c
+           r
+         i
+^#a#b#a#a#b#c#$
+001030141000000
+       c
+           r
+          i
+^#a#b#a#a#b#c#$
+001030141010000
+       c
+           r
+           i
+^#a#b#a#a#b#c#$
+001030141010000
+            c
+             r
+            i
+^#a#b#a#a#b#c#$
+001030141010100
+            c
+             r
+             i
+^#a#b#a#a#b#c#$
+001030141010100
+```
+## bonus
+
+这题太简单了，所以不算一个算法，
+但是我觉得我觉得解法还比较有风格,因此在这里也写一下。
+
+[题目链接](https://leetcode.com/problems/average-of-levels-in-binary-tree/)
+
+我的解法
+
+时间复杂度每个节点只会便利一次，
+空间复杂度等于最大的一层，
+代码可读性比较好。
+
+```
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def averageOfLevels(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[float]
+        """
+        def mean(layer):
+            return sum([node.val for node in layer])*1.0/len(layer)
+        def get_next_layer(layer):
+            return filter(lambda x:x,
+                          reduce(list.__add__,
+                                            [[node.left,node.right] for node in layer]))
+        now_layer = [root]
+        ret = []
+        while True:
+    
+            ret.append(mean(now_layer))
+            next_layer = get_next_layer(now_layer)
+            
+            if not next_layer:
+                break
+            now_layer = next_layer
+        return ret
+
+```
+
+# [Review] 
+
+# [Tip] 
+
+# [Share] 
