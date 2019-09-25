@@ -19,10 +19,226 @@ tags:
  - Tip/Techni: 学习一个技术技巧
  - Share: 分享一篇有观点和思考的技术文章
 
-# [Algrothm]  Friend Circles
+# [Algrothm]  Find K-th Smallest Pair Distance
+
+## problem
+
+```
+719. Find K-th Smallest Pair Distance
+Hard
+
+470
+
+18
+
+Favorite
+
+Share
+Given an integer array, return the k-th smallest distance among all the pairs. The distance of a pair (A, B) is defined as the absolute difference between A and B.
+
+Example 1:
+Input:
+nums = [1,3,1]
+k = 1
+Output: 0 
+Explanation:
+Here are all the pairs:
+(1,3) -> 2
+(1,1) -> 0
+(3,1) -> 2
+Then the 1st smallest distance pair is (1,1), and its distance is 0.
+Note:
+2 <= len(nums) <= 10000.
+0 <= nums[i] < 1000000.
+1 <= k <= len(nums) * (len(nums) - 1) / 2.
+```
+
+## answer
+
+第k短的任意两点，如果使用穷举，找到所有距离，复杂度是O(n^2),nums有10000个n^2无法接收。
+
+但是要找第k个最短的，需要构造一个数据结构。假设往这个数据结构里面插入数字，可以保证排序。堆树的插入复杂度最差为o(logn),平均情况为O(1)
+
+第一个思路，暴力穷举距离+最小堆。总的复杂度大约是O(n^2)题目中说的情况应该可以 cover
+
+
+代码
+```
+import heapq
+import itertools
+
+
+class Solution:
+    def smallestDistancePair(self, nums: 'List[int]', k: 'int') -> 'int':
+        distance_heap = []
+        length = len(nums)
+        for i, j in itertools.product(range(length), range(length)):
+            if i == j or i > j:
+                continue
+            else:
+                distance = abs(nums[i] - nums[j])
+                heapq.heappush(distance_heap, abs(nums[i] - nums[j]))
+        print(heapq.nsmallest(len(distance_heap),distance_heap))
+        ret = None
+        for i in range(k):
+            ret = heapq.heappop(distance_heap)
+        return ret
+```
+复杂度分析
+```
+最坏的情况
+Ｏ(N^2logN)
+```
+计算复杂度主要是在暴力搜索路径的时候导致的，所有要换个思路。
+
+
+## solution
+
+这题有点复杂，以上方法超时了，看下答案是怎么解的
+
+```
+class Solution(object):
+    def smallestDistancePair(self, nums, k):
+        def possible(guess):
+            # 是否有ｋ个或者ｋ个以上的距离小于等于guess的
+            print('guess %s' % guess)
+            number = 0
+            for i, x in enumerate(nums):
+                # prefix[min(x+guess,w]是
+                number += prefix[min(x + guess, W)] - prefix[x] + multiplicity[i]
+                print('i:%s, x:%s' % (i, x))
+                print(prefix[min(x + guess, W)])
+                print(prefix[x])
+                print(multiplicity[i])
+
+            return number >= k
+
+        nums.sort()
+        W = nums[-1]
+
+        # multiplicity[i] 小与i的数字的重复个数
+        multiplicity = [0] * len(nums)
+        for i, x in enumerate(nums):
+            if i and x == nums[i - 1]:
+                multiplicity[i] = 1 + multiplicity[i - 1]
+
+        # prefix[v] = number of values <= v
+        # prefix[v] 小于v的数字的个数
+        prefix = [0] * (W + 1)
+        left = 0
+        for i in range(len(prefix)):
+            while left < len(nums) and nums[left] == i:
+                left += 1
+            prefix[i] = left
+        print(prefix)
+
+        lo = 0
+        hi = nums[-1] - nums[0]
+        while lo < hi:
+            mi = int((lo + hi) / 2)
+            print('guess%s' % mi)
+            if possible(mi):
+                hi = mi
+            else:
+                lo = mi + 1
+
+        return lo
+```
+
+从思路上来看，首先这是一个二分查找，查到的范围是最小的pair到最大的pair，题目中nums[i]的范围的限制暗示了这一点。
+
+然后构造了一个guess方法，如果有guess的地方有k个或者k个以上小于guess的对，那么就return true。
+
+然后问题就转化为了，对于猜测的值，是否有k对小于该值的存在。
+
+要求解这个问题，看下面两个例子
+```
+假设guess为1
+1,2,3,4,5,6,7,8
+有
+1,2
+2,3
+...
+7,8
+一共7对
+
+假设guess为2
+
+一共6对
+
+搜索的过程是，从i开始，找nums[i] 到 guess 之间的数字的个数。
+
+
+如果考虑到有重复的数字
+guess 为1的情况
+
+1,2,2,2,3
+
+prefix为
+1,2,3
+1,4,5
+
+1,2一共有3对
+2,3一共有3对
+
+2和2一共1+2+3对
+
+即：
+
+            for i, x in enumerate(nums):
+                # prefix[min(x+guess,w]是
+                number += prefix[min(x + guess, W)] - prefix[x] + multiplicity[i]
+            return number >= k
+```
+
+方法2 还可以优化
+得到一下方法3
+```
+class Solution(object):
+    def smallestDistancePair(self, nums, k):
+        def possible(guess):
+            #Is there k or more pairs with distance <= guess?
+            count = left = 0
+            for right, x in enumerate(nums):
+                while x - nums[left] > guess:
+                    left += 1
+                count += right - left
+            return count >= k
+
+        nums.sort()
+        lo = 0
+        hi = nums[-1] - nums[0]
+        while lo < hi:
+            mi = (lo + hi) / 2
+            if possible(mi):
+                hi = mi
+            else:
+                lo = mi + 1
+
+        return lo
+```
+
+以上方法主要是针对了guess做的优化通过窗口的方式找到了数
+
+
+
+## 总结
+
+自己没想出来的原因：
+- 没有注意题目中的条件，关于nums[i]数量的限制
 
 # [Review] 
 
 # [Tip] 
 
 # [Share] 
+
+
+# 总结
+
+之前由于过年等原因落下太多进度，都要慢慢补回来。算法导论需要看一遍。至少对每种数据结构的用途有个理解。
+
+1 2
+  2
+-----
+

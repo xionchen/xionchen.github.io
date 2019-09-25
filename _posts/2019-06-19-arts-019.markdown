@@ -1,0 +1,117 @@
+---
+layout:     post
+title:      "ARTS_011"
+subtitle:   " \"week 11\""
+date:       2019-01-26 12:00:00
+author:     "Xion"
+header-img: "img/arts.jpg"
+catalog: true
+tags:
+    - arts
+    - 算法
+---
+
+
+这是[耗子叔](https://coolshell.cn)发起的一个活动，每周为一个周期,需要完成以下内容
+
+ - Algrothm: leetcode算法题目
+ - Review: 阅读并且点评一篇英文技术文章
+ - Tip/Techni: 学习一个技术技巧
+ - Share: 分享一篇有观点和思考的技术文章
+
+# [Algrothm]   
+
+## problem 
+
+```
+971. Flip Binary Tree To Match Preorder Traversal
+Medium
+
+121
+
+53
+
+Favorite
+
+Share
+Given a binary tree with N nodes, each node has a different value from {1, ..., N}.
+
+A node in this binary tree can be flipped by swapping the left child and the right child of that node.
+
+Consider the sequence of N values reported by a preorder traversal starting from the root.  Call such a sequence of N values the voyage of the tree.
+
+(Recall that a preorder traversal of a node means we report the current node's value, then preorder-traverse the left child, then preorder-traverse the right child.)
+
+Our goal is to flip the least number of nodes in the tree so that the voyage of the tree matches the voyage we are given.
+
+If we can do so, then return a list of the values of all nodes flipped.  You may return the answer in any order.
+
+If we cannot do so, then return the list [-1].
+
+```
+
+## answer
+
+需要注意的是，在leetcode的 Tree Visualizer 中的可视化图中的 voyage 并不正确。不要被这里误导了。
+
+思路，
+
+从树根开始，看左右字树是否符合新树，不符合就交换，交换还不符合就直接返回 -1。然后对左子树操作，对右子树操作。
+
+这种类型十分适合深度搜索，因为他的条件是只要有一个不符合的就返回。而对于树的问题有很适合用递归来解决。
+
+需要注意的是，递归可能存在爆栈的问题，但是题目中规定的数据规模。不会爆栈。
+
+递归的问题，要确定停止条件。对于本题而言，停止条件一开始不太容易看出。
+
+最直观的停止条件就是交换两个孩子，无法满足 voyage。 但是如果以此作为停止条件，那么一个递归条件就很复杂。因为包含了两层。
+
+## solution
+
+```python
+class Solution:
+        def flipMatchVoyage(self, root, voyage):
+            res = []
+            index = [0]
+
+            def can_visit(root):
+                i = index[0]
+
+                # 停止条件，如果遍历完毕返回 True
+                # 如果无法 visit 返回 False
+                if not root: 
+                    return True
+                if root.val != voyage[i]: 
+                    return False
+                
+                i +=1
+                index[0] = i
+                
+                # 这里是包含了多个逻辑
+                # 1. 如果左孩子不是下个期望遍历的节点，尝试交换，然后比较
+                # 2. 如果没有左孩子。
+                # 2.1 期望也没有左孩子，正常比较。
+                # 2.2 期望有左孩子，接下来比较会得出不符合的结果。
+                # 3 如果有左孩子，左孩子等于期望，那么直接比较
+                # 3.1 右孩子不等，直接退出
+                # 3.2 右孩子相等，继续递归
+                if root.left and root.left.val != voyage[i]:
+                    res.append(root.val)
+                    root.left, root.right = root.right, root.left
+                    
+                if  can_visit(root.left) and can_visit(root.right):
+                    return True
+                else:
+                    return False
+                
+            if can_visit(root):
+                return res
+            else:
+                return [-1]
+```
+
+# [Review] 
+
+# [Tip] 
+
+# [Share] 

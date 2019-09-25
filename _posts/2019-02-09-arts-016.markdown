@@ -1,0 +1,172 @@
+---
+layout:     post
+title:      "ARTS_011"
+subtitle:   " \"week 11\""
+date:       2019-01-26 12:00:00
+author:     "Xion"
+header-img: "img/arts.jpg"
+catalog: true
+tags:
+    - arts
+    - 算法
+---
+
+
+这是[耗子叔](https://coolshell.cn)发起的一个活动，每周为一个周期,需要完成以下内容
+
+ - Algrothm: leetcode算法题目
+ - Review: 阅读并且点评一篇英文技术文章
+ - Tip/Techni: 学习一个技术技巧
+ - Share: 分享一篇有观点和思考的技术文章
+
+# [Algrothm]  Matrix
+
+## problem
+
+```
+542. 01 Matrix
+Medium
+
+568
+
+76
+
+Favorite
+
+Share
+Given a matrix consists of 0 and 1, find the distance of the nearest 0 for each cell.
+
+The distance between two adjacent cells is 1.
+Example 1: 
+Input:
+
+0 0 0
+0 1 0
+0 0 0
+Output:
+0 0 0
+0 1 0
+0 0 0
+Example 2: 
+Input:
+
+0 0 0
+0 1 0
+1 1 1
+Output:
+0 0 0
+0 1 0
+1 2 1
+Note:
+The number of elements of the given matrix will not exceed 10,000.
+There are at least one 0 in the given matrix.
+The cells are adjacent in only four directions: up, down, left and right.
+
+```
+
+## slution
+
+```
+DFS 解决是否存在xxx解的问题
+BFS 解决求所有的值的问题
+DP解决正推逆推的问题
+这道题目，比较适合DP+BFS
+
+递推思路
+
+首先找到所有0点，
+然后更新0点边缘的点,例如i,j i,j =min(附近的点) 
+
+由于受到步长的限制，被更新的点总是距离最短的。
+
+伪代码
+
+已知点 = 零点
+
+while True:
+    更新周围1阶点，
+    更新已知点
+    如果 更新点的数量==所有点：
+        break
+
+```
+答案
+```
+from typing import List
+from itertools import product
+from collections import deque
+
+
+class Solution:
+    def updateMatrix(self, matrix: List[List[int]]) -> List[List[int]]:
+        width = len(matrix)
+        length = len(matrix[0])
+
+        seen = set()
+        queue = deque()
+
+        def _find_near_by_points(_i, _j):
+            near_by_points = []
+            for direction in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                if 0 <= _i + direction[0] < width and 0 <= _j + direction[1] < length and (
+                        _i + direction[0], _j + direction[1]):
+                    near_by_points.append((_i + direction[0], _j + direction[1]))
+            return near_by_points
+
+        for i, j in product(range(width), range(length)):
+            if matrix[i][j] == 0:
+                seen.add((i, j))
+                queue.append((i,j))
+
+        while queue:
+            point = queue.popleft()
+            for near_by_p in _find_near_by_points(*point):
+                if near_by_p not in seen:
+                    matrix[near_by_p[0]][near_by_p[1]] = min([matrix[p[0]][p[1]] for
+                                                              p in _find_near_by_points(*near_by_p) if
+                                                              p in seen]) + 1
+                    seen.add(near_by_p)
+                    queue.append(near_by_p)
+
+        return matrix
+```
+
+这个答案时间不是非常快，复杂度应该已经达标了。
+
+## 刷题
+
+### 刷多少题
+以后按照专题来刷题
+
+每个类型10-20题目(动态规划：多多益善)
+总共200题
+
+### 如何刷题
+
+- 同种类型的题目一起刷
+- 第一遍：5min想不出就看答案，然后关掉答案自己写
+- 第二遍，尝试不看答案完整实现(一道题不要超过60分钟)
+- 第三遍，尝试快速实现，如果15-20分钟实现不了就看答案
+
+看代码很重要，至少看3-5种实现，分析别人的代码，优缺点，为什么速度快/慢？
+学习新的语言，可以看懂
+
+注意代码风格
+
+
+1、要刷多遍
+2、相同类型的题目一起刷
+3、学会看别人的答案分析
+
+算法导论
+
+[题目列表]( https://docs.google.com/spreadsheets/d/1SbpY-04Cz8EWw3A_LBUmDEXKUMO31DBjfeMoA0dlfIA/edit#gid=126913158)
+
+
+
+
+# [Review] 
+
+# [Tip] 
+
+# [Share] 

@@ -1,0 +1,108 @@
+---
+layout:     post
+title:      "ARTS_011"
+subtitle:   " \"week 11\""
+date:       2019-01-26 12:00:00
+author:     "Xion"
+header-img: "img/arts.jpg"
+catalog: true
+tags:
+    - arts
+    - 算法
+---
+
+
+这是[耗子叔](https://coolshell.cn)发起的一个活动，每周为一个周期,需要完成以下内容
+
+ - Algrothm: leetcode算法题目
+ - Review: 阅读并且点评一篇英文技术文章
+ - Tip/Techni: 学习一个技术技巧
+ - Share: 分享一篇有观点和思考的技术文章
+
+# [Algrothm]  Minimum cost for tickets
+```
+983. Minimum Cost For Tickets
+Medium
+
+211
+
+3
+
+Favorite
+
+Share
+In a country popular for train travel, you have planned some train travelling one year in advance.  The days of the year that you will travel is given as an array days.  Each day is an integer from 1 to 365.
+
+Train tickets are sold in 3 different ways:
+
+a 1-day pass is sold for costs[0] dollars;
+a 7-day pass is sold for costs[1] dollars;
+a 30-day pass is sold for costs[2] dollars.
+The passes allow that many days of consecutive travel.  For example, if we get a 7-day pass on day 2, then we can travel for 7 days: day 2, 3, 4, 5, 6, 7, and 8.
+
+Return the minimum number of dollars you need to travel every day in the given list of days.
+
+ 
+
+Example 1:
+
+Input: days = [1,4,6,7,8,20], costs = [2,7,15]
+Output: 11
+Explanation: 
+For example, here is one way to buy passes that lets you travel your travel plan:
+On day 1, you bought a 1-day pass for costs[0] = $2, which covered day 1.
+On day 3, you bought a 7-day pass for costs[1] = $7, which covered days 3, 4, ..., 9.
+On day 20, you bought a 1-day pass for costs[0] = $2, which covered day 20.
+In total you spent $11 and covered all the days of your travel.
+Example 2:
+
+Input: days = [1,2,3,4,5,6,7,8,9,10,30,31], costs = [2,7,15]
+Output: 17
+Explanation: 
+For example, here is one way to buy passes that lets you travel your travel plan:
+On day 1, you bought a 30-day pass for costs[2] = $15 which covered days 1, 2, ..., 30.
+On day 31, you bought a 1-day pass for costs[0] = $2 which covered day 31.
+In total you spent $17 and covered all the days of your travel.
+```
+
+## answer 
+
+这是一个典型的动态规划问题。
+看下note，最多365天，cost长度为3
+
+试试考虑贪心的思路。
+
+在第i天，有1天，7天，30天，看看那种选择让接下来的覆盖到的车票最便宜。试试看
+
+```
+贪心不可取，
+例如1 ,10,11
+2,4,7
+可以4块拿下，但是按照贪心来算，必然是7
+
+1,15,16
+1,1,1.5
+```
+
+换个思路，如果先找到全局的最优天，把它抠掉，剩下的再规划行不行。
+
+伪代码：
+
+while 还有天:
+   找最便宜的组合，抠掉
+   cost += 最便宜的组合
+   剩下的找最便宜的组合，抠掉
+
+算法复杂度分析：
+
+找最便宜的组合=滑动3次 n
+
+总共要找的次数，最差，n次，最好n/30次
+
+一共O(n^2)还能接受，就这么干了
+
+# [Review] 
+
+# [Tip] 
+
+# [Share] 

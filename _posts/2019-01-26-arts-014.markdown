@@ -1,0 +1,180 @@
+---
+layout:     post
+title:      "ARTS_011"
+subtitle:   " \"week 11\""
+date:       2019-01-26 12:00:00
+author:     "Xion"
+header-img: "img/arts.jpg"
+catalog: true
+tags:
+    - arts
+    - 算法
+---
+
+
+这是[耗子叔](https://coolshell.cn)发起的一个活动，每周为一个周期,需要完成以下内容
+
+ - Algrothm: leetcode算法题目
+ - Review: 阅读并且点评一篇英文技术文章
+ - Tip/Techni: 学习一个技术技巧
+ - Share: 分享一篇有观点和思考的技术文章
+
+# [Algrothm]  word search
+
+## problem
+
+```
+board =
+[
+  ['A','B','C','E'],
+  ['S','F','C','S'],
+  ['A','D','E','E']
+]
+
+Given word = "ABCCED", return true.
+Given word = "SEE", return true.
+Given word = "ABCB", return false.
+```
+
+## answere
+
+首先仔细读题，这题没有说明数据，所以基本可以用暴力法来搞定。
+
+```
+class Solution:
+    def exist(self, board: 'List[List[str]]', word: 'str') -> 'bool':
+        def _is_near_by(postion_a, postion_b):
+            x_delta = abs(postion_a[0] - postion_b[0])
+            y_delta = abs(postion_a[1] - postion_b[1])
+
+            if (x_delta == 1 and y_delta == 0) or (x_delta == 0 and y_delta == 1):
+                return True
+            return False
+
+        def _used(path, postion):
+            return position in path
+
+        if len(board) == 0:
+            return False
+        position_cache = {}
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                position_cache.setdefault(board[i][j], []).append((i, j))
+
+        print(position_cache)
+        paths = []
+        for letter in word:
+            print(paths)
+
+            tmp_paths = []
+            if letter not in position_cache:
+                return False
+            positions = position_cache[letter]
+            if len(paths) == 0:
+                paths = [[p] for p in positions]
+                continue
+            for path in paths:
+                for position in positions:
+                    if _is_near_by(path[-1], position) and not _used(path, position):
+                        new_path = path[:]
+                        new_path.append(position)
+                        tmp_paths.append(new_path)
+            if len(tmp_paths) == 0:
+                return False
+            paths = tmp_paths
+        return True
+```
+
+但是我错了，暴力没有解决这个问题，看了一下，调用near_by的频率实在是太高了。
+
+考虑一下情况
+```
+a b a b a b 
+b a b a b a
+a b a b a b
+
+找
+abababababaa -> false
+abababababab -> true
+复杂度就很高
+```
+
+启发 我不需要找到所的对，只需要直到它存在不存在
+
+
+找到所有对的复杂度为N，
+word search的最大复杂度为，N^(1/2)*(N-1)^(1/2)...1
+
+似乎还是有问题
+
+
+
+```
+class Solution:
+    def exist(self, board: 'List[List[str]]', word: 'str') -> 'bool':
+        def dfs(board, i, j, word):
+            tmp = board[i][j]
+            board[i][j] = '#'
+            if len(word) == 0:
+                return True
+            if i + 1 < len(board) and board[i + 1][j] == word[0]:
+                if dfs(board, i + 1, j, word[1:]):
+                    return True
+            if j + 1 < len(board[i]) and board[i][j + 1] == word[0]:
+                if dfs(board, i, j + 1, word[1:]):
+                    return True
+            if i - 1 >= 0 and board[i - 1][j] == word[0]:
+                if dfs(board, i - 1, j, word[1:]):
+                    return True
+            if j - 1 >= 0 and board[i][j - 1] == word[0]:
+                if dfs(board, i, j - 1, word[1:]):
+                    return True
+            board[i][j] = tmp
+            return False
+
+        for i in range(len(board)):
+            for j in range(len(board[i])):
+                if board[i][j] == word[0]:
+                    if dfs(board, i, j, word[1:]):
+                        return True
+        return False
+```
+1、使用了标记 # 表示已经走过的点，
+2、因为只需要知道是否存在，而不需要直到数量，并行的搜索全部是个糟糕的思路。其实本质上此类问题应该用深度优先，而不是广度优先。
+
+还有个问题为什么这个题目中会有那么大的区别，深度和广度。
+
+广度优先,搜索：
+111111111111
+11111111111
+1111111111
+111111111
+11111111
+1111111
+111111
+11111
+1111
+111
+11
+1
+
+深度优先
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+复杂度可以达到 n 和 n^2的差距
+
+# [Review] 
+
+# [Tip] 
+
+# [Share] 
