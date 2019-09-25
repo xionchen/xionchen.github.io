@@ -6,13 +6,9 @@ header-img: "img/about-bg.jpg"
 ---
 
 <center><h1>About me</h1><br>
-2015 毕业于武汉大学 软件工程<br>
-2017 毕业于浙江大学 软件工程<br>
-2017 年毕业后就加入了华为<br>
+从事过Devops和智慧城市算法相关工作<br>
 <br>
-<h2>关注的技术</h2><br>
-linux | openstack | shell | python <br>
-ansible | jenkins | git | CI | devops | container<br>
+<br>
 <br>
 <h2>偶尔也拍点照片</h2>
 <a href="http://xionchen.lofter.com/">我的lofter主页</a><br>
