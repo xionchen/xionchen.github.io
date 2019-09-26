@@ -12,9 +12,10 @@ tags:
 
 # SOLID Principles every Developer Should Know
 
-Related to  ARTS (R): https://www.notion.so/3cd3c2b77404460f986c42a7247d51a8
-TAG: Code-Design
-URL: https://blog.bitsrc.io/solid-principles-every-developer-should-know-b3bfa96bb688
+原文URL: 
+
+https://blog.bitsrc.io/solid-principles-every-developer-should-know-b3bfa96bb688
+
 
 # S.O.L.I.D principles
 
