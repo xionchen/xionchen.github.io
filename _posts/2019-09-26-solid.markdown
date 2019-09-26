@@ -1,0 +1,308 @@
+---
+layout:     post
+title:      "SOLID 原则"
+subtitle:   "通过代码来展示solid的几个原则"
+date:       2019-09-26 12:00:00
+author:     "Xion"
+header-img: "img/958b3a6690.jpg"
+catalog: true
+tags:
+    - 代码设计 
+---
+
+# SOLID Principles every Developer Should Know
+
+Related to  ARTS (R): https://www.notion.so/3cd3c2b77404460f986c42a7247d51a8
+TAG: Code-Design
+URL: https://blog.bitsrc.io/solid-principles-every-developer-should-know-b3bfa96bb688
+
+# S.O.L.I.D principles
+
+- S: Single Responsibility Principle
+- O: Open-Closed Principle
+- L: Liskov Substitution Principle
+- I: Interface Segregation Principle
+- D: Dependency Inversion Principle
+
+# S for Single Responsibility
+
+一个类（函数，组件）只应该干一件事。
+
+下面这个例子违背了这个原则：
+
+    class Animal {
+        constructor(name: string){ }
+        getAnimalName() { }
+        saveAnimal(a: Animal) { }
+    }
+
+它不仅是Animal的Bean，还承担了Dao(data access object)的角色，应当如下修改：
+
+    class Animal {
+        constructor(name: string){ }
+        getAnimalName() { }
+    }
+    class AnimalDB {
+        getAnimal(a: Animal) { }
+        saveAnimal(a: Animal) { }
+    }
+
+> When designing our classes, we should aim to put related features together, so whenever they tend to change they change for the same reason. And we should try to separate features if they will change for different reasons. - Steve Fenton
+
+# O for Open-Close
+
+对扩展开放，对修改封闭
+
+违反这个原则的例子：
+
+    class Discount {
+        giveDiscount() {
+            if(this.customer == 'fav') {
+                return this.price * 0.2;
+            }
+            if(this.customer == 'vip') {
+                return this.price * 0.4;
+            }
+        }
+    }
+    
+
+它应当做如下修改：
+
+    class VIPDiscount: Discount {
+        getDiscount() {
+            return super.getDiscount() * 2;
+        }
+    }
+    class SuperVIPDiscount: VIPDiscount {
+        getDiscount() {
+            return super.getDiscount() * 2;
+        }
+    }
+
+这样就可以在扩展的同时不产生修改。
+
+# L for Liskov Substitution
+
+一个子类应该可以被替换为他的超类
+
+违反的例子：
+
+    //...
+    function AnimalLegCount(a: Array<Animal>) {
+        for(int i = 0; i <= a.length; i++) {
+            if(typeof a[i] == Lion)
+                log(LionLegCount(a[i]));
+            if(typeof a[i] == Mouse)
+                log(MouseLegCount(a[i]));
+            if(typeof a[i] == Snake)
+                log(SnakeLegCount(a[i]));
+        }
+    }
+    AnimalLegCount(animals);
+
+上面的代码必须直到 Animal 的种类才可以调用 leg-counting 这里违反了里氏替换原则。
+
+原则：
+
+- 如果对每一个类型为 T1的对象 o1，都有类型为 T2 的对象o2，使得以 T1定义的所有程序 P 在所有的对象 o1 都代换成 o2 时，程序 P 的行为没有发生变化，那么类型 T2 是类型 T1 的子类型
+- 所有引用基类的地方必须能透明地使用其子类的对象。
+
+这需要我们对于抽象的方法尽量实现在父类，尽可能不在子类修改或者重载父类的方法。
+
+修改后的代码：
+
+    function AnimalLegCount(a: Array<Animal>) {
+        for(let i = 0; i <= a.length; i++) {
+            a[i].LegCount();
+        }
+    }
+    AnimalLegCount(animals);
+    
+    class Animal {
+        //...
+        LegCount();
+    }
+    
+    //...
+    class Lion extends Animal{
+        //...
+        LegCount() {
+            //...
+        }
+    }
+    //...
+
+# I for interface Segregation
+
+制定客户细粒度的接口，不应强迫客户端依赖于他们不使用的接口。
+
+错误的例子：
+
+这里因为接口划分的过于粗，导致 client(Square)也要实现一个drawCircle这样的方法，这显然违背了**不应强迫客户端依赖于他们不使用的接口**
+
+    class Circle implements IShape {
+        drawCircle(){
+            //...
+        }
+        drawSquare(){
+            //...
+        }
+        drawRectangle(){
+            //...
+        }    
+    }
+    class Square implements IShape {
+        drawCircle(){
+            //...
+        }
+        drawSquare(){
+            //...
+        }
+        drawRectangle(){
+            //...
+        }    
+    }
+    class Rectangle implements IShape {
+        drawCircle(){
+            //...
+        }
+        drawSquare(){
+            //...
+        }
+        drawRectangle(){
+            //...
+        }    
+    }
+    
+
+修改后的代码如下：
+
+    interface IShape {
+        draw();
+    }
+    interface ICircle {
+        drawCircle();
+    }
+    interface ISquare {
+        drawSquare();
+    }
+    interface IRectangle {
+        drawRectangle();
+    }
+    interface ITriangle {
+        drawTriangle();
+    }
+    class Circle implements ICircle {
+        drawCircle() {
+            //...
+        }
+    }
+    class Square implements ISquare {
+        drawSquare() {
+            //...
+        }
+    }
+    class Rectangle implements IRectangle {
+        drawRectangle() {
+            //...
+        }    
+    }
+    class Triangle implements ITriangle {
+        drawTriangle() {
+            //...
+        }
+    }
+    class CustomShape implements IShape {
+       draw(){
+          //...
+       }
+    }
+
+或者也可以这么修改：
+
+    class Circle implements IShape {
+        draw(){
+            //...
+        }
+    }
+    
+    class Triangle implements IShape {
+        draw(){
+            //...
+        }
+    }
+    
+    class Square implements IShape {
+        draw(){
+            //...
+        }
+    }
+    
+    class Rectangle implements IShape {
+        draw(){
+            //...
+        }
+    }
+    
+
+# D for Dependency Inversion
+
+依赖性应该是抽象而非具体
+
+- High-level modules should not depend upon low-level modules. Both should depend upon abstractions.
+- Abstractions should not depend on details. Details should depend upon abstractions.
+
+违反的例子：
+
+此处http是一个hight-level的组件，它依赖了具体的XMLHttpRequestService
+
+    class XMLHttpService extends XMLHttpRequestService {}
+    class Http {
+        constructor(private xmlhttpService: XMLHttpService) { }
+        get(url: string , options: any) {
+            this.xmlhttpService.request(url,'GET');
+        }
+        post() {
+            this.xmlhttpService.request(url,'POST');
+        }
+        //...
+    }
+    
+
+应当修改为如下代码：
+
+    interface Connection {
+        request(url: string, opts:any);
+    }
+    
+    class XMLHttpService implements Connection {
+        const xhr = new XMLHttpRequest();
+        //...
+        request(url: string, opts:any) {
+            xhr.open();
+            xhr.send();
+        }
+    }
+    
+    class NodeHttpService implements Connection {
+        request(url: string, opts:any) {
+            //...
+        }
+    }
+    class MockHttpService implements Connection {
+        request(url: string, opts:any) {
+            //...
+        }    
+    }
+    
+    class Http {
+        constructor(private httpConnection: Connection) { }
+        get(url: string , options: any) {
+            this.httpConnection.request(url,'GET');
+        }
+        post() {
+            this.httpConnection.request(url,'POST');
+        }
+        //...
+    }
